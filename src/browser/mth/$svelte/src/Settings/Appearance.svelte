@@ -2,6 +2,17 @@
   import { TextBlock, ComboBox, Checkbox, InfoBar, Slider } from "mth://js/fluent-svelte/index.js";
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
+
+  function throttle(func, ms = 200) {
+    let timeout;
+    return function wrapper() {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+
+      timeout = setTimeout(func, ms);
+    }
+  }
   
   let config = getContext('config')
   const theme = {
@@ -29,6 +40,10 @@
     window.monolith.userdata.config.set($config)
   })
   $: {defaultPageZoom; updatePageZoom()}
+  const pageZoomThrottled = throttle(() => {
+    defaultPageZoom = defaultPageZoom_proxy
+  })
+  $: {defaultPageZoom_proxy; pageZoomThrottled()}
 
   let chromeZoom = $config.ui.chromeZoomFactor * 100;
   let chromeZoom_proxy = chromeZoom;
@@ -38,6 +53,10 @@
     window.monolith.userdata.config.set($config)
   })
   $: {chromeZoom; updateChromeZoom()}
+  const chromeZoomThrottled = throttle(() => {
+    chromeZoom = chromeZoom_proxy
+  });
+  $: {chromeZoom_proxy; chromeZoomThrottled()}
 </script>
 
 <div class="s-option">
@@ -66,7 +85,6 @@
     suffix="%"
     bind:value={defaultPageZoom_proxy}
     min={1} max={200}
-    on:mouseup={() => defaultPageZoom = defaultPageZoom_proxy}
   />
 </div>
 <div class="s-option">
@@ -75,6 +93,5 @@
     suffix="%"
     bind:value={chromeZoom_proxy}
     min={1} max={200}
-    on:mouseup={() => chromeZoom = chromeZoom_proxy}
   />
 </div>

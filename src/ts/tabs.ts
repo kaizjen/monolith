@@ -164,6 +164,18 @@ async function fetchFavicon(url: string) {
   }
 }
 
+function checkSecurity(url: string) {
+  if (url.startsWith('file:')) {
+    return 'local';
+
+  } else if (url.startsWith('mth:') || url.startsWith('chrome:')) {
+    return 'internal'
+
+  } else {
+    return validateDomainByURL(url);
+  }
+}
+
 
 /**
  * Creates a tab-like browserView and loads the URL.
@@ -273,7 +285,6 @@ export function removeTab(win: TabWindow, { tab, id }: { tab?: BrowserView, id?:
   }
   
   let [ del ] = win.tabs.splice(id, 1)
-  
   
   win.chrome.webContents.send('removeTab', id)
 
@@ -443,16 +454,7 @@ export function attach(win: TabWindow, tab: Tab) {
     sendUpdate('favicon', null)
     tab.faviconURL = null;
 
-   
-    if (url.startsWith('file:')) {
-      sendUpdate('sec', 'local')
-
-    } else if (url.startsWith('mth:') || url.startsWith('chrome:')) {
-      sendUpdate('sec', 'internal')
-
-    } else {
-      sendUpdate('sec', validateDomainByURL(url))
-    }
+    sendUpdate('sec', checkSecurity(url))
 
     if (tab.private) return; // obviously
 
@@ -656,13 +658,14 @@ export function openClosedTab(win: TabWindow, index?: number, background: boolea
   return true;
 }
 
-export async function moveTab(win: TabWindow, tab: Tab, newID: number) {
+export function moveTab(win: TabWindow, tab: Tab, newID: number) {
   if (win.tabs.length == 1) return;
 
   removeTab(win, { tab })
   addTab(win, tab, {
     url: tab.webContents.getURL(),
-    initialFavicon: (await fetchFavicon(tab.faviconURL)).dataURL,
+    initialFavicon: tab.faviconDataURL,
+    private: tab.private,
     position: newID
   })
   
@@ -670,6 +673,12 @@ export async function moveTab(win: TabWindow, tab: Tab, newID: number) {
     type: 'title', id: newID,
     value: tab.webContents.getTitle() || tab.webContents.getURL()
   })
+  win.chrome.webContents.send('tabUpdate', {
+    type: 'sec', id: newID,
+    value: checkSecurity(tab.webContents.getURL())
+  })
+
+  selectTab(win, { id: newID })
 }
 
 

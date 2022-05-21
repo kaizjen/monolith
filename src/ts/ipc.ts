@@ -20,7 +20,7 @@ const URLParse = $.URLParse
 let _historyLengthFeat = userData.control.options.max_history_for_hints
 const maxHistoryHintLength = _historyLengthFeat?.type == 'num' ? _historyLengthFeat.value : 3000;
 
-export function createDialog(wc: WebContents, type: string, arg: any) {
+export function createDialog(wc: WebContents, type: string, arg: any): Promise<string | null | boolean> {
   return new Promise(resolve => {
     let win = BrowserWindow.fromWebContents(wc) as TabWindow;
     if (!win || !isTabWindow(win)) { resolve(null); return; }
@@ -221,16 +221,11 @@ export function init() {
 
     menuOfTab(win, tab)
   })
-
-
-  ipcMain.on('tab:isForeground', (e) => {
+  ipcMain.on('chrome:moveTab', (e, tabID: number, newID: number) => {
     let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
-    if (!win) {e.returnValue = false; return;}
-    let tab = win.tabs.find(t => t.webContents == e.sender);
-    if (!tab) {e.returnValue = false; return;}
+    if (!win) return;
 
-    console.log('isForeground?');
-    e.returnValue = win.currentTab == tab;
+    tabManager.moveTab(win, win.tabs[tabID], newID);
   })
 
 

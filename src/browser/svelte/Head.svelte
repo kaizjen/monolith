@@ -69,6 +69,9 @@
   .tab.selected {
     background: var(--active-background);
   }
+  .tabhead :global(.tab.dragover) {
+    opacity: 0.5;
+  }
   /* .tab.private.selected {
     background: #684a86;
   } */
@@ -118,7 +121,7 @@
 </style>
 
 <script>
-  import { ipcRenderer } from "electron";
+  import { contentTracing, ipcRenderer } from "electron";
   import { getContext } from "svelte/internal";
   import { cubicOut } from 'svelte/easing'
   export let tabs;
@@ -165,6 +168,45 @@
       ipcRenderer.send('selectTab', id)
     }
   }
+  function handleDropF(id) {
+    /**
+     * @param {DragEvent} e
+     */
+    return function (e) {
+      console.log('dropped, id: %o', e.dataTransfer.getData('text/tabID'));
+      let movedID = Number(e.dataTransfer.getData('text/tabID') || NaN);
+      if (isNaN(movedID)) return;
+      if (movedID == id) return;
+
+      ipcRenderer.send('chrome:moveTab', movedID, id)
+    }
+  }
+
+  function dropzone(el) {
+    let counter = 0;
+    function dragenter() {
+      el.classList.add('dragover')
+      counter++;
+    }
+    function dragleave() {
+      counter--;
+      if (counter == 0) {
+        el.classList.remove('dragover')
+      }
+    }
+
+    el.addEventListener('dragenter', dragenter, true)
+    el.addEventListener('dragleave', dragleave, true)
+    el.addEventListener('drop', dragleave, true)
+
+    return {
+      destroy() {
+        el.removeEventListener('dragenter', dragenter)
+        el.removeEventListener('dragleave', dragleave)
+        el.removeEventListener('drop', dragleave)
+      }
+    }
+  }
 
   function newTab() {
     ipcRenderer.send('newTab')
@@ -188,6 +230,11 @@
       {#each tabs as tab, id (tab)}
         <div
           class="tab"
+          draggable="true"
+          on:dragstart={e => e.dataTransfer.setData('text/tabID', id)}
+          on:dragover|preventDefault={e => {/*  e.dataTransfer.getData('text/tabID') == '' ? null : e.preventDefault()  */}}
+          on:drop|capture={handleDropF(id)}
+          use:dropzone
           class:selected={id == currentTab}
           class:private={tab.private}
           on:mousedown={handleSelectF(id)}
