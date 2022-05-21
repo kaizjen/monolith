@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monolith</title>
+  <link rel="stylesheet" href="../res/theme.css">
+  <style>
+    body {
+      background: transparent;
+      color: var(--accent-text);
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      font-family: system-ui;
+      overflow: hidden;
+    }
+    img {
+      -webkit-user-drag: none;
+    }
+    a {
+      color: inherit;
+      cursor: default;
+      text-decoration: none;
+    }
+    
+    span.protocol {
+      color: var(--trivial-text);
+    }
+    span.host {
+      color: var(--accent-text);
+    }
+    span.port {
+      color: #c1dfff;
+    }
+    span.page {
+      color: var(--trivial-text);
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      font-family: inherit;
+      font-style: inherit;
+      font-weight: inherit;
+      text-rendering: auto;
+      color: inherit;
+      background: transparent;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    *:focus-visible {
+      outline: none;
+      box-shadow: 0px 0px 1px 2px #247ecd5e;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    debugger;
+    let { default: Main } = require('./Main.svelte');
+    
+    const app = new Main({
+      target: document.body
+    })
+  </script>
+</body>
+</html>

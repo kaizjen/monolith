@@ -1,0 +1,4 @@
+target: svelte/
+output: out/
+options:
+  dev: true

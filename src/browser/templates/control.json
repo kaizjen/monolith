@@ -1,0 +1,60 @@
+{
+  "flags": [],
+  "switches": [],
+  "options": {
+    "max_history_for_hints": {
+      "default": 3000,
+      "value": 3000,
+      "type": "num",
+      "description": "When loading hints, the maximum amount of entries in the history that Monolith scans."
+    },
+    "do_not_quit": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "Do not quit Monolith when all windows are closed."
+    },
+    "save_complete_page": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "When saving a web page, save it with resources like images and JavaScript."
+    },
+    "disallow_clipboard_read": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "Don't allow sites to read your clipboard."
+    },
+    "crash_tabs_on_close": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "When closing a tab, crash its process so the history remains even when you open a closed tab. May introduce bugs as some processes are shared by multiple tabs."
+    },
+    "experimental_beforeunload": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "Use the experimental version of 'beforeunload' event: it can only be cancelled with .preventDefault()"
+    },
+    "backup_tabs_interval": {
+      "default": 30000,
+      "value": 30000,
+      "type": "num",
+      "description": "How often should Monolith save currently opened tabs so that they can be opened upon next launch. (ms)"
+    },
+    "open_devtools_for_window": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "WARNING! This feature may expose you to vulnerabilities. Should Developer tools be opened for the chrome of the window."
+    },
+    "disallow_http": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "When HTTPS Only is enabled, completely prevent HTTP connections instead of redirecting to HTTPS."
+    }
+  }
+}

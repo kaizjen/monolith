@@ -1,0 +1,6 @@
+target: ./
+output: ../../js/fluent-svelte/
+options:
+  dev: false
+  esm: true
+  sveltePath: mth://.svelte

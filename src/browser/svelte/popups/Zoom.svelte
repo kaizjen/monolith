@@ -1,0 +1,78 @@
+<style>
+  .blocker {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    left: 0;
+  }
+  .dialog {
+    z-index: 10;
+    background: var(--dialog-background);
+    border: 1px solid var(--trivial-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 8px;
+    transition: 0.2s;
+    max-width: 380px;
+    padding: 12px;
+    top: calc(100% + 10px);
+    right: 0;
+    cursor: default;
+  }
+  button {
+    background: var(--button-color);
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--trivial-color);
+  }
+  button:hover {
+    background: var(--button-hover);
+  }
+  button:active {
+    background: var(--button-active);
+    transition: 0.15s;
+  }
+</style>
+
+<script>
+  export let open = true;
+  export let level = 0;
+
+  import { getContext } from "svelte/internal";
+  import { ipcRenderer } from "electron";
+  import { fly } from 'svelte/transition'
+
+  const setTop = getContext('setTop')
+  const colorTheme = getContext('colorTheme')
+
+  setTop(true)
+
+  let config = getContext('config')
+  
+</script>
+
+<div class="dialog" in:fly={{ y: 16, duration: 150 }}>
+  <div style="display: flex;">
+    <img
+      style="margin-right: 8px;"
+      src="m-res://{$colorTheme}/state_zoom{level - $config?.ui.defaultZoomFactor > 0 ? 'in' : 'out'}.svg"
+      alt="Zoom is {Math.round(level * 100)}"
+    >
+    <b> Zoom: {Math.round(level * 100)}% </b>
+  </div>
+  <button on:click={() => {
+    ipcRenderer.send('@tab', 'setZoom', $config?.ui.defaultZoomFactor);
+    setTop(false);
+    open = false;
+  }}>
+    Reset Zoom
+  </button>
+</div>
+
+<div class="blocker" on:click={() => {setTop(false); open = false}}></div>

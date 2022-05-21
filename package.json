@@ -1,0 +1,37 @@
+{
+  "name": "monolith",
+  "version": "1.1.1",
+  "description": "An Electron-based web browser",
+  "main": "src/js/main.js",
+  "scripts": {
+    "start": "electron .",
+    "svbuild": "node svlc/svlc.js -r src/browser",
+    "svbuild:start": "node svlc/svlc.js -r src/browser && npm start",
+    "tsbuild": "tsc",
+    "tsbuild:start": "tsc && npm start",
+    "mth-build": "node svlc/svlc.js -r src/browser/mth/$svelte",
+    "mth-build:start": "node svlc/svlc.js -r src/browser/mth/$svelte && npm start",
+    "build": "tsc && node svlc/svlc.js -r src/browser && node svlc/svlc.js -r src/browser/mth/$svelte",
+    "dev-build": "tsc && node svlc/svlc.js --dev -r src/browser && node svlc/svlc.js --dev -r src/browser/mth/$svelte",
+    "dev": "npm run dev-build && electron .",
+    "dev-inspect": "npm run dev-build && electron . --inspect",
+    "localize": "node src/i18n/transform.js"
+  },
+  "private": true,
+  "author": "wheezard",
+  "dependencies": {
+    "argv-parse": "^1.0.1",
+    "electron": "^18.1.0",
+    "electron-fetch": "^1.7.4",
+    "fs-extra": "^10.0.1",
+    "fuse.js": "^6.6.1",
+    "i18next": "^21.8.3",
+    "runtype-check": "^1.0.3",
+    "svelte": "^3.46.4",
+    "yaml": "^1.10.2"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13"
+  }
+}
