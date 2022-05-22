@@ -105,8 +105,11 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   w.on('resize', () => {
     let { width, height } = w.getContentBounds()
 
-    // The BrowserView resizes incorrectly when window is resized or maximized/restored. That's because w.getBounds() has weird additional 16px of width
-    w.currentTab?.setBounds({ x: 0, y: w.chromeHeight, width, height: height - w.chromeHeight })
+    // The BrowserView resizes incorrectly when window is resized or maximized/restored (on Windows).
+    // That's because w.getBounds() has weird additional 16px of width
+    if (!w.isFullScreen()) {
+      w.currentTab?.setBounds({ x: 0, y: w.chromeHeight, width, height: height - w.chromeHeight })
+    }
     w.chrome.setBounds({ x: 0, y: 0, width, height })
   })
   // Weird visual glith: when maximized the first time, currentTab has some white space at the bottom (??)

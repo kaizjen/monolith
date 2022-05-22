@@ -596,20 +596,6 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
     }
   })
   addItem({ type: 'separator' })
-  addItem({
-    label: 'Move right', click() {
-      let index = win.tabs.indexOf(tab);
-
-      moveTab(win, tab, index + 1)
-    }
-  })
-  addItem({
-    label: 'Move left', click() {
-      let index = win.tabs.indexOf(tab);
-
-      moveTab(win, tab, index == 1 ? index : index - 1)
-    }
-  })
 
   menu.popup()
 }

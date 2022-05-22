@@ -536,7 +536,7 @@ export function attach(win: TabWindow, tab: Tab) {
   tab.webContents.on('leave-html-full-screen', () => {
     tab.setBounds({ x: 0, y: win.chromeHeight, width: win.getContentBounds().width, height: win.getContentBounds().height - win.chromeHeight })
   })
-  tab.webContents.on('context-menu', async(_e, opts) => {
+  tab.webContents.on('context-menu', (_e, opts) => {
     showContextMenu(win, tab, opts)
   })
 }

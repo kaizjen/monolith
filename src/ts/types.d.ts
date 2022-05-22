@@ -55,6 +55,7 @@ export interface Tab extends BrowserView {
   faviconDataURL?: string
   uniqueID?: number
   lastNavigationReason?: NavigationReason
+  isFullScreen?: boolean
 }
 
 export interface ParsedURL extends URL {
