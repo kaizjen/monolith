@@ -1,3 +1,5 @@
+# do not add "src/browser/mth/js" because fluent-svelte was built manually
 node_modules
 src/browser/out
 src/js
+src/i18n/final/**
