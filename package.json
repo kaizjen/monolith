@@ -30,7 +30,7 @@
     "svelte": "^3.46.4",
     "yaml": "^1.10.2"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^9.0.13"
   }
