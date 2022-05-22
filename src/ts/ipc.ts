@@ -227,6 +227,14 @@ export function init() {
 
     tabManager.moveTab(win, win.tabs[tabID], newID);
   })
+  ipcMain.on('chrome:crossMoveTab', (e, tabUID: number, newIndex: number) => {
+    let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
+    if (!win) return;
+    
+    tabManager.crossMoveTab(tabManager.getTabByUID(tabUID), {
+      window: win, index: newIndex
+    })
+  })
 
 
   ipcMain.on('parseURL', (e, url: string) => {

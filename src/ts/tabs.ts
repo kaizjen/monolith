@@ -37,6 +37,10 @@ const delayExecution = (function() {
 })()
 
 
+export function getTabByUID(uid: number) {
+  return tabUniqueIDs[uid];
+}
+
 let _firstTime = true;
 export function updateSavedTabs() {
   if (_firstTime) {
@@ -78,6 +82,7 @@ function displayPreventUnloadDialog(win: BrowserWindow, url: string, sync?: bool
 
 function handleBeforeUnload<T>(wc: WebContents, proceed: () => T): Promise<false | T> {
   const code = `(function(){
+    console.log("BEFOREUNLOAD")
     let bUnloadEvent = new Event('beforeunload', { cancelable: true })
     let isReturnValueSet = false;
     Object.defineProperty(bUnloadEvent, 'returnValue', {
@@ -88,6 +93,7 @@ function handleBeforeUnload<T>(wc: WebContents, proceed: () => T): Promise<false
     })
     window.dispatchEvent(bUnloadEvent)
     
+    console.log("RETURN: ", bUnloadEvent.defaultPrevented, isReturnValueSet)
     return [bUnloadEvent.defaultPrevented, isReturnValueSet]
     })()
   `
@@ -131,7 +137,11 @@ function handleBeforeUnload<T>(wc: WebContents, proceed: () => T): Promise<false
       }
     }
 
-    wc.executeJavaScript(code).then(onCodeExecuted)
+    wc.mainFrame.executeJavaScript(code, true).then(onCodeExecuted)
+    // If we call wc.executeJavaScript(), it doesn't actually execute it in some cases:
+    // - if the url is "view-source:"
+    // - if the tab was moved to another window
+    // idk why, but this works
   })
 }
 
@@ -298,6 +308,7 @@ export function attach(win: TabWindow, tab: Tab) {
     win.chrome.webContents.send('tabUpdate', { type, id: getTabID(), value })
   }
 
+  tab.owner = win;
 
   tab.webContents.setWindowOpenHandler(({ disposition, url }) => {
     console.log('opening new window:', disposition);
@@ -540,8 +551,9 @@ export function attach(win: TabWindow, tab: Tab) {
   })
 }
 
-export function detach(tab: BrowserView) {
+export function detach(tab: Tab) {
   tab.webContents.removeAllListeners()
+  tab.owner = null;
 }
 
 /**
@@ -591,7 +603,7 @@ export function closeTab(win: TabWindow, desc: { tab?: Tab, id?: number }, keepA
   function close() {
     beingClosed = null;
 
-    let remResult = removeTab(win, desc, keepAlive);
+    let remResult = removeTab(desc.tab.owner, desc, keepAlive);
     if (!remResult) return false;
 
     detach(desc.tab)
@@ -622,8 +634,6 @@ export function closeTab(win: TabWindow, desc: { tab?: Tab, id?: number }, keepA
     return;
   }
   beingClosed = desc.tab;
-
-  desc.tab.webContents.send('@beforeunload')
   
   return handleBeforeUnload(desc.tab.webContents, close)
 }
@@ -679,6 +689,38 @@ export function moveTab(win: TabWindow, tab: Tab, newID: number) {
   })
 
   selectTab(win, { id: newID })
+}
+
+export function crossMoveTab(tab: Tab, destination: { window: TabWindow, index: number }) {
+  const { window, index } = destination;
+  if (!tab.owner) return;
+
+  let { owner } = tab
+  if (owner != window) {
+    detach(tab)
+  }
+  removeTab(owner, { tab: tab })
+  addTab(window, tab, {
+    url: tab.webContents.getURL(),
+    initialFavicon: tab.faviconDataURL,
+    private: tab.private,
+    position: index,
+    uid: tab.uniqueID
+  })
+  if (owner != window) {
+    attach(window, tab)
+  }
+
+  window.chrome.webContents.send('tabUpdate', {
+    type: 'title', id: index,
+    value: tab.webContents.getTitle() || tab.webContents.getURL()
+  })
+  window.chrome.webContents.send('tabUpdate', {
+    type: 'sec', id: index,
+    value: checkSecurity(tab.webContents.getURL())
+  })
+
+  selectTab(window, { id: index })
 }
 
 

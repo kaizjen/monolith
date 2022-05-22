@@ -168,17 +168,18 @@
       ipcRenderer.send('selectTab', id)
     }
   }
-  function handleDropF(id) {
+  function handleDropF(id, zoneUID) {
     /**
      * @param {DragEvent} e
      */
     return function (e) {
-      console.log('dropped, id: %o', e.dataTransfer.getData('text/tabID'));
-      let movedID = Number(e.dataTransfer.getData('text/tabID') || NaN);
-      if (isNaN(movedID)) return;
-      if (movedID == id) return;
+      console.log('dropped, uid: %o', e.dataTransfer.getData('text/tabUID'));
+      let movedUID = Number(e.dataTransfer.getData('text/tabUID') || NaN);
 
-      ipcRenderer.send('chrome:moveTab', movedID, id)
+      if (isNaN(movedUID)) return;
+      if (movedUID == zoneUID) return;
+
+      ipcRenderer.send('chrome:crossMoveTab', movedUID, id)
     }
   }
 
@@ -231,9 +232,9 @@
         <div
           class="tab"
           draggable="true"
-          on:dragstart={e => e.dataTransfer.setData('text/tabID', id)}
-          on:dragover|preventDefault={e => {/*  e.dataTransfer.getData('text/tabID') == '' ? null : e.preventDefault()  */}}
-          on:drop|capture={handleDropF(id)}
+          on:dragstart={e => e.dataTransfer.setData('text/tabUID', tab.uid)}
+          on:dragover|preventDefault={e => {}}
+          on:drop|capture={handleDropF(id, tab.uid)}
           use:dropzone
           class:selected={id == currentTab}
           class:private={tab.private}

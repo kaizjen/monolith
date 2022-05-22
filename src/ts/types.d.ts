@@ -56,6 +56,7 @@ export interface Tab extends BrowserView {
   uniqueID?: number
   lastNavigationReason?: NavigationReason
   isFullScreen?: boolean
+  owner?: TabWindow
 }
 
 export interface ParsedURL extends URL {
