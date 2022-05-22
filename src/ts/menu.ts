@@ -2,7 +2,7 @@
 
 import { app, clipboard, dialog, Menu, MenuItem, session } from "electron";
 import { Tab, TabOptions, TabWindow } from "./types";
-import { isTabWindow, newWindow } from './windows'
+import { isTabWindow, newWindow, setCurrentTabBounds } from './windows'
 import { config, control, downloads } from './userdata'
 import * as pathModule from "path";
 import * as fs from "fs"
@@ -15,6 +15,13 @@ import { t } from "./i18n";
 
 function obtainWebContents(win: Electron.BrowserWindow | TabWindow) {
   return isTabWindow(win) ? (win as TabWindow).currentTab.webContents : win.webContents
+}
+
+function zoom(direction: 'in' | 'out') {
+  return function (_, win: TabWindow) {
+    let wc = obtainWebContents(win)
+    wc.emit('zoom-changed', {}, direction)
+  }
 }
 
 async function exists(path: string) {
@@ -31,7 +38,54 @@ const SEPARATOR: Electron.MenuItemConstructorOptions = {
   type: 'separator'
 }
 
-let tabs_windows: Electron.MenuItemConstructorOptions[] = [
+const tabs_windows: Electron.MenuItemConstructorOptions[] = [
+  {
+    label: t('menu.common.newTab'),
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      createTab(win, {
+        url: $.newTabUrl
+      })
+    },
+    accelerator: 'CmdOrCtrl+T',
+    id: 'new-tab'
+  },
+  {
+    label: t('menu.common.newPrivateTab'),
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      createTab(win, {
+        url: 'mth://private',
+        private: true
+      })
+    },
+    accelerator: 'CmdOrCtrl+Shift+T',
+    id: 'new-tab-p'
+  },
+  SEPARATOR,
+  {
+    label: t('menu.tabs.close'),
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      closeTab(win, { tab: win.currentTab })
+    },
+    accelerator: 'CmdOrCtrl+W',
+    id: 'close-tab'
+  },
+  {
+    label: t('menu.tabs.openClosed'),
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      openClosedTab(win)
+    },
+    accelerator: 'CmdOrCtrl+Shift+W',
+    id: 'open-closed'
+  },
+  SEPARATOR,
   {
     label: t('menu.common.newWindow'),
     click() {
@@ -44,53 +98,18 @@ let tabs_windows: Electron.MenuItemConstructorOptions[] = [
       }
       newWindow([{ url }]);
     },
-    accelerator: 'CmdOrCtrl+N'
-  },
-  SEPARATOR,
-  {
-    label: t('menu.common.newTab'),
-    click(_m, win: TabWindow) {
-      if (!isTabWindow(win)) return;
-
-      createTab(win, {
-        url: $.newTabUrl
-      })
-    },
-    accelerator: 'CmdOrCtrl+T'
+    accelerator: 'CmdOrCtrl+N',
+    id: 'new-win'
   },
   {
-    label: t('menu.common.newPrivateTab'),
-    click(_m, win: TabWindow) {
-      if (!isTabWindow(win)) return;
-
-      createTab(win, {
-        url: 'mth://private',
-        private: true
-      })
+    label: t('menu.window.close'),
+    click(_m, win) {
+      win.close()
     },
-    accelerator: 'CmdOrCtrl+Shift+T'
-  },
-  SEPARATOR,
-  {
-    label: t('menu.tabs.close'),
-    click(_m, win: TabWindow) {
-      if (!isTabWindow(win)) return;
-
-      closeTab(win, { tab: win.currentTab })
-    },
-    accelerator: 'CmdOrCtrl+W'
-  },
-  {
-    label: t('menu.tabs.openClosed'),
-    click(_m, win: TabWindow) {
-      if (!isTabWindow(win)) return;
-
-      openClosedTab(win)
-    },
-    accelerator: 'CmdOrCtrl+Shift+W'
+    id: 'close-win'
   }
 ]
-let tools: Electron.MenuItemConstructorOptions[] = [
+const tools: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('common.downloads'),
     click(_, win: TabWindow) {
@@ -100,7 +119,8 @@ let tools: Electron.MenuItemConstructorOptions[] = [
       createTab(win, {
         url: 'mth://downloads'
       })
-    }
+    },
+    id: 'dls'
   },
   {
     label: t('common.extensions'),
@@ -111,7 +131,8 @@ let tools: Electron.MenuItemConstructorOptions[] = [
       createTab(win, {
         url: 'mth://extensions'
       })
-    }
+    },
+    id: 'exts'
   },
   {
     label: t('common.bookmarks'),
@@ -122,7 +143,8 @@ let tools: Electron.MenuItemConstructorOptions[] = [
       createTab(win, {
         url: 'mth://bookmarks'
       })
-    }
+    },
+    id: 'bookms'
   },
   {
     label: t('common.settings'),
@@ -133,16 +155,81 @@ let tools: Electron.MenuItemConstructorOptions[] = [
       createTab(win, {
         url: 'mth://settings'
       })
+    },
+    id: 'settings'
+  }
+]
+const about: Electron.MenuItemConstructorOptions = {
+  label: t('menu.about'),
+  click(_, w) {
+    if (!isTabWindow(w)) return;
+
+    const win = w as TabWindow;
+    createTab(win, {
+      url: 'mth://about'
+    })
+  }
+}
+const view: Electron.MenuItemConstructorOptions[] = [
+  {
+    label: t('menu.fullscreen'),
+    accelerator: 'F11',
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      if (!win.isFullScreen()) {
+        win.setFullScreen(true);
+        const { width, height } = win.getContentBounds()
+        win.currentTab.setBounds({ x: 0, y: 0, width, height })
+
+      } else {
+        win.setFullScreen(false);
+        setCurrentTabBounds(win)
+      }
+    }
+  },
+  {
+    label: t('menu.zoom.in'),
+    accelerator: 'CmdOrCtrl+numadd',
+    registerAccelerator: false, // alredy registered
+    click: zoom('in')
+  },
+  {
+    label: t('menu.zoom.out'),
+    accelerator: 'CmdOrCtrl+-',
+    registerAccelerator: false, // alredy registered
+    click: zoom('out')
+  },
+  {
+    label: t('menu.zoom.0'),
+    accelerator: 'CmdOrCtrl+num0',
+    click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      win.currentTab.webContents.zoomFactor = config.get().ui.defaultZoomFactor;
+      win.chrome.webContents.send('zoomUpdate', win.currentTab.webContents.zoomFactor)
     }
   }
 ]
-
-Menu.setApplicationMenu(Menu.buildFromTemplate([
+const appMenu = Menu.buildFromTemplate([
   {
-    label: t('name'),
+    label: t('name') + ((process.platform == 'win32') ? '        ' : ''),
     submenu: [
-      ...tabs_windows,
-      SEPARATOR,
+      about,
+      tools.find(i => i.id == 'settings'),
+      ...(process.platform == 'darwin' ? [
+        SEPARATOR,
+        {
+          role: 'hide' as const
+        },
+        {
+          role: 'hideOthers' as const
+        },
+        {
+          role: 'unhide' as const
+        },
+        SEPARATOR
+      ] : []),
       {
         label: t('menu.common.quit'),
         click() {
@@ -165,47 +252,32 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
       {
         label: 'zoomin-num-hidden',
         accelerator: 'CmdOrCtrl+numadd',
-        click(_, win: TabWindow) {
-          let wc = obtainWebContents(win)
-          wc.emit('zoom-changed', {}, 'in')
-        },
+        click: zoom('in'),
         visible: false
       },
       {
         label: 'zoomin-std-eq-hidden',
         // when you press the plus not on the numpad, but on the other keyboard, you actually press the equal sign!
         accelerator: 'CmdOrCtrl+=',
-        click(_, win: TabWindow) {
-          let wc = obtainWebContents(win)
-          wc.emit('zoom-changed', {}, 'in')
-        },
+        click: zoom('in'),
         visible: false
       },
       {
         label: 'zoomin-std-plus-hidden',
         accelerator: 'CmdOrCtrl++',
-        click(_, win: TabWindow) {
-          let wc = obtainWebContents(win)
-          wc.emit('zoom-changed', {}, 'in')
-        },
+        click: zoom('in'),
         visible: false
       },
       {
         label: 'zoomout-num-hidden',
         accelerator: 'CmdOrCtrl+numsub',
-        click(_, win: TabWindow) {
-          let wc = obtainWebContents(win)
-          wc.emit('zoom-changed', {}, 'out')
-        },
+        click: zoom('out'),
         visible: false
       },
       {
         label: 'zoomout-std-hidden',
         accelerator: 'CmdOrCtrl+-',
-        click(_, win: TabWindow) {
-          let wc = obtainWebContents(win)
-          wc.emit('zoom-changed', {}, 'out')
-        },
+        click: zoom('out'),
         visible: false
       },
       {
@@ -217,7 +289,63 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
           wc.reload()
         }
       },
+      {
+        label: 'esc-exit-fullscreen-hidden',
+        visible: false,
+        accelerator: 'Escape',
+        click(_, win: TabWindow) {
+          if (!isTabWindow(win)) return;
+          
+          win.setFullScreen(false);
+          setCurrentTabBounds(win);
+        }
+      }
     ]
+  },
+  {
+    label: t('menu.appMenu.file'),
+    submenu: [
+      ...tabs_windows,
+      {
+        label: t('menu.openFile'),
+        accelerator: 'CmdOrCtrl+O',
+        async click(_m, win: TabWindow) {
+          if (!isTabWindow(win)) return;
+
+          let result = await dialog.showOpenDialog(win, {
+            title: t('menu.openFile'),
+            properties: [ 'openFile' ]
+          })
+          result.filePaths.forEach(pth => {
+            pth = pth.replaceAll('\\', '/');
+            pth = 'file://' + pth;
+
+            createTab(win, {
+              url: pth,
+              private: win.currentTab.private
+            })
+          })
+        }
+      }
+    ]
+  },
+  {
+    label: t('menu.appMenu.edit'),
+    submenu: [
+      { role: 'undo', accelerator: 'CmdOrCtrl+Z' },
+      { role: 'redo', accelerator: 'CmdOrCtrl+Y' },
+      SEPARATOR,
+      { role: 'cut', accelerator: 'CmdOrCtrl+X' },
+      { role: 'copy', accelerator: 'CmdOrCtrl+C' },
+      { role: 'paste', accelerator: 'CmdOrCtrl+V' },
+      { role: 'pasteAndMatchStyle', accelerator: 'CmdOrCtrl+Shift+V' },
+      { role: 'delete' },
+      { role: 'selectAll', accelerator: 'CmdOrCtrl+A' },
+    ]
+  },
+  {
+    label: t('menu.appMenu.view'),
+    submenu: view
   },
   {
     label: t('menu.tools'),
@@ -243,11 +371,11 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
           wc.toggleDevTools()
         }
       },
-      
+
     ]
   },
   {
-    label: t('menu.currentTab'),
+    label: t('menu.appMenu.tab'),
     submenu: [
       {
         label: t('navigation.reload'),
@@ -264,17 +392,44 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
           let wc = obtainWebContents(win)
           wc.reloadIgnoringCache()
         }
-      }
+      },
+      tabs_windows.find(i => i.id == 'close-tab')
+    ]
+  },
+  {
+    label: t('menu.appMenu.window'),
+    submenu: [
+      { role: 'minimize' },
+      {
+        label: t('menu.window.maximize') + '/' + t('menu.window.unmaximize'),
+        click(_m, win) {
+          if (win.isMaximized()) win.unmaximize()
+          else win.maximize()
+        }
+      },
+      tabs_windows.find(i => i.id == 'close-win'),
     ]
   }
-]))
+])
 
+Menu.setApplicationMenu(appMenu)
+
+
+export function showAppMenu() {
+  appMenu.popup();
+}
 
 export async function displayOptions(win: TabWindow, { x, y }) {
   let multiplier /* markiplier */ = config.get().ui.chromeZoomFactor
 
   let menu = Menu.buildFromTemplate([
     ...tabs_windows,
+    SEPARATOR,
+    ...view,
+    {
+      label: t('menu.zoom.info', { zoom: win.currentTab.webContents.zoomFactor * 100 }),
+      enabled: false
+    },
     SEPARATOR,
     {
       label: t('common.history'),
@@ -354,7 +509,7 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
 
   if (opts.altText) {
     addItem({ label: opts.altText, enabled: false })
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
   }
 
   if (opts.selectionText) {
@@ -376,13 +531,19 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
     addItem({ label: $t('search', { engine: selectedSE.name }), click() {
       createContextTab({ url: selectedSE.searchURL.replaceAll('%s', encodeURIComponent(opts.selectionText)) })
     } })
-    addItem({ label: $t('copy'), accelerator: 'Ctrl+C', click() { tab.webContents.copy() } })
-    addItem({ label: $t('cut'), accelerator: 'Ctrl+X', click() { tab.webContents.cut() } })
-    addItem({ label: $t('paste'), accelerator: 'Ctrl+V', click() { tab.webContents.paste() } })
-    addItem({ label: $t('pasteWithStyle'), accelerator: 'Ctrl+Shift+V', click() {
-      tab.webContents.pasteAndMatchStyle()
-    } })
-    addItem({ type: 'separator' })
+    addItem({ role: 'copy', accelerator: 'CmdOrCtrl+C' })
+    if (opts.editFlags.canCut) {
+      addItem({ role: 'cut', accelerator: 'CmdOrCtrl+X' })
+    }
+    if (opts.editFlags.canDelete) {
+      addItem({ role: 'delete', accelerator: 'Delete' })
+    }
+    addItem(SEPARATOR)
+  }
+  if (opts.editFlags.canPaste) {
+    addItem({ role: 'paste', accelerator: 'CmdOrCtrl+V' })
+    addItem({ role: 'pasteAndMatchStyle', accelerator: 'CmdOrCtrl+Shift+V' })
+    addItem(SEPARATOR)
   }
 
   if (opts.linkURL) {
@@ -390,10 +551,10 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
     addItem({ label: $t('open.newPrivateTab'), click() { createContextTab({ url: opts.linkURL, private: true }) } })
     addItem({ label: $t('open.newWindow'), click() { newWindow([{ url: opts.linkURL, private: tab.private }]) } })
     addItem({ label: $t('open.thisTab'), click() { tab.webContents.loadURL(opts.linkURL) } })
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
     addItem({ label: $t('copyLink'), click() { clipboard.writeText(opts.linkURL) } })
 
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
   }
 
   if (opts.mediaType == 'image') {
@@ -461,10 +622,10 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
 
     } })
     addItem({ label: $t('image.copy'), click() { tab.webContents.copyImageAt(opts.x, opts.y) } })
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
     addItem({ label: $t('image.copyURL'), click() { clipboard.writeText(opts.srcURL) } })
 
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
   }
 
   if (opts.frame != tab.webContents.mainFrame) {
@@ -472,13 +633,13 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
     addItem({ label: $t('frame.viewSourceCode'), click() {
       createContextTab({ url: `view-source:${opts.frame.url}` })
     } })
-    addItem({ type: 'separator' })
+    addItem(SEPARATOR)
   }
 
   addItem({ label: t('navigation.back'), enabled: tab.webContents.canGoBack(), click() { tab.webContents.goBack() } })
   addItem({ label: t('navigation.forward'), enabled: tab.webContents.canGoForward(), click() { tab.webContents.goForward() } })
   addItem({ label: t('navigation.reload'), click() { tab.webContents.reload() } })
-  addItem({ type: 'separator' })
+  addItem(SEPARATOR)
   addItem({ label: $t('savePageAs'), async click() {
     let result = await dialog.showSaveDialog(win || null, {
       title: $t('savePage_dialog', { page: tab.webContents.getURL() }),
@@ -497,7 +658,7 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
     // TODO: print page
     dialog.showErrorBox("Not implemented", "Not implemented")
   }, accelerator: 'Ctrl+P' })
-  addItem({ type: 'separator' })
+  addItem(SEPARATOR)
   addItem({ label: $t('viewSourceCode'), click() { createContextTab({ url: `view-source:${tab.webContents.getURL()}` }) } })
   addItem({ label: $t('openDevTools'), click() { tab.webContents.openDevTools() }, accelerator: 'Ctrl+Shift+I' })
 
@@ -531,7 +692,7 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
   addItem({ label: $t('create-newPrivateTab'), accelerator: 'CmdOrCtrl+Shift+T', click() {
     createContextTab({ url: $.newTabUrl, private: true })
   } })
-  addItem({ type: 'separator' })
+  addItem(SEPARATOR)
   addItem({ label: t('navigation.reload'), click() { tab.webContents.reload() } })
   addItem({
     label: $t('reloadAll'), click() {
@@ -541,7 +702,7 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
     }
   })
   addItem({ label: $t('copyURL'), click() { tab.webContents.getURL() } })
-  addItem({ type: 'separator' })
+  addItem(SEPARATOR)
   addItem({ label: $t('duplicate'), click() {
     createContextTab({
       url: tab.webContents.getURL()
@@ -553,7 +714,7 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
   } else {
     addItem({ label: $t('sound-mute'), click() { tab.webContents.audioMuted = true } })
   }
-  addItem({ type: 'separator' })
+  addItem(SEPARATOR)
   addItem({
     label: $t('close-this'), accelerator: 'Ctrl+W', async click() {
       try {
@@ -595,7 +756,6 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
       })
     }
   })
-  addItem({ type: 'separator' })
 
   menu.popup()
 }

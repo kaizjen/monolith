@@ -1,6 +1,6 @@
 // This file is for all types of windows
 
-import type { TabWindow, TabOptions } from "./types";
+import type { TabWindow, TabOptions, Tab } from "./types";
 import { app, BrowserView, BrowserWindow, Menu, nativeTheme, session } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
@@ -8,6 +8,7 @@ import * as pathModule from "path";
 import $ from "./vars"
 import { config, control } from './userdata'
 import { t } from "./i18n";
+import { showAppMenu } from "./menu";
 
 const WM_INITMENU = 0x0116; // windows' initmenu, explained later in the code
 const headHeight = 36; // px, height of the "head" of chrome
@@ -58,7 +59,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
 
   w.chromeHeight = 74; // initial value for chromeHeight if the chrome takes a long time to load
 
-  if (platform.windows) w.hookWindowMessage(WM_INITMENU, () => {
+  if (platform.windows) w.hookWindowMessage(WM_INITMENU, (wParam, lParam) => {
     // On Windows the 'system-context-menu' event never fires, so this is the only working solution
     // to display custom context menu
     // thanks, qjl1569 :D (https://github.com/electron/electron/issues/24893#issuecomment-1109262719)
@@ -66,7 +67,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     w.setEnabled(true);
     // voodoo magic to prevent default menu from showing
 
-    Menu.buildFromTemplate([
+    /* Menu.buildFromTemplate([
       {
         label: t('menu.common.newTab'),
         click() {
@@ -100,6 +101,9 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
         }
       }
     ]).popup();
+    */
+    
+    showAppMenu();
   })
   
   w.on('resize', () => {
@@ -108,7 +112,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     // The BrowserView resizes incorrectly when window is resized or maximized/restored (on Windows).
     // That's because w.getBounds() has weird additional 16px of width
     if (!w.isFullScreen()) {
-      w.currentTab?.setBounds({ x: 0, y: w.chromeHeight, width, height: height - w.chromeHeight })
+      setCurrentTabBounds(w)
     }
     w.chrome.setBounds({ x: 0, y: 0, width, height })
   })
@@ -210,4 +214,17 @@ export function getAllTabWindows(): TabWindow[] {
 
 export function isTabWindow(win: BrowserWindow | TabWindow) {
   return windows.includes(win as any)
+}
+
+export function setCurrentTabBounds(win: TabWindow, tab?: Tab) {
+  // The BrowserView resizes incorrectly when window is resized or maximized/restored (on Windows).
+  // That's because w.getBounds() has weird additional 16px of width
+  const { width, height } = win.getContentBounds()
+  const rect: Electron.Rectangle = { x: 0, y: win.chromeHeight, width, height: height - win.chromeHeight }
+  if (tab) {
+    tab.setBounds(rect)
+    
+  } else {
+    win.currentTab?.setBounds(rect)
+  }
 }

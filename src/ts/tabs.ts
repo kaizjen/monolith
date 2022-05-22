@@ -8,7 +8,7 @@ import { DEFAULT_PARTITION, NO_CACHE_PARTITION, PRIVATE_PARTITION, validateDomai
 import { handleNetError } from './net-error-analyzer'
 import $ from './vars'
 import { showContextMenu } from "./menu";
-import { getAllTabWindows } from "./windows";
+import { getAllTabWindows, setCurrentTabBounds } from "./windows";
 import { t } from "./i18n";
 
 const { URLParse } = $
@@ -211,7 +211,6 @@ export function createBrowserView(opts: TabOptions): Tab {
   tab.webContents.setVisualZoomLevelLimits(1, 3)
   tab.setBackgroundColor('#ffffff');
 
-
   tab.private = opts.private
 
   return tab;
@@ -284,7 +283,7 @@ export function removeTab(win: TabWindow, { tab, id }: { tab?: BrowserView, id?:
     }
   }
   
-  let [ del ] = win.tabs.splice(id, 1)
+  win.tabs.splice(id, 1)
   
   win.chrome.webContents.send('removeTab', id)
 
@@ -534,7 +533,7 @@ export function attach(win: TabWindow, tab: Tab) {
     tab.setBounds({ x: 0, y: 0, width: win.getContentBounds().width, height: win.getContentBounds().height })
   })
   tab.webContents.on('leave-html-full-screen', () => {
-    tab.setBounds({ x: 0, y: win.chromeHeight, width: win.getContentBounds().width, height: win.getContentBounds().height - win.chromeHeight })
+    setCurrentTabBounds(win, tab)
   })
   tab.webContents.on('context-menu', (_e, opts) => {
     showContextMenu(win, tab, opts)
@@ -560,7 +559,7 @@ export function selectTab(win: TabWindow, { tab, id }: { tab?: Tab, id?: number 
   win.addBrowserView(tab)
   win.currentTab = tab;
   
-  tab.setBounds({ x: 0, y: win.chromeHeight, width: win.getContentBounds().width, height: win.getContentBounds().height - win.chromeHeight });
+  setCurrentTabBounds(win)
   win.setTopBrowserView(tab);
   win.chrome.webContents.send('tabChange', id)
   win.chrome.webContents.send('zoomUpdate', tab.webContents.zoomFactor)
@@ -577,6 +576,7 @@ export function selectTab(win: TabWindow, { tab, id }: { tab?: Tab, id?: number 
  */
 export function createTab(window: TabWindow, options: TabOptions): Tab {
   let bv = createBrowserView(options);
+  setCurrentTabBounds(window, bv) // better to resize here or will slow down the tab switching
   addTab(window, bv, options);
   attach(window, bv)
   options.background || selectTab(window, { tab: bv })

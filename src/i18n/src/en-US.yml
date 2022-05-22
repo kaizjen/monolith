@@ -139,13 +139,23 @@ menu:
   devTools: Developer tools
   currentTab: This tab
   recentlyClosedTabs: Recently closed
+  openFile: Open file...
+  about: About
+  fullscreen: Enter fullscreen
+  zoom:
+    in: Zoom in
+    out: Zoom out
+    0: Actual size
+    info: "Zoom: ${zoom}%"
+  appMenu:
+    file: File
+    edit: Edit
+    view: View
+    tab: Tab
+    window: Window
   contextMenu:
     openLink: Open link
     search: Search in ${engine}
-    copy: Copy
-    cut: Cut
-    paste: Paste
-    pasteWithStyle: Paste and match style
     open:
       newTab: Open in new tab
       newPrivateTab: Open in new private tab
@@ -185,4 +195,4 @@ menu:
     minimize: Minimize
     unmaximize: Restore
     maximize: Maximize
-    close: Close
+    close: Close window

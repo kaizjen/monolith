@@ -121,7 +121,7 @@
 </style>
 
 <script>
-  import { contentTracing, ipcRenderer } from "electron";
+  import { ipcRenderer } from "electron";
   import { getContext } from "svelte/internal";
   import { cubicOut } from 'svelte/easing'
   export let tabs;
@@ -241,6 +241,7 @@
           on:auxclick={handleClickF(id)}
           in:tab_anim={{ x: -50, y: 0, duration: 120 }}
           out:tab_anim={{ x: -50, y: 0, duration: 120 }}
+          title={tab.title}
         >
           {#if tab.private && !(id == currentTab)}
             <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt="Private tab" class="favicon decoy">

@@ -1,12 +1,12 @@
 // This file does everything related to the current session and the electron sessions
 
-import type { CertficateCache, Permissions } from "./types";
+import type { CertficateCache, Permissions, TabWindow } from "./types";
 import { app, BrowserWindow, ipcMain, protocol, session, Session, screen, nativeTheme, dialog } from "electron";
 import * as pathModule from "path"
 import $ from "./vars";
 import { randomUUID } from 'crypto'
 import * as fs from "fs-extra"
-import { getAllTabWindows } from './windows'
+import { getAllTabWindows, isTabWindow } from './windows'
 import { config, downloads, userdataDirectory, control } from "./userdata";
 
 const URLParse = $.URLParse;
@@ -380,7 +380,14 @@ export function registerSession(ses: Session) {
     let { sitePermissions, defaultPermissions } = privacy;
     let { origin, hostname } = URLParse(details.requestingUrl);
 
-    if (permission == 'fullscreen') return callback(true)
+    if (permission == 'fullscreen') {
+      let win = BrowserWindow.fromWebContents(wc) as TabWindow;
+      if (!isTabWindow(win)) return callback(false)
+
+      if (win.currentTab.webContents != wc) return callback(false)
+
+      return callback(true)
+    }
     if (permission == 'clipboard-read') return callback(!control.options.disallow_clipboard_read.value)
 
     function checkPermission(obj: Permissions | Partial<Permissions>): boolean | undefined {
