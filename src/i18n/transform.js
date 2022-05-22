@@ -9,7 +9,7 @@ const SRC_PATH = pathModule.join(__dirname, './src');
 (async function(){
 
   // clear the final dir
-  await fs.rm(FINAL_PATH, { recursive: true });
+  await fs.rm(FINAL_PATH, { recursive: true }).catch(e => console.log("Didn't remove /final:", e));
   await fs.mkdir(FINAL_PATH)
   
   let entries = await fs.readdir(SRC_PATH);
