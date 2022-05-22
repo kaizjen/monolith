@@ -32,13 +32,13 @@ const SRC_PATH = pathModule.join(__dirname, './src');
       let desc = '';
       switch (errNum) {
         case 0: {
-          desc = `Error while reading the file "${itemPath}".`
+          desc = `Error while reading the file "${itemPath}"`
         }
         case 1: {
-          desc = `Parsing the file "${itemPath}" failed.`
+          desc = `Parsing the file "${itemPath}" failed`
         }
         case 2: {
-          desc = `Couldn't write the file "${finalPath}".`
+          desc = `Couldn't write the file "${finalPath}"`
         }
       
         default: {
