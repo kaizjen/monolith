@@ -13,12 +13,15 @@
     transition: 0.2s;
     display: flex;
     -webkit-app-region: no-drag;
+    margin-inline: 1px;
+    padding-inline: 6px;
   }
   .disabled {
     opacity: 0.5;
   }
   .nav:not(.disabled):hover, .tool:hover {
     background: var(--tool-hover) !important;
+    transition: 0s;
   }
   .nav:not(.disabled):active, .tool:active {
     background: var(--tool-active) !important;
