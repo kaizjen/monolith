@@ -267,6 +267,12 @@ export function init() {
 
     tabManager.closeTab(win, { id, tab }, keepAlive);
   })
+  ipcMain.on('setMutedTab', (e, tabID: number, isMuted: boolean) => {
+    let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
+    if (!win) return;
+
+    tabManager.setMutedTab(win, win.tabs[tabID], isMuted)
+  })
 
   ipcMain.on('getHints', async (e, query: string) => {
     // MAYBE: move getHints to another place?

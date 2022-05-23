@@ -6,7 +6,7 @@ import { isTabWindow, newWindow, setCurrentTabBounds } from './windows'
 import { config, control, downloads } from './userdata'
 import * as pathModule from "path";
 import * as fs from "fs"
-import { closeTab, createTab, moveTab, openClosedTab } from './tabs'
+import { closeTab, createTab, moveTab, openClosedTab, setMutedTab } from './tabs'
 import $ from './vars'
 import fetch from "electron-fetch";
 import type { Response } from "electron-fetch"
@@ -709,10 +709,10 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
     })
   } })
   if (tab.webContents.audioMuted) {
-    addItem({ label: $t('sound-unmute'), click() { tab.webContents.audioMuted = false } })
+    addItem({ label: $t('sound-unmute'), click() { setMutedTab(win, tab, false) } })
 
   } else {
-    addItem({ label: $t('sound-mute'), click() { tab.webContents.audioMuted = true } })
+    addItem({ label: $t('sound-mute'), click() { setMutedTab(win, tab, true) } })
   }
   addItem(SEPARATOR)
   addItem({

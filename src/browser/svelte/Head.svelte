@@ -80,12 +80,29 @@
   }
   .tab img.favicon {
     padding: 3px;
-    padding-right: 8px;
   }
   .tab img.favicon.decoy {
     flex-grow: 1;
   }
+  .tab img.audio-control {
+    transform: translate(9px, 5px);
+    position: absolute;
+    padding: 3px;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  .tab img.audio-control:hover {
+    background: var(--tool-hover);
+    transition: 0s;
+  }
+  .tab img.audio-control:active {
+    background: var(--tool-active);
+  }
+  .tab img.audio-control.playing {
+    filter: invert(0.3) sepia(1) saturate(5) hue-rotate(177deg); /* creates a cyan color */
+  }
   .tab span {
+    padding-left: 8px;
     flex-grow: 1;
   }
   .close-tab {
@@ -128,7 +145,11 @@
   export let currentTab;
 
   const { t } = window;
-  const PRIVATE_TAB = t('ui.tabs.private');
+  const _ = {
+    PRIVATE_TAB: t('ui.tabs.private'),
+    AUDIBLE: t('ui.tabs.playingAudio'),
+    MUTED: t('ui.tabs.muted'),
+  }
 
   const colorTheme = getContext('colorTheme')
 
@@ -212,6 +233,12 @@
     }
   }
 
+  function toggleMuteF(tab) {
+    return function () {
+      ipcRenderer.send('setMutedTab', tabs.indexOf(tab), !tab.isMuted)
+    }
+  }
+
   function newTab() {
     ipcRenderer.send('newTab')
   }
@@ -248,9 +275,21 @@
           title={tab.title}
         >
           {#if tab.private && !(id == currentTab)}
-            <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt={PRIVATE_TAB} class="favicon decoy">
+            <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt={_.PRIVATE_TAB} class="favicon decoy">
           {:else}
             <img alt="" src={tab.isLoading ? `m-res://${$colorTheme}/tab_waiting.svg` : (tab.favicon ?? `m-res://${$colorTheme}/tab_webpage.svg`)} class="favicon">
+            {#if tab.isPlaying || tab.isMuted}
+              <img
+                role="button"
+                tabindex="0"
+                alt={tab.isMuted ? _.MUTED : _.AUDIBLE }
+                src="m-res://{$colorTheme}/tab_{tab.isMuted ? 'muted' : 'audible'}.svg"
+                on:click={toggleMuteF(tab)}
+                on:mousedown|stopPropagation={()=>{}}
+                class="audio-control"
+                class:playing={tab.isPlaying}
+              >
+            {/if}
             <span>{tab.title}</span>
           {/if}
           <button

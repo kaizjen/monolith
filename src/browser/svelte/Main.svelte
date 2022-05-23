@@ -194,7 +194,9 @@
         canGoFwd: false
       },
       uid: opts.uid ?? NaN,
-      crashDetails: null
+      crashDetails: null,
+      isPlaying: false,
+      isMuted: false
     })
     tabs = tabs;
   })
@@ -234,6 +236,12 @@
         break;
       case 'nav':
         tabs[id].nav = value
+        break;
+      case 'playing':
+        tabs[id].isPlaying = value
+        break;
+      case 'muted':
+        tabs[id].isMuted = value
         break;
     
       default:

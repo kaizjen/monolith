@@ -145,6 +145,14 @@ function handleBeforeUnload<T>(wc: WebContents, proceed: () => T): Promise<false
   })
 }
 
+export function setMutedTab(win: TabWindow, tab: Tab, isMuted: boolean) {
+  tab.webContents.setAudioMuted(isMuted);
+  win.chrome.webContents.send('tabUpdate', {
+    type: 'muted', id: win.tabs.indexOf(tab),
+    value: isMuted
+  })
+}
+
 
 function setTitleOfWindow(win: TabWindow, tab: Tab) {
   if (tab.private) {
@@ -405,6 +413,9 @@ export function attach(win: TabWindow, tab: Tab) {
   })
   tab.webContents.on('did-start-loading', () => sendUpdate('status', true))
   tab.webContents.on('did-stop-loading', () => sendUpdate('status', false))
+  tab.webContents.on('media-started-playing', () => sendUpdate('playing', true))
+  tab.webContents.on('media-paused', () => sendUpdate('playing', false))
+
   tab.webContents.on('page-title-updated', (_e, title, isExplicit) => {
     sendUpdate('title', title);
     if (win.currentTab == tab) {
@@ -729,6 +740,14 @@ export function crossMoveTab(tab: Tab, destination: { window: TabWindow, index: 
   window.chrome.webContents.send('tabUpdate', {
     type: 'sec', id: index,
     value: checkSecurity(tab.webContents.getURL())
+  })
+  window.chrome.webContents.send('tabUpdate', {
+    type: 'playing', id: index,
+    value: tab.webContents.isCurrentlyAudible()
+  })
+  window.chrome.webContents.send('tabUpdate', {
+    type: 'muted', id: index,
+    value: tab.webContents.isAudioMuted()
   })
 
   selectTab(window, { id: index })

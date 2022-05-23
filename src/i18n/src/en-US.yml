@@ -38,6 +38,8 @@ ui:
     more: More options
   tabs:
     private: Private tab
+    playingAudio: Playing audio
+    muted: Muted
   addressBar-placeholder: Type a search query or a URL
   security:
     title: Security
