@@ -9,6 +9,7 @@ import $ from "./vars"
 import { config, control } from './userdata'
 import { t } from "./i18n";
 import { showAppMenu } from "./menu";
+import { CHROME_PARTITION } from "./sessions";
 
 const WM_INITMENU = 0x0116; // windows' initmenu, explained later in the code
 const headHeight = 36; // px, height of the "head" of chrome
@@ -111,9 +112,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
 
     // The BrowserView resizes incorrectly when window is resized or maximized/restored (on Windows).
     // That's because w.getBounds() has weird additional 16px of width
-    if (!w.isFullScreen()) {
-      setCurrentTabBounds(w)
-    }
+    setCurrentTabBounds(w)
     w.chrome.setBounds({ x: 0, y: 0, width, height })
   })
   // Weird visual glith: when maximized the first time, currentTab has some white space at the bottom (??)
@@ -158,11 +157,11 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      partition: 'chrome'
+      partition: CHROME_PARTITION
     }
   });
   chromeBV.setBounds({ x: 0, y: 0, width: w.getContentBounds().width, height: w.getContentBounds().height })
-  chromeBV.setBackgroundColor('#000000ff') // make it transparent
+  chromeBV.setBackgroundColor('#00000000') // make it transparent
   w.addBrowserView(chromeBV)
 
   w.chrome = chromeBV;
@@ -220,7 +219,13 @@ export function setCurrentTabBounds(win: TabWindow, tab?: Tab) {
   // The BrowserView resizes incorrectly when window is resized or maximized/restored (on Windows).
   // That's because w.getBounds() has weird additional 16px of width
   const { width, height } = win.getContentBounds()
-  const rect: Electron.Rectangle = { x: 0, y: win.chromeHeight, width, height: height - win.chromeHeight }
+  let rect: Electron.Rectangle;
+  if (win.isFullScreen()) {
+    rect = { x: 0, y: 0, width, height }
+
+  } else {
+    rect = { x: 0, y: win.chromeHeight, width, height: height - win.chromeHeight }
+  }
   if (tab) {
     tab.setBounds(rect)
     

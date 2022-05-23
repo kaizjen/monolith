@@ -50,6 +50,7 @@ export interface CertficateCache {
 
 type NavigationReason = 'redirect' | 'input-url' | 'other' | 'created' | `searched:${string}`
 export interface Tab extends BrowserView {
+  childWindow?: BrowserWindow
   private?: boolean
   faviconURL?: string
   faviconDataURL?: string

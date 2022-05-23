@@ -8,13 +8,13 @@ import { DEFAULT_PARTITION, NO_CACHE_PARTITION, PRIVATE_PARTITION, validateDomai
 import { handleNetError } from './net-error-analyzer'
 import $ from './vars'
 import { showContextMenu } from "./menu";
-import { getAllTabWindows, setCurrentTabBounds } from "./windows";
+import { getAllTabWindows, newWindow, setCurrentTabBounds } from "./windows";
 import { t } from "./i18n";
 
 const { URLParse } = $
 
 // Global unique identifiers of all tabs.
-const tabUniqueIDs: { [uniqueID: number]: Tab | null } = {} // not an array because we never iterate over it
+const tabUniqueIDs: { [uniqueID: number]: Tab | null } = {} // not an array because we don't really need its cool methods
 let UIDsAmount = 0;
 
 const options = userData.control.options;
@@ -219,7 +219,7 @@ export function createBrowserView(opts: TabOptions): Tab {
 
   tab.webContents.loadURL(opts.url);
   tab.webContents.setVisualZoomLevelLimits(1, 3)
-  tab.setBackgroundColor('#ffffff');
+  tab.setBackgroundColor('#ffffffff'); // doesn't work for some reason
 
   tab.private = opts.private
 
@@ -233,6 +233,10 @@ export function destroyWebContents(bv: Tab) {
 
     } else {
       (bv.webContents as any).destroy()
+    }
+
+    if (bv.childWindow) {
+      bv.childWindow.close();
     }
 
     if (!bv.private) return;
@@ -310,7 +314,7 @@ export function attach(win: TabWindow, tab: Tab) {
 
   tab.owner = win;
 
-  tab.webContents.setWindowOpenHandler(({ disposition, url }) => {
+  tab.webContents.setWindowOpenHandler(({ disposition, url, features }) => {
     console.log('opening new window:', disposition);
     
     switch (disposition) {
@@ -327,11 +331,18 @@ export function attach(win: TabWindow, tab: Tab) {
 
       case 'new-window':
       case 'other': {
-        if (tab.webContents['openWindow']) return { action: 'deny' }
+        if (!features.includes('popup')) {
+          // when you open a window using Shift+Click, 'popup' doesn't appear in the features
+          newWindow([{ url, private: tab.private }])
+          return { action: 'deny' }
+        }
+
+        if (tab.childWindow) return { action: 'deny' }
 
         tab.webContents.once('did-create-window', async(w) => {
+          tab.childWindow = w;
           w.on('close', () => {
-            delete tab.webContents['openWindow']
+            delete tab.childWindow
           })
 
           w.webContents.on('did-fail-load', (e, code, desc, url, isMainFrame, ...args) => {

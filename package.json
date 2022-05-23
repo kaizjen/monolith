@@ -21,7 +21,7 @@
   "author": "wheezard",
   "dependencies": {
     "argv-parse": "^1.0.1",
-    "electron": "^18.1.0",
+    "electron": "^18.2.4",
     "electron-fetch": "^1.7.4",
     "fs-extra": "^10.0.1",
     "fuse.js": "^6.6.1",
