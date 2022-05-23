@@ -6,6 +6,9 @@ common:
   extensions: Extensions
   bookmarks: Bookmarks
   history: History
+  ok: OK
+  cancel: Cancel
+  loading: Loading...
 navigation:
   back: Back
   forward: Forward
@@ -15,33 +18,48 @@ ui:
     alert: Message from ${site}
     confirm: Confirm your action on ${site}
     prompt: Enter your input on ${site}
-  tabs:
+  tools:
+    load-stop: Stop loading
+    load-refresh: Refresh
     downloads:
+      title: Downloads
+      current: "Current download:"
+      actions:
+        resume: Resume
+        pause: Pause
+        cancel: Cancel
+        again: Download again
+        delete: Delete the download
       status-completed: Completed
       status-interrupted: Interrupted / cancelled
       empty: No downloads
       open-downloads: More
       open-folder: Open folder
-    addressBar-placeholder: Type a search query or a URL
-    security:
-      message-secure: Your connection is secure
-      message-internal: This is an internal Monolith page
-      message-local: This is a local or a shared file
-      message-insecure: Your connection is not secure
-      description-secure: |
-        The information you provide (such as passwords or credit cards) will be securely sent to this site and cannot be intercepted.
-        Always be sure you're on the intended site before entering any information.
-      description-insecure: It is recommended you do not send information such as passwords or credit cards to this site, because it can be intercepted.
-      button-viewCertificate: View certificate
-      button-cookieFiles: Cookie files
-      button-siteSettings: Site settings
-    zoom:
-      infoMessage: "Zoom: ${zoom}%"
-      reset: Reset Zoom
-    hints:
-      prev-search: Previous search on ${site}
-      url: URL
-      search: ${engine} search
+    more: More options
+  tabs:
+    private: Private tab
+  addressBar-placeholder: Type a search query or a URL
+  security:
+    title: Security
+    message-secure: Your connection is secure
+    message-internal: This is an internal Monolith page
+    message-local: This is a local or a shared file
+    message-insecure: Your connection is not secure
+    description-secure: |
+      The information you provide (such as passwords or credit cards) will be securely sent to this site and cannot be intercepted.
+      Always be sure you're on the intended site before entering any information.
+    description-insecure: It is recommended you do not send information such as passwords or credit cards to this site, because it can be intercepted.
+    button-viewCertificate: View certificate
+    button-cookieFiles: Cookie files
+    button-siteSettings: Site settings
+  zoom:
+    altMessage: Zoom is ${zoom}%
+    infoMessage: "Zoom: ${zoom}%"
+    reset: Reset Zoom
+  hints:
+    prev-search: Previous search on ${site}
+    url: URL
+    search: ${engine} search
 net-error:
   common:
     local:
@@ -67,7 +85,7 @@ net-error:
     - We can't get access to this site.
     - |
       Here's what you can do:<br>
-      <ul><li>Check if there are any typos in the host name <b>"${host}"</b>.</li>
+      <ul><li>Check if there are any typos in the host name <b>"${hostname}"</b>.</li>
       <li>Run network diagnostics</li>
       <li>Change DNS over HTTPS settings</li>
   noFileAccess:

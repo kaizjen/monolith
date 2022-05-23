@@ -107,6 +107,27 @@
   import { ipcRenderer, shell } from "electron"
   import { fly } from "svelte/transition";
 
+  const { t } = window;
+  const _ = {
+    LOADING: t('common.loading'),
+    TITLE: t('ui.tools.downloads.title'),
+    CURRENT: t('ui.tools.downloads.current'),
+    act: {
+      RESUME: t('ui.tools.downloads.resume'),
+      PAUSE: t('ui.tools.downloads.pause'),
+      CANCEL: t('ui.tools.downloads.cancel'),
+      AGAIN: t('ui.tools.downloads.again'),
+      DELETE: t('ui.tools.downloads.delete'),
+    },
+    status: {
+      COMPLETED: t('ui.tools.downloads.status-completed'),
+      INTERRUPTED: t('ui.tools.downloads.status-interrupted')
+    },
+    EMPTY: t('ui.tools.downloads.empty'),
+    OPEN_PAGE: t('ui.tools.downloads.open-downloads'),
+    OPEN_FOLDER: t('ui.tools.downloads.open-folder')
+  }
+
   const setTop = getContext('setTop')
   const colorTheme = getContext('colorTheme')
 
@@ -124,7 +145,7 @@
 
 <div class="dialog" in:fly={{ y: 16, duration: 150 }}>
   {#if downloadInfo}
-    <h3>Current download:</h3>
+    <h3>{_.CURRENT}</h3>
     <div class="dl-wrapper">
       <div class="download">
         <span>{pathModule.basename(downloadInfo.path)}</span> <br>
@@ -144,49 +165,50 @@
             downloadInfo = downloadInfo;
           }
         }}>
-          <img src="m-res://{$colorTheme}/tools_dls_{downloadInfo.paused ? 'resume' : 'pause'}.svg" alt="{downloadInfo.paused ? 'Resume' : 'Pause'}">
+          <img src="m-res://{$colorTheme}/tools_dls_{downloadInfo.paused ? 'resume' : 'pause'}.svg"
+          alt="{downloadInfo.paused ? _.act.RESUME : _.act.PAUSE}">
         </button>
         <button class="mini-btn" on:click={() => {
           ipcRenderer.send('dl:cancel');
           downloadsProm = downloadsAPI.get().then(allDls => allDls.slice(0, 8));
           // update the already done downloads
         }}>
-          <img src="m-res://{$colorTheme}/tools_dls_cancel.svg" alt="Cancel">
+          <img src="m-res://{$colorTheme}/tools_dls_cancel.svg" alt={_.act.CANCEL}>
         </button>
       </div>
     </div>
   {/if}
 
-  <h3>Downloads</h3>
+  <h3>{_.TITLE}</h3>
 
   <div>
     {#await downloadsProm}
-      <i>Loading...</i>
+      <i>{_.LOADING}</i>
     {:then downloads}
       {#each downloads as download, index}
         <div class="dl-wrapper">
           <div class="download">
             <b>{pathModule.basename(download.savePath)}</b><br>
             <span class="url">{download.url}</span><br>
-            <span class="more-info"> {download.status == 'completed' ? 'Completed' : 'Interrupted / cancelled'} </span>
+            <span class="more-info"> {download.status == 'completed' ? _.status.COMPLETED : _.status.INTERRUPTED} </span>
           </div>
           <div class="dl-buttons">
             <button class="mini-btn" on:click={() => {
               downloadsAPI.create(index)
             }}>
-              <img src="m-res://{$colorTheme}/tools_dls_redownload.svg" alt="Download again">
+              <img src="m-res://{$colorTheme}/tools_dls_redownload.svg" alt={_.act.AGAIN}>
             </button>
             <button class="mini-btn" on:click={async() => {
               await downloadsAPI.delete(index);
               downloads.splice(index, 1);
               downloads = downloads; // update
             }}>
-              <img src="m-res://{$colorTheme}/tools_dls_delete.svg" alt="Delete the download">
+              <img src="m-res://{$colorTheme}/tools_dls_delete.svg" alt={_.act.DELETE}>
             </button>
           </div>
         </div>
       {:else}
-        <div class="empty"> No downloads </div>
+        <div class="empty"> {_.EMPTY} </div>
       {/each}
     {/await}
   </div>
@@ -197,13 +219,13 @@
       open = false;
       setTop(false)
     }}>
-      More
+      {_.OPEN_PAGE}
     </button>
     {#if $config?.behaviour.downloadPath}
       <button class="big-btn" on:click={() => {
         shell.openPath(($config?.behaviour.downloadPath).replaceAll('%s', ''))
       }}>
-      Open folder
+      {_.OPEN_FOLDER}
     </button>
     {/if}
   </div>

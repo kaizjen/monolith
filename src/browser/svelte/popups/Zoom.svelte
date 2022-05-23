@@ -44,6 +44,13 @@
   export let open = true;
   export let level = 0;
 
+  const { t } = window;
+  const _ = {
+    ALT: data => t('ui.zoom.altMessage', data),
+    INFO: data => t('ui.zoom.infoMessage', data),
+    RESET: t('ui.zoom.reset'),
+  }
+
   import { getContext } from "svelte/internal";
   import { ipcRenderer } from "electron";
   import { fly } from 'svelte/transition'
@@ -62,16 +69,16 @@
     <img
       style="margin-right: 8px;"
       src="m-res://{$colorTheme}/state_zoom{level - $config?.ui.defaultZoomFactor > 0 ? 'in' : 'out'}.svg"
-      alt="Zoom is {Math.round(level * 100)}"
+      alt={_.ALT({ zoom: Math.round(level * 100) })}
     >
-    <b> Zoom: {Math.round(level * 100)}% </b>
+    <b> {_.INFO({ zoom: Math.round(level * 100) })} </b>
   </div>
   <button on:click={() => {
     ipcRenderer.send('@tab', 'setZoom', $config?.ui.defaultZoomFactor);
     setTop(false);
     open = false;
   }}>
-    Reset Zoom
+    {_.RESET}
   </button>
 </div>
 

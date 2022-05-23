@@ -3,9 +3,10 @@
 import { ipcMain, WebContents, WebFrameMain, webFrameMain } from "electron";
 import * as fs from 'fs'
 import { t } from "./i18n";
+import $ from "./vars";
 import { control } from "./userdata";
 
-const URLParse = (url: string) => new URL(url)
+const URLParse = $.URLParse;
 
 export function handleNetError(
   webc: WebContents, _e, errCode: number, errorDescription: string,
@@ -36,7 +37,7 @@ export function handleNetError(
       return '';
       
     } else {
-      return translation
+      return translation.replaceAll('\n', '\\n')
     }
   }
 

@@ -59,6 +59,7 @@
   }
 
   setContext('URLParse', URLParse)
+  window.t = (arg1, arg2) => ipcRenderer.sendSync('t', arg1, arg2);
 
   let tabs = [];
   let currentTab = 0;

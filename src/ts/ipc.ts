@@ -12,6 +12,7 @@ import { displayOptions, menuOfTab } from "./menu";
 import { getTabWindowByID, isTabWindow } from "./windows";
 import type TypeFuse from "fuse.js";
 import { DEFAULT_PARTITION, NO_CACHE_PARTITION } from "./sessions";
+import { t } from "./i18n";
 const Fuse = require('fuse.js') as typeof TypeFuse;
 // must use require here because fuse.js, when require()d, doesnt have a .default property.
 
@@ -42,6 +43,10 @@ export function createDialog(wc: WebContents, type: string, arg: any): Promise<s
 }
 
 export function init() {
+  ipcMain.on('t', (e, str: string, other?: Record<string, any>) => {
+    e.returnValue = t(str, other)
+  })
+
   ipcMain.on('@window', (e, action) => {
     let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
     if (!win) return

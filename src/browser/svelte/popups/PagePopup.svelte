@@ -82,6 +82,8 @@
     ipcRenderer.send('chrome:setTop', true)
   }
 
+  const { t } = window;
+
   onMount(() => {
     function globalListener(e) {
       if (e.key == 'Enter' && !e.shiftKey) {
@@ -123,10 +125,10 @@
     <span class="title">
       {
         dialog.type == 'alert' ? 
-        `Message from ${new URL(tab.url).hostname}` :
+        t('ui.popups.alert', { site: new URL(tab.url).hostname }) :
         dialog.type == 'confirm' ? 
-        `Confirm your action on ${new URL(tab.url).hostname}` :
-        `Enter your input on ${new URL(tab.url).hostname}`
+        t('ui.popups.confirm', { site: new URL(tab.url).hostname }) :
+        t('ui.popups.prompt', { site: new URL(tab.url).hostname })
       }
     </span>
     <span class="message">
@@ -136,11 +138,11 @@
       <input type="text" bind:value>
     {/if}
     <button class="call-to-action" on:click={sendYes}>
-      OK
+      {t('common.ok')}
     </button>
     {#if dialog.type == 'prompt' || dialog.type == 'confirm'}
       <button on:click={sendNo}>
-        Cancel
+        {t('common.cancel')}
       </button>
     {/if}
   </div>

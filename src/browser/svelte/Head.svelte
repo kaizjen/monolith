@@ -127,6 +127,9 @@
   export let tabs;
   export let currentTab;
 
+  const { t } = window;
+  const PRIVATE_TAB = t('ui.tabs.private');
+
   const colorTheme = getContext('colorTheme')
 
   const isOnMac = process.platform == 'darwin';
@@ -224,7 +227,7 @@
 <div class="head">
   <img
     alt="" src="m-res://{$colorTheme}/m.svg" id="monolith-icn"
-    style:margin-left={isOnMac ? '100px' /* approximate traffic lights width */ : ''}
+    style:margin-left={isOnMac ? '3.8cm' /* approximate traffic lights width */ : ''}
   >
   <div class="tabhead">
     <div class="tablist" on:mousedown={e => (e.button == 1) /* middle mb */ ? e.preventDefault() : null}>
@@ -245,7 +248,7 @@
           title={tab.title}
         >
           {#if tab.private && !(id == currentTab)}
-            <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt="Private tab" class="favicon decoy">
+            <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt={PRIVATE_TAB} class="favicon decoy">
           {:else}
             <img alt="" src={tab.isLoading ? `m-res://${$colorTheme}/tab_waiting.svg` : (tab.favicon ?? `m-res://${$colorTheme}/tab_webpage.svg`)} class="favicon">
             <span>{tab.title}</span>

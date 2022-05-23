@@ -72,6 +72,26 @@
   import { getContext } from 'svelte/internal';
   import { fly } from 'svelte/transition'
 
+  const { t } = window;
+  const _ = {
+    TITLE: t('ui.security.title'),
+    msg: {
+      SECURE: t('ui.security.message-secure'),
+      INTERNAL: t('ui.security.message-internal'),
+      LOCAL: t('ui.security.message-local'),
+      INSECURE: t('ui.security.message-insecure'),
+    },
+    desc: {
+      SECURE: t('ui.security.description-secure'),
+      INSECURE: t('ui.security.description-insecure'),
+    },
+    btn: {
+      CERT: t('ui.security.button-viewCertificate'),
+      COOKIE: t('ui.security.button-cookieFiles'),
+      SETTS: t('ui.security.button-siteSettings'),
+    }
+  }
+
   const setTop = getContext('setTop')
   const colorTheme = getContext('colorTheme')
 
@@ -97,27 +117,24 @@
       tab.security == 'internal' ? `m-res://${$colorTheme}/m.svg` : 
       tab.security == 'local' ? `m-res://${$colorTheme}/sec_local.svg` :
       `m-res://${$colorTheme}/sec_http.svg`
-    } alt="Connection status">
+    } alt="">
     <span>{
-      tab.security === true ? "Your connection is secure" : 
-      tab.security == 'internal' ? "This is an internal Monolith page" : 
-      tab.security == 'local' ? "This is a local or a shared file" :
-      "Your connection is not secure"
+      tab.security === true ? _.msg.SECURE : 
+      tab.security == 'internal' ? _.msg.INTERNAL : 
+      tab.security == 'local' ? _.msg.LOCAL :
+      _.msg.INSECURE
     }</span>
   </div>
   {#if !['internal', 'local'].includes(tab.security)}
-    <div class="more_info">{
-        tab.security === true ? `The information you provide (such as passwords or credit cards) will be securely sent to this site and cannot be intercepted.
-          Always be sure you're on the intended site before entering any information.` :
-        "It is recommended you do not send information such as passwords or credit cards to this site, because it can be intercepted."
-      }
+    <div class="more_info">
+      { tab.security === true ? _.desc.SECURE : _.desc.INSECURE }
     </div>
     <div class="separator"></div>
     {#if tab.security === true}
-      <button on:click={showCertificate}><img src="m-res://{$colorTheme}/secdialog_certificate.svg" alt=""> View certificate</button>
+      <button on:click={showCertificate}><img src="m-res://{$colorTheme}/secdialog_certificate.svg" alt=""> {_.btn.CERT}</button>
     {/if}
-    <button on:click={showCookies}><img src="m-res://{$colorTheme}/secdialog_cookie.svg" alt=""> Cookie files</button>
-    <button on:click={siteSettings}><img src="m-res://{$colorTheme}/secdialog_sitesetts.svg" alt=""> Site settings</button>
+    <button on:click={showCookies}><img src="m-res://{$colorTheme}/secdialog_cookie.svg" alt=""> {_.btn.COOKIE}</button>
+    <button on:click={siteSettings}><img src="m-res://{$colorTheme}/secdialog_sitesetts.svg" alt=""> {_.btn.SETTS}</button>
   {/if}
 </div>
 

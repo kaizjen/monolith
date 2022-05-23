@@ -99,6 +99,13 @@
   import { getContext } from "svelte/internal"
   import ZoomPopup from "./popups/Zoom.svelte";
 
+  const { t } = window;
+  const _ = {
+    PLACEHOLDER: t('ui.addressBar-placeholder'),
+    SECURITY: t('ui.security.title'),
+    ALT_ZOOM: data => t('ui.zoom.altMessage', data)
+  }
+
   const URLParse = getContext('URLParse')
   const setTop = getContext('setTop')
 
@@ -153,7 +160,7 @@
         protocol: '',
         hostname: '',
         port: '',
-        path: 'Type a search query or a URL'
+        path: _.PLACEHOLDER
       }
       inputValue = '';
       
@@ -215,7 +222,7 @@
 </script>
 <div class:abignore id="addressbar" class:focus={isActive}>
   <button use:hover on:click={() => securityDialog = !securityDialog} style="display: contents;">
-    <img alt="Security" id="sec"
+    <img alt={_.SECURITY} id="sec"
       src={
         tab.security === true ? `m-res://${$colorTheme}/sec_https.svg` : 
         tab.security == 'internal' ? `m-res://${$colorTheme}/sec_m.svg` : 
@@ -249,7 +256,7 @@
     id="ab-input"
     on:keyup={handleKeyUp}
     bind:value={inputValue}
-    placeholder="Type a search query or a URL"
+    placeholder={_.PLACEHOLDER}
   >
   {#if $globalZoom != $config?.ui.defaultZoomFactor}
   <button
@@ -260,7 +267,7 @@
     <img
       class="tab-state"
       src="m-res://{$colorTheme}/state_zoom{$globalZoom - $config?.ui.defaultZoomFactor > 0 ? 'in' : 'out'}.svg"
-      alt="Zoom is {Math.round($globalZoom * 100)}"
+      alt={_.ALT_ZOOM({ zoom: Math.round($globalZoom * 100) })}
     >
   </button>
   {/if}
