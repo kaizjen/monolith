@@ -295,7 +295,8 @@ export function init() {
       let instance = new Fuse(history, {
         sortFn: (a, b) => a.score - b.score,
         ignoreLocation: true,
-        keys: ['url', 'title']
+        keys: ['url', 'title'],
+        threshold: 0.3
       })
 
       let matches = instance.search(query);
