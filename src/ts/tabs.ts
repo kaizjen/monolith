@@ -19,8 +19,9 @@ let UIDsAmount = 0;
 
 const options = userData.control.options;
 
-const shouldCrashClosedTabs = options.crash_tabs_on_close.value
-const shouldUseExperimentalBeforeUnload = options.experimental_beforeunload.value
+const shouldCrashClosedTabs = options.crash_tabs_on_close?.value
+const shouldUseExperimentalBeforeUnload = options.experimental_beforeunload?.value
+const autoplayWithDocumentActivation = options.autoplay_by_document_activation?.value
 
 const delayExecution = (function() {
   let allExecutions: Function[] = [];
@@ -211,7 +212,7 @@ export function createBrowserView(opts: TabOptions): Tab {
       partition: opts.private ? PRIVATE_PARTITION : DEFAULT_PARTITION,
       preload: `${__dirname}/tab-preload.js`,
       backgroundThrottling: true,
-      autoplayPolicy: 'document-user-activation-required',
+      autoplayPolicy: autoplayWithDocumentActivation ? 'document-user-activation-required' : 'user-gesture-required',
       navigateOnDragDrop: true
     }
   }) as Tab;

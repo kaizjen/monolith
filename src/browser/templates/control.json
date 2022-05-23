@@ -55,6 +55,12 @@
       "value": false,
       "type": "bool",
       "description": "When HTTPS Only is enabled, completely prevent HTTP connections instead of redirecting to HTTPS."
+    },
+    "autoplay_by_document_activation": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "Allows sites to autoplay content without the user explicitly interacting with the autoplayable element. Monolith will still require the user to activate the document."
     }
   }
 }
