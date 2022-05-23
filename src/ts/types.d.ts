@@ -66,17 +66,18 @@ export interface ParsedURL extends URL {
 
 
 export type Permissions = {
-  popups: boolean
-  'media.video': boolean
-  'media.audio': boolean
-  displayCapture: boolean
-  DRM: boolean
-  geolocation: boolean
-  notifications: boolean
-  midi: boolean
-  pointerLock: boolean
-  openExternal: boolean
-  idleDetection: boolean
+  popups: boolean | null
+  'media.video': boolean | null
+  'media.audio': boolean | null
+  displayCapture: boolean | null
+  DRM: boolean | null
+  geolocation: boolean | null
+  notifications: boolean | null
+  midi: boolean | null
+  pointerLock: boolean | null
+  openExternal: boolean | null
+  idleDetection: boolean | null
+  fullscreen: boolean | null
 }
 export interface Configuration {
   i18n: {

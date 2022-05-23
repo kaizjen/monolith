@@ -27,17 +27,18 @@ privacy:
   alwaysClearBrowsingData: false
   denyCrossOriginPermissions: false
   defaultPermissions:
-    popups: true
-    media.video: true
-    media.audio: true
-    displayCapture: true
+    popups: null
+    media.video: null
+    media.audio: null
+    displayCapture: null
     DRM: false # not implemented
-    geolocation: true
-    notifications: true
-    midi: true
+    geolocation: null
+    notifications: null
+    midi: null
     pointerLock: false
-    openExternal: true
-    idleDetection: true
+    openExternal: null
+    idleDetection: null
+    fullscreen: true
   sitePermissions: {}
 behaviour:
   onStart:

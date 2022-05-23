@@ -317,7 +317,7 @@ export function registerSession(ses: Session) {
 
     if (denyCrossOriginPermissions && !details.isMainFrame && (origin != details.embeddingOrigin)) return false;
 
-    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | undefined {
+    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | void {
       switch (permission) {
         case 'notifications': {
           return obj.notifications
@@ -363,6 +363,7 @@ export function registerSession(ses: Session) {
 
     if (origin in sitePermissions) {
       let check = checkPermission(sitePermissions[origin]);
+      console.log('perm result:', check);
       switch (check) {
         case true: return true
         case false: return false
@@ -370,11 +371,17 @@ export function registerSession(ses: Session) {
       }
     }
 
-    return checkPermission(defaultPermissions) ?? false // no way to return 'prompt'
+    console.log('def perm:', checkPermission(defaultPermissions));
+    return checkPermission(defaultPermissions) || false // no way to return 'prompt'
   })
 
-  ses.setPermissionRequestHandler((wc, permission, callback, details) => {
+  ses.setPermissionRequestHandler((wc, permission, _callback, details) => {
     console.log('requested permission %o with details %o', permission, details);
+
+    function callback(value: boolean) {
+      console.log("permission req result:", value);
+      _callback(value)
+    }
 
     const { privacy } = config.get();
     let { sitePermissions, defaultPermissions } = privacy;
@@ -390,8 +397,16 @@ export function registerSession(ses: Session) {
     }
     if (permission == 'clipboard-read') return callback(!control.options.disallow_clipboard_read.value)
 
-    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | undefined {
+    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | void {
       switch (permission) {
+        case 'fullscreen': {
+          let win = BrowserWindow.fromWebContents(wc) as TabWindow;
+          if (!isTabWindow(win)) return false
+    
+          if (win.currentTab.webContents != wc) return false
+    
+          return obj.fullscreen
+        }
         case 'notifications': {
           return obj.notifications
         }
@@ -475,13 +490,15 @@ export function registerSession(ses: Session) {
       switch (check) {
         case true: return callback(true)
         case false: return callback(false)
-        case undefined: return ask() // site is going to ask us anyway
+        case null:
+        case undefined: //return ask()
       }
     }
 
     let check = checkPermission(defaultPermissions);
 
-    if (check) return ask()
+    if (check == null) return ask()
+    else if (check == true) return callback(true)
     else return callback(false)
   })
 }

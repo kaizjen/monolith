@@ -124,6 +124,7 @@ try {
 }
 
 (function() {
+  const bool_null: ['boolean', null] = ['boolean', null];
   let validation = runType(configContent, {
     i18n: [{
       lang: 'string',
@@ -154,31 +155,33 @@ try {
       alwaysClearBrowsingData: 'boolean',
       denyCrossOriginPermissions: 'boolean',
       defaultPermissions: {
-        popups: 'boolean',
-        'media.video': 'boolean',
-        'media.audio': 'boolean',
-        displayCapture: 'boolean',
-        DRM: 'boolean',
-        geolocation: 'boolean',
-        notifications: 'boolean',
-        midi: 'boolean',
-        pointerLock: 'boolean',
-        openExternal: 'boolean',
-        idleDetection: 'boolean'
+        popups: bool_null,
+        'media.video': bool_null,
+        'media.audio': bool_null,
+        displayCapture: bool_null,
+        DRM: bool_null,
+        geolocation: bool_null,
+        notifications: bool_null,
+        midi: bool_null,
+        pointerLock: bool_null,
+        openExternal: bool_null,
+        idleDetection: bool_null,
+        fullscreen: bool_null
       },
       sitePermissions: {
         '*': {
-          'popups?': 'boolean',
-          'media.video?': 'boolean',
-          'media.audio?': 'boolean',
-          'displayCapture?': 'boolean',
-          'DRM?': 'boolean',
-          'geolocation?': 'boolean',
-          'notifications?': 'boolean',
-          'midi?': 'boolean',
-          'pointerLock?': 'boolean',
-          'openExternal?': 'boolean',
-          'idleDetection?': 'boolean'
+          'popups?': bool_null,
+          'media.video?': bool_null,
+          'media.audio?': bool_null,
+          'displayCapture?': bool_null,
+          'DRM?': bool_null,
+          'geolocation?': bool_null,
+          'notifications?': bool_null,
+          'midi?': bool_null,
+          'pointerLock?': bool_null,
+          'openExternal?': bool_null,
+          'idleDetection?': bool_null,
+          'fullscreen?': bool_null,
         }
       }
     },
