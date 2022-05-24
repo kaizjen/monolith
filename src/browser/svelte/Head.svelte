@@ -55,6 +55,7 @@
     padding: 8px;
     transition: 0.2s;
     display: inline-block;
+    position: relative;
     white-space: nowrap;
     overflow: hidden;
     width: 150px;
@@ -257,7 +258,11 @@
     style:margin-left={isOnMac ? '3.8cm' /* approximate traffic lights width */ : ''}
   >
   <div class="tabhead">
-    <div class="tablist" on:mousedown={e => (e.button == 1) /* middle mb */ ? e.preventDefault() : null}>
+    <div
+      class="tablist"
+      on:mousedown={e => (e.button == 1) /* middle mb */ ? e.preventDefault() : null}
+      on:mousewheel={e => e.deltaX == 0 ? e.currentTarget.scrollBy(e.deltaY, 0) : null}
+    >
       {#each tabs as tab, id (tab)}
         <div
           class="tab"
