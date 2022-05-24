@@ -10,6 +10,7 @@
   import { writable } from "svelte/store"
   import { setContext } from "svelte/internal"
   import PagePopup from "./popups/PagePopup.svelte";
+  import PermissionAccessor from "./PermissionAccessor.svelte";
 
   const URLParse = (function(){
     const slashesRegex = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
@@ -295,4 +296,5 @@
   <Tools tab={tabs[currentTab]} />
 </div>
 
+<PermissionAccessor tab={tabs[currentTab]} />
 </div>

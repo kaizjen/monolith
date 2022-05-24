@@ -9,6 +9,61 @@ common:
   ok: OK
   cancel: Cancel
   loading: Loading...
+  permissions:
+    status:
+      allow: Allow
+      deny: Deny
+      ignore: Ignore
+      useDefault: Use default
+      defaultMark: (Default)
+    geolocation:
+      name: Geolocation (not working)
+      desc: Provides access to your percise position
+      prompt: ${hostname} wants to access your geolocation
+    fullscreen:
+      name: Fullscreen
+      desc: The ability to show the page in fullscreen mode
+      prompt: ${hostname} wants to use the fullscreen mode
+    popups:
+      name: Pop-up windows
+      desc: Allows to show pop-up windows
+      prompt: ${hostname} wants to pop-up a window
+    media.video:
+      name: Webcam access
+      desc: Allows to access the webcam
+      prompt: ${hostname} wants to access your webcam
+    media.audio:
+      name: Microphone access
+      desc: Allows to access the microphone
+      prompt: ${hostname} wants to access your microphone
+    displayCapture:
+      name: Capturing the display
+      desc: Allows to record your screen
+      prompt: ${hostname} wants to record your screen
+    DRM:
+      name: DRM
+      desc: Allows to play content protected by Digital Rights Management
+      prompt: ${hostname} wants to play DRM-protected content
+    notifications:
+      name: Notifications
+      desc: Allows to show notifications
+      prompt: ${hostname} wants to be able to show notifications
+    midi:
+      name: Use MIDI devices
+      desc: Allows to use MIDI devices
+      prompt: ${hostname} wants to use MIDI devices
+    pointerLock:
+      name: Pointer lock
+      desc: Allows to control your mouse cursor
+      prompt: ${hostname} wants to lock your mouse cursor
+    openExternal:
+      name: openExternal
+      desc: permission "openExternal"
+      prompt: ${hostname} wants the permission "openExternal"
+    idleDetection:
+      name: Idle detection
+      desc: Allows to detect when the user is idle
+      prompt: ${hostname} wants to be able to detect when you are idle
 navigation:
   back: Back
   forward: Forward
@@ -18,6 +73,10 @@ ui:
     alert: Message from ${site}
     confirm: Confirm your action on ${site}
     prompt: Enter your input on ${site}
+    permission:
+      allow: Allow
+      deny: Deny
+      ignore: Ignore
   tools:
     load-stop: Stop loading
     load-refresh: Refresh

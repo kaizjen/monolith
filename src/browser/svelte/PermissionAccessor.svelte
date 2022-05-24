@@ -1,0 +1,126 @@
+<style>
+  .permbox {
+    padding-block: 8px;
+    padding-inline: 12px;
+    background: var(--active-background);
+    color: var(--accent-text);
+    display: flex;
+    align-content: center;
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  span {
+    flex-grow: 1;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .close {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    border-radius: 4px;
+  }
+  .close:hover {
+    background: var(--tool-hover);
+  }
+  .close:active {
+    background: var(--tool-active);
+  }
+</style>
+<script>
+  import { ipcRenderer } from "electron";
+  import { getContext } from "svelte/internal";
+  import Button from "./lib/Button.svelte";
+
+  const colorTheme = getContext('colorTheme')
+
+  const { t } = window;
+  const _ = {
+    permission: {
+      NAME: name => t(`common.permissions.${name}.name`),
+      PROMPT: (name, hostname) => t(`common.permissions.${name}.prompt`, { hostname })
+    },
+    ALLOW: t('common.permissions.status.allow'),
+    DENY: t('common.permissions.status.deny'),
+    IGNORE: t('common.permissions.status.ignore'),
+    DEFAULT: t('common.permissions.status.defaultMark'),
+  }
+
+  export let tab;
+  let permissionPendingMap = {};
+  let currentTabPermissions = [];
+  $: currentTabPermissions = permissionPendingMap[tab?.uid] || []
+  let thisPerm;
+  $: thisPerm = currentTabPermissions[0]
+
+  function updateMap() {
+    permissionPendingMap = permissionPendingMap;
+    requestAnimationFrame(() => {
+      ipcRenderer.send('chrome:setHeight', document.body.getBoundingClientRect().height)
+    })
+  }
+
+  ipcRenderer.on('permission-add', (_e, tabUID, permObject) => {
+    if (tabUID in permissionPendingMap) {
+      permissionPendingMap[tabUID].push(permObject);
+      
+    } else {
+      permissionPendingMap[tabUID] = [ permObject ]
+    }
+    updateMap()
+  })
+  ipcRenderer.on('permission-remove', (_e, tabUID, { name, hostname }) => {
+    let perms = permissionPendingMap[tabUID];
+    let id = perms.find(o => o.name == name && o.hostname == hostname);
+    if (id == -1) return;
+
+    perms.splice(id, 1);
+    updateMap()
+  })
+
+  function sendAllow() {
+    ipcRenderer.send('permission-response', {
+      allow: true,
+      tabUID: tab.uid,
+      permission: thisPerm
+    })
+  }
+  function sendDeny() {
+    ipcRenderer.send('permission-response', {
+      allow: false,
+      tabUID: tab.uid,
+      permission: thisPerm
+    })
+  }
+  function sendIndifferent() {
+    ipcRenderer.send('permission-response', {
+      allow: null,
+      tabUID: tab.uid,
+      permission: thisPerm
+    })
+  }
+
+  let noSuchImage = false;
+</script>
+
+{#if currentTabPermissions.length > 0}
+  <div class="permbox">
+    {#if !noSuchImage}
+      <img class="icon" src="m-res://{$colorTheme}/permissions/{thisPerm.name}.svg"
+        alt="Permission: {_.permission.NAME(thisPerm.name)}"
+        on:error={() => noSuchImage = true}
+      >
+    {/if}
+    <span> {_.permission.PROMPT(thisPerm.name, thisPerm.hostname)} </span>
+    <Button on:click={sendAllow} style="margin-right: 10px;" outline={true}>{_.ALLOW}</Button>
+    <Button on:click={sendDeny} outline={true}>{_.DENY}</Button>
+    <button class="close" on:click={sendIndifferent}>
+      <img src="m-res://{$colorTheme}/tab_close.svg" alt={_.IGNORE} title={_.IGNORE}>
+    </button>
+  </div>
+{/if}

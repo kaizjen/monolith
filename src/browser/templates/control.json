@@ -61,6 +61,12 @@
       "value": false,
       "type": "bool",
       "description": "Allows sites to autoplay content without the user explicitly interacting with the autoplayable element. Monolith will still require the user to activate the document."
+    },
+    "fake_permission_value_when_ask": {
+      "default": false,
+      "value": false,
+      "type": "bool",
+      "description": "Monolith has a limitation: it cannot return 'prompt' for permission checks. This setting describes what should it tell the site instead: true means allowed, false means denied"
     }
   }
 }

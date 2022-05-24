@@ -1,7 +1,7 @@
 // This file does everything related to the current session and the electron sessions
 
-import type { CertficateCache, Permissions, TabWindow } from "./types";
-import { app, BrowserWindow, ipcMain, protocol, session, Session, screen, nativeTheme, dialog } from "electron";
+import type { CertficateCache, Permissions, Tab, TabWindow } from "./types";
+import { app, BrowserWindow, ipcMain, protocol, session, Session, screen, nativeTheme } from "electron";
 import * as pathModule from "path"
 import $ from "./vars";
 import { randomUUID } from 'crypto'
@@ -19,7 +19,9 @@ console.log('Starting session with UUID ', global.SESSION_UUID);
 protocol.registerSchemesAsPrivileged([
   { scheme: 'mth', privileges: { standard: true } },
   { scheme: 'm-res', privileges: { standard: true } },
-])
+]);
+
+const fakeAskValueForPermCheck = !!control.options.fake_permission_value_when_ask?.value
 
 export function registerSession(ses: Session) {
   //ses.setPreloads([ `${__dirname}/tab-preload.js` ])
@@ -317,7 +319,7 @@ export function registerSession(ses: Session) {
 
     if (denyCrossOriginPermissions && !details.isMainFrame && (origin != details.embeddingOrigin)) return false;
 
-    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | void {
+    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | null | undefined {
       switch (permission) {
         case 'notifications': {
           return obj.notifications
@@ -363,7 +365,6 @@ export function registerSession(ses: Session) {
 
     if (hostname in sitePermissions) {
       let check = checkPermission(sitePermissions[hostname]);
-      console.log('perm result:', check);
       switch (check) {
         case true: return true
         case false: return false
@@ -371,18 +372,23 @@ export function registerSession(ses: Session) {
       }
     }
 
-    console.log('def perm:', checkPermission(defaultPermissions));
-    return checkPermission(defaultPermissions) || false // no way to return 'prompt'
+    let defaultCheck = checkPermission(defaultPermissions)
+    // there is no way to return 'prompt' or 'default' so we just say no usually
+    return defaultCheck == undefined ? fakeAskValueForPermCheck : defaultCheck
   })
 
   ses.setPermissionRequestHandler((wc, permission, callback, details) => {
     console.log('requested permission %o with details %o', permission, details);
 
     const { privacy } = config.get();
-    let { sitePermissions, defaultPermissions } = privacy;
+    let { sitePermissions, defaultPermissions, denyCrossOriginPermissions } = privacy;
     let { origin, hostname } = URLParse(details.requestingUrl);
-
+    
     if (permission == 'clipboard-read') return callback(!control.options.disallow_clipboard_read.value)
+
+    if (denyCrossOriginPermissions && !details.isMainFrame && (origin != URLParse(details.requestingUrl).origin)){
+      callback(false); return;
+    }
 
     function checkPermission(obj: Permissions | Partial<Permissions>): boolean | null | undefined {
       switch (permission) {
@@ -437,6 +443,7 @@ export function registerSession(ses: Session) {
       switch (perm) {
         case 'mediaKeySystem': return 'DRM'
         case 'display-capture': return 'displayCapture'
+        case 'idle-detection': return 'idleDetection'
         case 'media': return details.mediaTypes.includes('audio') ? 'media.audio' :
           (details.mediaTypes.includes('video') ? 'media.video' : '-unknown-')
         default: return perm
@@ -453,27 +460,40 @@ export function registerSession(ses: Session) {
       config.set({ privacy });
     }
 
-    async function ask() {
-      // TODO: make the dialog pretty
-      let { response } = await dialog.showMessageBox(BrowserWindow.fromWebContents(wc), {
-        message: `${hostname} requires permission: "${permission}"`,
-        title: 'Permission check',
-        type: 'info',
-        buttons: [ 'Deny', 'Allow' ],
-        cancelId: 0
-      });
+    function ask() {
+      let win = BrowserWindow.fromWebContents(wc) as TabWindow;
+      if (!win || !isTabWindow(win)) return callback(false);
 
-      if (response == 1) {
-        // Allow
-        callback(true);
-        console.log('about to write allow %o for origin %o', permission, origin);
-        
-      } else {
-        callback(false)
-        console.log('about to write deny %o for origin %o', permission, origin);
+      let uid = win.tabs.find(t => t.webContents == wc)?.uniqueID;
+      if (uid == undefined) throw(new Error("No tab in window. This should NOT happen!"));
+
+      win.chrome.webContents.send('permission-add', uid, {
+        name: getValidName(permission),
+        hostname
+      })
+
+      type PermissionIPC = {
+        name: string
+        hostname: string
       }
+      function handleIPC(_e: Electron.Event, channel: string, data:{ allow: boolean|null, tabUID: number, permission: PermissionIPC }) {
+        if (
+          channel != 'permission-response' ||
+          data.tabUID != uid ||
+          data.permission.name != getValidName(permission)
+        ) return;
 
-      writePermission(response == 1)
+        win.chrome.webContents.off('ipc-message', handleIPC);
+        if (data.allow != null) {
+          callback(data.allow)
+          writePermission(data.allow)
+        }
+        win.chrome.webContents.send('permission-remove', uid, {
+          name: getValidName(permission),
+          hostname
+        })
+      }
+      win.chrome.webContents.on('ipc-message', handleIPC)
     }
 
     if (hostname in sitePermissions) {
@@ -482,7 +502,7 @@ export function registerSession(ses: Session) {
         case true: return callback(true)
         case false: return callback(false)
         case null:
-        case undefined: //return ask()
+        case undefined: // use default
       }
     }
 

@@ -9,6 +9,8 @@ import runType from 'runtype-check';
 
 console.time('userData init');
 
+yaml.defaultOptions.simpleKeys = true; // prevent YAML from converting { key: null } to "? key"
+
 const { join } = path;
 export const userdataDirectory = path.join(app.getPath('userData'), 'userdata')
 

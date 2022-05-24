@@ -41,13 +41,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --base-background: #21252b; /* #38393c */
-    --active-background: #5b626d; /* #56585d */
+    --base-background: #21252b;
+    --active-background: #5b626d;
     --private-theme: #684a86;
 
     --dialog-background: var(--base-background);
 
-    --trivial-color: #5b626d;
+    --trivial-color: #626468;
     --trivial-text: #ffffffab;
     --accent-text: white;
     --accent-color: #247ecd;
