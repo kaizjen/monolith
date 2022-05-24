@@ -5,6 +5,9 @@
     border-radius: 4px;
     transition: .2s;
   }
+  button.with-bg {
+    background: var(--button-background);
+  }
   button:hover {
     background: var(--button-hover);
     transition: .05s;
@@ -27,6 +30,7 @@
 </style>
 <script>
   import { createEventDispatcher } from "svelte/internal";
+  export let background = true;
   export let callToAction = false;
   export let outline = false;
   export let style = '';
@@ -37,6 +41,7 @@
   {style}
   style:outline={outline ? '1px solid var(--trivial-color)' : ''}
   class:call-to-action={callToAction}
+  class:with-bg={background}
   on:click={e => emit('click', e)}
   on:mousedown={e => emit('mousedown', e)}
   on:mouseup={e => emit('mouseup', e)}

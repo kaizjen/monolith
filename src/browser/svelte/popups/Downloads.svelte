@@ -143,7 +143,7 @@
   }}
 </script>
 
-<div class="dialog" in:fly={{ y: 8, duration: 100 }}>
+<div class="dialog" in:fly={{ y: 4, duration: 100, opacity: 0.8 }}>
   {#if downloadInfo}
     <h3>{_.CURRENT}</h3>
     <div class="dl-wrapper">

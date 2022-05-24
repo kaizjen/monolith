@@ -117,8 +117,8 @@
       >
     {/if}
     <span> {_.permission.PROMPT(thisPerm.name, thisPerm.hostname)} </span>
-    <Button on:click={sendAllow} style="margin-right: 10px;" outline={true}>{_.ALLOW}</Button>
-    <Button on:click={sendDeny} outline={true}>{_.DENY}</Button>
+    <Button on:click={sendAllow} style="margin-right: 10px;">{_.ALLOW}</Button>
+    <Button on:click={sendDeny}>{_.DENY}</Button>
     <button class="close" on:click={sendIndifferent}>
       <img src="m-res://{$colorTheme}/tab_close.svg" alt={_.IGNORE} title={_.IGNORE}>
     </button>
