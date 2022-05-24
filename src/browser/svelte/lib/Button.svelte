@@ -8,6 +8,7 @@
   button:hover {
     background: var(--button-hover);
     transition: .05s;
+    outline-color: var(--button-hover) !important;
   }
   button:active {
     background: var(--button-active);
