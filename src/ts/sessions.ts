@@ -313,7 +313,7 @@ export function registerSession(ses: Session) {
     
     const { privacy } = config.get();
     let { defaultPermissions, sitePermissions, denyCrossOriginPermissions } = privacy;
-    let { origin } = URLParse(originalOrigin)
+    let { origin, hostname } = URLParse(originalOrigin)
 
     if (denyCrossOriginPermissions && !details.isMainFrame && (origin != details.embeddingOrigin)) return false;
 
@@ -361,8 +361,8 @@ export function registerSession(ses: Session) {
       }
     }
 
-    if (origin in sitePermissions) {
-      let check = checkPermission(sitePermissions[origin]);
+    if (hostname in sitePermissions) {
+      let check = checkPermission(sitePermissions[hostname]);
       console.log('perm result:', check);
       switch (check) {
         case true: return true
@@ -375,29 +375,16 @@ export function registerSession(ses: Session) {
     return checkPermission(defaultPermissions) || false // no way to return 'prompt'
   })
 
-  ses.setPermissionRequestHandler((wc, permission, _callback, details) => {
+  ses.setPermissionRequestHandler((wc, permission, callback, details) => {
     console.log('requested permission %o with details %o', permission, details);
-
-    function callback(value: boolean) {
-      console.log("permission req result:", value);
-      _callback(value)
-    }
 
     const { privacy } = config.get();
     let { sitePermissions, defaultPermissions } = privacy;
     let { origin, hostname } = URLParse(details.requestingUrl);
 
-    if (permission == 'fullscreen') {
-      let win = BrowserWindow.fromWebContents(wc) as TabWindow;
-      if (!isTabWindow(win)) return callback(false)
-
-      if (win.currentTab.webContents != wc) return callback(false)
-
-      return callback(true)
-    }
     if (permission == 'clipboard-read') return callback(!control.options.disallow_clipboard_read.value)
 
-    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | void {
+    function checkPermission(obj: Permissions | Partial<Permissions>): boolean | null | undefined {
       switch (permission) {
         case 'fullscreen': {
           let win = BrowserWindow.fromWebContents(wc) as TabWindow;
@@ -456,6 +443,16 @@ export function registerSession(ses: Session) {
       }
     }
 
+    function writePermission(isAllowed: boolean | null) {
+      if (hostname in sitePermissions) {
+        sitePermissions[hostname][getValidName(permission)] = isAllowed;
+      } else {
+        sitePermissions[hostname] = { [getValidName(permission)]: isAllowed }
+      }
+
+      config.set({ privacy });
+    }
+
     async function ask() {
       // TODO: make the dialog pretty
       let { response } = await dialog.showMessageBox(BrowserWindow.fromWebContents(wc), {
@@ -476,17 +473,11 @@ export function registerSession(ses: Session) {
         console.log('about to write deny %o for origin %o', permission, origin);
       }
 
-      if (origin in sitePermissions) {
-        sitePermissions[origin][getValidName(permission)] = response == 1;
-      } else {
-        sitePermissions[origin] = { [getValidName(permission)]: response == 1 }
-      }
-
-      config.set({ privacy });
+      writePermission(response == 1)
     }
 
-    if (origin in sitePermissions) {
-      let check = checkPermission(sitePermissions[origin]);
+    if (hostname in sitePermissions) {
+      let check = checkPermission(sitePermissions[hostname]);
       switch (check) {
         case true: return callback(true)
         case false: return callback(false)
@@ -497,9 +488,11 @@ export function registerSession(ses: Session) {
 
     let check = checkPermission(defaultPermissions);
 
-    if (check == null) return ask()
-    else if (check == true) return callback(true)
-    else return callback(false)
+    if (check == undefined || check == null) return ask()
+    else {
+      writePermission(null); // writing explicit default
+      return callback(check)
+    }
   })
 }
 
