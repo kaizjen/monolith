@@ -469,14 +469,17 @@ export function registerSession(ses: Session) {
 
       win.chrome.webContents.send('permission-add', uid, {
         name: getValidName(permission),
-        hostname
+        hostname,
+        externalURL: details.externalURL
       })
 
       type PermissionIPC = {
         name: string
         hostname: string
       }
-      function handleIPC(_e: Electron.Event, channel: string, data:{ allow: boolean|null, tabUID: number, permission: PermissionIPC }) {
+      function handleIPC(_e: Electron.Event, channel: string, data: {
+        allow: boolean|null, tabUID: number, permission: PermissionIPC
+      }) {
         if (
           channel != 'permission-response' ||
           data.tabUID != uid ||
@@ -486,7 +489,9 @@ export function registerSession(ses: Session) {
         win.chrome.webContents.off('ipc-message', handleIPC);
         if (data.allow != null) {
           callback(data.allow)
-          writePermission(data.allow)
+          writePermission(permission == 'openExternal' ? null : data.allow)
+          // openExternal isn't saved due to security reasons: a site that has this permission can open
+          // ANY app that has a protocol handler
         }
         win.chrome.webContents.send('permission-remove', uid, {
           name: getValidName(permission),

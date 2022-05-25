@@ -6,14 +6,16 @@
     color: var(--accent-text);
     display: flex;
     align-content: center;
+    padding-left: 22px;
   }
   .icon {
     width: 24px;
     height: 24px;
+    align-self: center;
   }
   span {
     flex-grow: 1;
-    margin-left: 20px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
   }
@@ -43,12 +45,15 @@
   const _ = {
     permission: {
       NAME: name => t(`common.permissions.${name}.name`),
-      PROMPT: (name, hostname) => t(`common.permissions.${name}.prompt`, { hostname })
+      PROMPT: (name, hostname, data) => t(`common.permissions.${name}.prompt`, { hostname, ...data }),
+      ALT: name => t(`ui.popups.permission.alt`, { name: t(`common.permissions.${name}.name`) }),
     },
     ALLOW: t('common.permissions.status.allow'),
     DENY: t('common.permissions.status.deny'),
     IGNORE: t('common.permissions.status.ignore'),
     DEFAULT: t('common.permissions.status.defaultMark'),
+    LOADING: t('common.loading'),
+    APPICON: app => t('ui.popups.permission.appIcon', { app })
   }
 
   export let tab;
@@ -106,17 +111,36 @@
   }
 
   let noSuchImage = false;
+  let overriddenIcon;
+  let appName;
+
+  async function getExternalInfo() {
+    let info = await ipcRenderer.invoke('getAppForProtocol', thisPerm.externalURL);
+    noSuchImage = false;
+    console.log("App info for", thisPerm.externalURL, ":", info);
+    overriddenIcon = info.icon;
+    appName = info.name
+    return info.name;
+  }
 </script>
 
 {#if currentTabPermissions.length > 0}
   <div class="permbox">
     {#if !noSuchImage}
-      <img class="icon" src="m-res://{$colorTheme}/permissions/{thisPerm.name}.svg"
-        alt="Permission: {_.permission.NAME(thisPerm.name)}"
+      <img class="icon" src={overriddenIcon || `m-res://${$colorTheme}/permissions/${thisPerm.name}.svg`}
+        alt={overriddenIcon ? _.APPICON(appName) : _.permission.ALT(thisPerm.name)}
         on:error={() => noSuchImage = true}
       >
     {/if}
-    <span> {_.permission.PROMPT(thisPerm.name, thisPerm.hostname)} </span>
+    {#if thisPerm.name == 'openExternal'}
+      {#await getExternalInfo()}
+        <span> {_.LOADING} </span>
+      {:then app}
+        <span> {_.permission.PROMPT(thisPerm.name, thisPerm.hostname, { app })} </span>
+      {/await}
+    {:else}
+      <span> {_.permission.PROMPT(thisPerm.name, thisPerm.hostname)} </span>
+    {/if}
     <Button on:click={sendAllow} style="margin-right: 10px;">{_.ALLOW}</Button>
     <Button on:click={sendDeny}>{_.DENY}</Button>
     <button class="close" on:click={sendIndifferent}>

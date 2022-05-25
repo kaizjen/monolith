@@ -1,6 +1,6 @@
 // Manages the recieving IPC
 
-import { ipcMain, BrowserWindow, clipboard, nativeTheme, safeStorage, dialog, shell, session } from "electron";
+import { ipcMain, BrowserWindow, clipboard, nativeTheme, safeStorage, dialog, shell, session, app } from "electron";
 import type { WebContents, IpcMainEvent } from "electron";
 import fetch from "electron-fetch";
 import * as userData from "./userdata";
@@ -242,8 +242,23 @@ export function init() {
   })
 
 
-  ipcMain.on('parseURL', (e, url: string) => {
-    e.returnValue = URLParse(String(url))
+  ipcMain.handle('getAppForProtocol', async(_e, url: string) => {
+    if (process.platform == 'darwin' || process.platform == 'win32') {
+      try {
+        let { icon, name } = await app.getApplicationInfoForProtocol(url);
+  
+        return { name, icon: `data:image/png;base64,${icon.toPNG().toString('base64')}` }
+        
+      } catch (_) {
+        return { name: "(unknown)", icon: null }
+      }
+
+    } else {
+      return {
+        icon: null,
+        name: app.getApplicationNameForProtocol(url) || "(unknown)"
+      }
+    }
   })
 
   ipcMain.on('newTab', (e, options: TabOptions = { url: $.newTabUrl }) => {

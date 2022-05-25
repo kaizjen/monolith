@@ -58,9 +58,9 @@ common:
       desc: Allows to control your mouse cursor
       prompt: ${hostname} wants to lock your mouse cursor
     openExternal:
-      name: openExternal
-      desc: permission "openExternal"
-      prompt: ${hostname} wants the permission "openExternal"
+      name: Opening external apps
+      desc: Allows opening an app on your device. Allowing this means the site will be able to open almost any app without asking.
+      prompt: ${hostname} wants to open "${app}"
     idleDetection:
       name: Idle detection
       desc: Allows to detect when the user is idle
@@ -75,9 +75,8 @@ ui:
     confirm: Confirm your action on ${site}
     prompt: Enter your input on ${site}
     permission:
-      allow: Allow
-      deny: Deny
-      ignore: Ignore
+      alt: "Permission: ${name}"
+      appIcon: ${app} icon
   tools:
     load-stop: Stop loading
     load-refresh: Refresh
