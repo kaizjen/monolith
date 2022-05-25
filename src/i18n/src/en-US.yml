@@ -14,6 +14,7 @@ common:
       allow: Allow
       deny: Deny
       ignore: Ignore
+      ask: Ask
       useDefault: Use default
       defaultMark: (Default)
     geolocation:
@@ -113,6 +114,7 @@ ui:
     button-viewCertificate: View certificate
     button-cookieFiles: Cookie files
     button-siteSettings: Site settings
+    permissions: Permissions of ${site}
   zoom:
     altMessage: Zoom is ${zoom}%
     infoMessage: "Zoom: ${zoom}%"

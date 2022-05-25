@@ -55,7 +55,7 @@
   
 </script>
 
-<div class="dialog" in:fly={window.flyerProperties}>
+<div class="dialog" in:fly={window.flyoutProperties}>
   <div class="title">
     <img
       style="margin-right: 8px;"

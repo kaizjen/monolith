@@ -129,7 +129,7 @@
   }}
 </script>
 
-<div class="dialog" in:fly={window.flyerProperties}>
+<div class="dialog" in:fly={window.flyoutProperties}>
   {#if downloadInfo}
     <h3>{_.CURRENT}</h3>
     <div class="dl-wrapper">

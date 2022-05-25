@@ -9,7 +9,7 @@
   import Tools from "./Tools.svelte";
   import { writable } from "svelte/store"
   import { setContext } from "svelte/internal"
-  import PagePopup from "./popups/PagePopup.svelte";
+  import PagePopup from "./PagePopup.svelte";
   import PermissionAccessor from "./PermissionAccessor.svelte";
 
   const URLParse = (function(){
@@ -78,7 +78,7 @@
     $colorTheme = m.matches ? 'dark' : 'light';
   })
 
-  window.flyerProperties = { y: 4, duration: 100, opacity: 0.8 };
+  window.flyoutProperties = { y: 4, duration: 100, opacity: 0.8 };
 
   requestAnimationFrame(() => {
     ipcRenderer.send('chrome:setHeight', document.body.getBoundingClientRect().height)

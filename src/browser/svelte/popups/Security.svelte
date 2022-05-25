@@ -63,6 +63,9 @@
   button > img {
     margin-right: 8px;
   }
+  .perm-title {
+    margin-bottom: 8px;
+  }
 </style>
 
 <script>
@@ -71,6 +74,7 @@
   import { ipcRenderer } from 'electron'
   import { getContext } from 'svelte/internal';
   import { fly } from 'svelte/transition'
+  import Permission from './Security/Permission.svelte';
 
   const { t } = window;
   const _ = {
@@ -89,28 +93,43 @@
       CERT: t('ui.security.button-viewCertificate'),
       COOKIE: t('ui.security.button-cookieFiles'),
       SETTS: t('ui.security.button-siteSettings'),
-    }
+    },
+    PERMISSIONS: site => t('ui.security.permissions', { site })
   }
+
+  let hostname;
+  $: hostname = (new URL(tab.url)).hostname;
+
+  let defaultPermissions;
+  $: defaultPermissions = $config.privacy.defaultPermissions;
+
+  let sitePermissions;
+  $: sitePermissions = $config.privacy.sitePermissions;
+
+  let thisPermissions;
+  $: thisPermissions = sitePermissions[hostname];
 
   const setTop = getContext('setTop')
   const colorTheme = getContext('colorTheme')
+  const config = getContext('config')
 
   setTop(true)
 
   function showCertificate() {
-    ipcRenderer.send('showCertificate', new URL(tab.url).hostname)
+    ipcRenderer.send('showCertificate', hostname)
     isOpen = false;
   }
   function showCookies() {
-    
+    ipcRenderer.send('showCookies', tab.url)
+    isOpen = false;
   }
   function siteSettings() {
-    ipcRenderer.send('newTab', { url: `mth://settings#siteSettings/site:${new URL(tab.url).hostname}` })
+    ipcRenderer.send('newTab', { url: `mth://settings#siteSettings/site:${hostname}` })
     isOpen = false;
   }
 </script>
 
-<div class="dialog" in:fly={window.flyerProperties}>
+<div class="dialog" in:fly={window.flyoutProperties}>
   <div class="info" class:secure={tab.security === true}>
     <img src={
       tab.security === true ? `m-res://${$colorTheme}/sec_https.svg` : 
@@ -135,6 +154,17 @@
     {/if}
     <button on:click={showCookies}><img src="m-res://{$colorTheme}/secdialog_cookie.svg" alt=""> {_.btn.COOKIE}</button>
     <button on:click={siteSettings}><img src="m-res://{$colorTheme}/secdialog_sitesetts.svg" alt=""> {_.btn.SETTS}</button>
+
+    {#if hostname in sitePermissions}
+      <h3 class="perm-title">{_.PERMISSIONS(hostname)}</h3>
+      {#each Object.keys(thisPermissions) as key}
+        <Permission name={key} value={thisPermissions[key]} on:change={({ detail }) => {
+          thisPermissions[key] = detail;
+          ipcRenderer.invoke('internal:userData', 'config:set', $config);
+          // TODO: make IPC shared by chrome and mth:// pages
+        }} defaultValue={defaultPermissions[key]} />
+      {/each}
+    {/if}
   {/if}
 </div>
 
