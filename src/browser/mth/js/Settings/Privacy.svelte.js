@@ -39,7 +39,7 @@ import noFirstTime from "mth://js/nft.js";
 import DataClearer from "./dialogs/DataClearer.svelte";
 const file = "src\\browser\\mth\\$svelte\\src\\Settings\\Privacy.svelte";
 
-// (44:0) <ContentDialog size="max" append={document.body} bind:open={siteSettingsDialog} closable={false}>
+// (46:0) <ContentDialog size="max" append={document.body} bind:open={siteSettingsDialog} closable={false}>
 function create_default_slot_14(ctx) {
 	let t;
 
@@ -59,14 +59,14 @@ function create_default_slot_14(ctx) {
 		block,
 		id: create_default_slot_14.name,
 		type: "slot",
-		source: "(44:0) <ContentDialog size=\\\"max\\\" append={document.body} bind:open={siteSettingsDialog} closable={false}>",
+		source: "(46:0) <ContentDialog size=\\\"max\\\" append={document.body} bind:open={siteSettingsDialog} closable={false}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (47:4) <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>
+// (49:4) <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>
 function create_default_slot_13(ctx) {
 	let t;
 
@@ -86,14 +86,14 @@ function create_default_slot_13(ctx) {
 		block,
 		id: create_default_slot_13.name,
 		type: "slot",
-		source: "(47:4) <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>",
+		source: "(49:4) <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (46:2) <svelte:fragment slot="footer">
+// (48:2) <svelte:fragment slot="footer">
 function create_footer_slot(ctx) {
 	let button;
 	let current;
@@ -106,7 +106,7 @@ function create_footer_slot(ctx) {
 			$$inline: true
 		});
 
-	button.$on("click", /*click_handler*/ ctx[8]);
+	button.$on("click", /*click_handler*/ ctx[9]);
 
 	const block = {
 		c: function create() {
@@ -119,7 +119,7 @@ function create_footer_slot(ctx) {
 		p: function update(ctx, dirty) {
 			const button_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				button_changes.$$scope = { dirty, ctx };
 			}
 
@@ -143,14 +143,14 @@ function create_footer_slot(ctx) {
 		block,
 		id: create_footer_slot.name,
 		type: "slot",
-		source: "(46:2) <svelte:fragment slot=\\\"footer\\\">",
+		source: "(48:2) <svelte:fragment slot=\\\"footer\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (53:2) <TextBlock variant="body">
+// (55:2) <TextBlock variant="body">
 function create_default_slot_12(ctx) {
 	let t;
 
@@ -170,14 +170,14 @@ function create_default_slot_12(ctx) {
 		block,
 		id: create_default_slot_12.name,
 		type: "slot",
-		source: "(53:2) <TextBlock variant=\\\"body\\\">",
+		source: "(55:2) <TextBlock variant=\\\"body\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (54:2) <TextBlock variant="caption" style="color: gray;">
+// (56:2) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_11(ctx) {
 	let t;
 
@@ -197,14 +197,14 @@ function create_default_slot_11(ctx) {
 		block,
 		id: create_default_slot_11.name,
 		type: "slot",
-		source: "(54:2) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(56:2) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (52:0) <ListItem on:click={() => clearDialog = true} style="block-size: 57px;">
+// (54:0) <ListItem on:click={() => clearDialog = true} style="block-size: 57px;">
 function create_default_slot_10(ctx) {
 	let textblock0;
 	let br;
@@ -237,7 +237,7 @@ function create_default_slot_10(ctx) {
 			br = element("br");
 			t = space();
 			create_component(textblock1.$$.fragment);
-			add_location(br, file, 52, 58, 1973);
+			add_location(br, file, 54, 58, 1853);
 		},
 		m: function mount(target, anchor) {
 			mount_component(textblock0, target, anchor);
@@ -249,14 +249,14 @@ function create_default_slot_10(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock0_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock0.$set(textblock0_changes);
 			const textblock1_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -285,14 +285,14 @@ function create_default_slot_10(ctx) {
 		block,
 		id: create_default_slot_10.name,
 		type: "slot",
-		source: "(52:0) <ListItem on:click={() => clearDialog = true} style=\\\"block-size: 57px;\\\">",
+		source: "(54:0) <ListItem on:click={() => clearDialog = true} style=\\\"block-size: 57px;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (59:2) <TextBlock variant="body">
+// (61:2) <TextBlock variant="body">
 function create_default_slot_9(ctx) {
 	let t;
 
@@ -312,14 +312,14 @@ function create_default_slot_9(ctx) {
 		block,
 		id: create_default_slot_9.name,
 		type: "slot",
-		source: "(59:2) <TextBlock variant=\\\"body\\\">",
+		source: "(61:2) <TextBlock variant=\\\"body\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (60:2) <TextBlock variant="caption" style="color: gray;">
+// (62:2) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_8(ctx) {
 	let t;
 
@@ -339,14 +339,14 @@ function create_default_slot_8(ctx) {
 		block,
 		id: create_default_slot_8.name,
 		type: "slot",
-		source: "(60:2) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(62:2) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (58:0) <ListItem on:click={() => {siteSettingsDialog = true; location.hash = '#siteSettings'}} style="block-size: 57px;">
+// (60:0) <ListItem on:click={() => {siteSettingsDialog = true; location.hash = '#siteSettings'}} style="block-size: 57px;">
 function create_default_slot_7(ctx) {
 	let textblock0;
 	let br;
@@ -379,7 +379,7 @@ function create_default_slot_7(ctx) {
 			br = element("br");
 			t = space();
 			create_component(textblock1.$$.fragment);
-			add_location(br, file, 58, 63, 2311);
+			add_location(br, file, 60, 63, 2191);
 		},
 		m: function mount(target, anchor) {
 			mount_component(textblock0, target, anchor);
@@ -391,14 +391,14 @@ function create_default_slot_7(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock0_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock0.$set(textblock0_changes);
 			const textblock1_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -427,14 +427,14 @@ function create_default_slot_7(ctx) {
 		block,
 		id: create_default_slot_7.name,
 		type: "slot",
-		source: "(58:0) <ListItem on:click={() => {siteSettingsDialog = true; location.hash = '#siteSettings'}} style=\\\"block-size: 57px;\\\">",
+		source: "(60:0) <ListItem on:click={() => {siteSettingsDialog = true; location.hash = '#siteSettings'}} style=\\\"block-size: 57px;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (65:4) <TextBlock variant="caption" style="color: gray;">
+// (67:4) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_6(ctx) {
 	let t;
 
@@ -454,14 +454,14 @@ function create_default_slot_6(ctx) {
 		block,
 		id: create_default_slot_6.name,
 		type: "slot",
-		source: "(65:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(67:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (63:2) <TextBlock>
+// (65:2) <TextBlock>
 function create_default_slot_5(ctx) {
 	let t0;
 	let br;
@@ -485,7 +485,7 @@ function create_default_slot_5(ctx) {
 			br = element("br");
 			t1 = space();
 			create_component(textblock.$$.fragment);
-			add_location(br, file, 63, 34, 2504);
+			add_location(br, file, 65, 34, 2384);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, t0, anchor);
@@ -497,7 +497,7 @@ function create_default_slot_5(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -524,14 +524,14 @@ function create_default_slot_5(ctx) {
 		block,
 		id: create_default_slot_5.name,
 		type: "slot",
-		source: "(63:2) <TextBlock>",
+		source: "(65:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (76:4) <TextBlock variant="caption" style="color: gray;">
+// (78:4) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_4(ctx) {
 	let t;
 
@@ -551,14 +551,14 @@ function create_default_slot_4(ctx) {
 		block,
 		id: create_default_slot_4.name,
 		type: "slot",
-		source: "(76:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(78:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (74:2) <TextBlock>
+// (76:2) <TextBlock>
 function create_default_slot_3(ctx) {
 	let t0;
 	let br;
@@ -582,7 +582,7 @@ function create_default_slot_3(ctx) {
 			br = element("br");
 			t1 = space();
 			create_component(textblock.$$.fragment);
-			add_location(br, file, 74, 50, 2855);
+			add_location(br, file, 76, 50, 2735);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, t0, anchor);
@@ -594,7 +594,7 @@ function create_default_slot_3(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -621,14 +621,14 @@ function create_default_slot_3(ctx) {
 		block,
 		id: create_default_slot_3.name,
 		type: "slot",
-		source: "(74:2) <TextBlock>",
+		source: "(76:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (86:4) <TextBlock variant="caption" style="color: gray;">
+// (88:4) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_2(ctx) {
 	let t;
 
@@ -648,14 +648,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(86:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(88:4) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (84:2) <TextBlock>
+// (86:2) <TextBlock>
 function create_default_slot_1(ctx) {
 	let t0;
 	let br;
@@ -679,7 +679,7 @@ function create_default_slot_1(ctx) {
 			br = element("br");
 			t1 = space();
 			create_component(textblock.$$.fragment);
-			add_location(br, file, 84, 42, 3231);
+			add_location(br, file, 86, 42, 3111);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, t0, anchor);
@@ -691,7 +691,7 @@ function create_default_slot_1(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -718,14 +718,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(84:2) <TextBlock>",
+		source: "(86:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (94:2) <TextBlock>
+// (96:2) <TextBlock>
 function create_default_slot(ctx) {
 	let t;
 
@@ -745,7 +745,7 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(94:2) <TextBlock>",
+		source: "(96:2) <TextBlock>",
 		ctx
 	});
 
@@ -795,7 +795,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function dataclearer_open_binding(value) {
-		/*dataclearer_open_binding*/ ctx[7](value);
+		/*dataclearer_open_binding*/ ctx[8](value);
 	}
 
 	let dataclearer_props = {};
@@ -808,7 +808,7 @@ function create_fragment(ctx) {
 	binding_callbacks.push(() => bind(dataclearer, 'open', dataclearer_open_binding));
 
 	function contentdialog_open_binding(value) {
-		/*contentdialog_open_binding*/ ctx[9](value);
+		/*contentdialog_open_binding*/ ctx[10](value);
 	}
 
 	let contentdialog_props = {
@@ -842,7 +842,7 @@ function create_fragment(ctx) {
 			$$inline: true
 		});
 
-	listitem0.$on("click", /*click_handler_1*/ ctx[10]);
+	listitem0.$on("click", /*click_handler_1*/ ctx[11]);
 
 	listitem1 = new ListItem({
 			props: {
@@ -853,7 +853,7 @@ function create_fragment(ctx) {
 			$$inline: true
 		});
 
-	listitem1.$on("click", /*click_handler_2*/ ctx[11]);
+	listitem1.$on("click", /*click_handler_2*/ ctx[12]);
 
 	textblock0 = new TextBlock({
 			props: {
@@ -864,7 +864,7 @@ function create_fragment(ctx) {
 		});
 
 	function toggleswitch0_checked_binding(value) {
-		/*toggleswitch0_checked_binding*/ ctx[12](value);
+		/*toggleswitch0_checked_binding*/ ctx[13](value);
 	}
 
 	let toggleswitch0_props = {};
@@ -889,7 +889,7 @@ function create_fragment(ctx) {
 		});
 
 	function toggleswitch1_checked_binding(value) {
-		/*toggleswitch1_checked_binding*/ ctx[13](value);
+		/*toggleswitch1_checked_binding*/ ctx[14](value);
 	}
 
 	let toggleswitch1_props = {};
@@ -914,7 +914,7 @@ function create_fragment(ctx) {
 		});
 
 	function toggleswitch2_checked_binding(value) {
-		/*toggleswitch2_checked_binding*/ ctx[14](value);
+		/*toggleswitch2_checked_binding*/ ctx[15](value);
 	}
 
 	let toggleswitch2_props = {};
@@ -939,7 +939,7 @@ function create_fragment(ctx) {
 		});
 
 	function toggleswitch3_checked_binding(value) {
-		/*toggleswitch3_checked_binding*/ ctx[15](value);
+		/*toggleswitch3_checked_binding*/ ctx[16](value);
 	}
 
 	let toggleswitch3_props = {};
@@ -991,19 +991,19 @@ function create_fragment(ctx) {
 			t13 = space();
 			create_component(toggleswitch3.$$.fragment);
 			attr_dev(div0, "class", "separator");
-			add_location(div0, file, 55, 0, 2099);
+			add_location(div0, file, 57, 0, 1979);
 			attr_dev(div1, "class", "s-option");
-			add_location(div1, file, 61, 0, 2431);
+			add_location(div1, file, 63, 0, 2311);
 			attr_dev(div2, "class", "separator");
-			add_location(div2, file, 70, 0, 2733);
+			add_location(div2, file, 72, 0, 2613);
 			attr_dev(div3, "class", "s-option");
-			add_location(div3, file, 72, 0, 2766);
+			add_location(div3, file, 74, 0, 2646);
 			attr_dev(div4, "class", "s-option");
-			add_location(div4, file, 82, 0, 3150);
+			add_location(div4, file, 84, 0, 3030);
 			attr_dev(div5, "class", "separator");
-			add_location(div5, file, 91, 0, 3480);
+			add_location(div5, file, 93, 0, 3360);
 			attr_dev(div6, "class", "s-option");
-			add_location(div6, file, 92, 0, 3511);
+			add_location(div6, file, 94, 0, 3391);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1056,7 +1056,7 @@ function create_fragment(ctx) {
 			dataclearer.$set(dataclearer_changes);
 			const contentdialog_changes = {};
 
-			if (dirty & /*$$scope, siteSettingsDialog, location*/ 2097184) {
+			if (dirty & /*$$scope, siteSettingsDialog, location*/ 4194336) {
 				contentdialog_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1069,21 +1069,21 @@ function create_fragment(ctx) {
 			contentdialog.$set(contentdialog_changes);
 			const listitem0_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				listitem0_changes.$$scope = { dirty, ctx };
 			}
 
 			listitem0.$set(listitem0_changes);
 			const listitem1_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				listitem1_changes.$$scope = { dirty, ctx };
 			}
 
 			listitem1.$set(listitem1_changes);
 			const textblock0_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1099,7 +1099,7 @@ function create_fragment(ctx) {
 			toggleswitch0.$set(toggleswitch0_changes);
 			const textblock1_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1115,7 +1115,7 @@ function create_fragment(ctx) {
 			toggleswitch1.$set(toggleswitch1_changes);
 			const textblock2_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock2_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1131,7 +1131,7 @@ function create_fragment(ctx) {
 			toggleswitch2.$set(toggleswitch2_changes);
 			const textblock3_changes = {};
 
-			if (dirty & /*$$scope*/ 2097152) {
+			if (dirty & /*$$scope*/ 4194304) {
 				textblock3_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1227,38 +1227,39 @@ function instance($$self, $$props, $$invalidate) {
 	validate_slots('Privacy', slots, []);
 	let config = getContext('config');
 	validate_store(config, 'config');
-	component_subscribe($$self, config, value => $$invalidate(16, $config = value));
+	component_subscribe($$self, config, value => $$invalidate(17, $config = value));
+	let { update } = $$props;
 	let clearDialog = false;
 	let siteSettingsDialog = location.hash.startsWith('#siteSettings');
 	let noCOPermissions = $config.privacy.denyCrossOriginPermissions;
 
 	const updateCOPs = noFirstTime(() => {
 		set_store_value(config, $config.privacy.denyCrossOriginPermissions = noCOPermissions, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	let useHintingService = $config.privacy.useSuggestions;
 
 	const updateHintingService = noFirstTime(() => {
 		set_store_value(config, $config.privacy.useSuggestions = useHintingService, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	let maskSessionWhenHints = $config.privacy.hideSessionForSuggestions;
 
 	const updateMask = noFirstTime(() => {
 		set_store_value(config, $config.privacy.hideSessionForSuggestions = maskSessionWhenHints, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	let useHTTPSOnly = $config.privacy.httpsOnly;
 
 	const updateHTTPSOnly = noFirstTime(() => {
 		set_store_value(config, $config.privacy.httpsOnly = useHTTPSOnly, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
-	const writable_props = [];
+	const writable_props = ['update'];
 
 	Object.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Privacy> was created with unknown prop '${key}'`);
@@ -1306,6 +1307,10 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(3, useHTTPSOnly);
 	}
 
+	$$self.$$set = $$props => {
+		if ('update' in $$props) $$invalidate(7, update = $$props.update);
+	};
+
 	$$self.$capture_state = () => ({
 		ListItem,
 		TextBlock,
@@ -1316,6 +1321,7 @@ function instance($$self, $$props, $$invalidate) {
 		noFirstTime,
 		DataClearer,
 		config,
+		update,
 		clearDialog,
 		siteSettingsDialog,
 		noCOPermissions,
@@ -1331,6 +1337,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	$$self.$inject_state = $$props => {
 		if ('config' in $$props) $$invalidate(6, config = $$props.config);
+		if ('update' in $$props) $$invalidate(7, update = $$props.update);
 		if ('clearDialog' in $$props) $$invalidate(4, clearDialog = $$props.clearDialog);
 		if ('siteSettingsDialog' in $$props) $$invalidate(5, siteSettingsDialog = $$props.siteSettingsDialog);
 		if ('noCOPermissions' in $$props) $$invalidate(0, noCOPermissions = $$props.noCOPermissions);
@@ -1381,6 +1388,7 @@ function instance($$self, $$props, $$invalidate) {
 		clearDialog,
 		siteSettingsDialog,
 		config,
+		update,
 		dataclearer_open_binding,
 		click_handler,
 		contentdialog_open_binding,
@@ -1396,7 +1404,7 @@ function instance($$self, $$props, $$invalidate) {
 class Privacy extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance, create_fragment, safe_not_equal, {});
+		init(this, options, instance, create_fragment, safe_not_equal, { update: 7 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -1404,6 +1412,21 @@ class Privacy extends SvelteComponentDev {
 			options,
 			id: create_fragment.name
 		});
+
+		const { ctx } = this.$$;
+		const props = options.props || {};
+
+		if (/*update*/ ctx[7] === undefined && !('update' in props)) {
+			console.warn("<Privacy> was created without expected prop 'update'");
+		}
+	}
+
+	get update() {
+		throw new Error("<Privacy>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set update(value) {
+		throw new Error("<Privacy>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
 

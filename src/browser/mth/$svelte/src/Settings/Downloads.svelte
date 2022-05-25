@@ -6,13 +6,15 @@
   import { RadioButton, TextBlock, Button } from "mth://js/fluent-svelte/index.js"
   import { getContext } from "svelte/internal"
 
+  export let update;
+
   let config = getContext('config');
   let group = $config.behaviour.downloadPath == null ? 'unknown' : 'known'
 
   function selectUnknown() {
     console.log('selecting unknown');
     $config.behaviour.downloadPath = null
-    window.monolith.userdata.config.set($config)
+    update()
   }
 
   async function selectFolder() {
@@ -27,7 +29,7 @@
 
     let path = dialogResponse.filePaths[0];
     $config.behaviour.downloadPath = path;
-    window.monolith.userdata.config.set($config)
+    update()
   }
 </script>
 

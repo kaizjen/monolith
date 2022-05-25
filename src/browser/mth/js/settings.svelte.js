@@ -64,20 +64,20 @@ function add_css(target) {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[13] = list[i];
-	child_ctx[14] = list;
-	child_ctx[15] = i;
+	child_ctx[14] = list[i];
+	child_ctx[15] = list;
+	child_ctx[16] = i;
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[13] = list[i];
-	child_ctx[17] = i;
+	child_ctx[14] = list[i];
+	child_ctx[18] = i;
 	return child_ctx;
 }
 
-// (142:4) <Flyout placement="bottom" alignment="start" bind:open={unsupportedFlyoutOpened}>
+// (151:4) <Flyout placement="bottom" alignment="start" bind:open={unsupportedFlyoutOpened}>
 function create_default_slot_2(ctx) {
 	let textbox;
 	let current;
@@ -117,14 +117,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(142:4) <Flyout placement=\\\"bottom\\\" alignment=\\\"start\\\" bind:open={unsupportedFlyoutOpened}>",
+		source: "(151:4) <Flyout placement=\\\"bottom\\\" alignment=\\\"start\\\" bind:open={unsupportedFlyoutOpened}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (144:6) <svelte:fragment slot="flyout">
+// (153:6) <svelte:fragment slot="flyout">
 function create_flyout_slot(ctx) {
 	let t;
 
@@ -144,16 +144,16 @@ function create_flyout_slot(ctx) {
 		block,
 		id: create_flyout_slot.name,
 		type: "slot",
-		source: "(144:6) <svelte:fragment slot=\\\"flyout\\\">",
+		source: "(153:6) <svelte:fragment slot=\\\"flyout\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (151:4) <ListItem        selected={checkIfInCenter(section.element, i == settingsSections.length-1 ? 'last' : (i == 0 ? 'first' : null), scrollTag)}        on:click={scrollToElementF(section.element)}      >
+// (160:4) <ListItem        selected={checkIfInCenter(section.element, i == settingsSections.length-1 ? 'last' : (i == 0 ? 'first' : null), scrollTag)}        on:click={scrollToElementF(section.element)}      >
 function create_default_slot_1(ctx) {
-	let t_value = /*section*/ ctx[13].name + "";
+	let t_value = /*section*/ ctx[14].name + "";
 	let t;
 
 	const block = {
@@ -164,7 +164,7 @@ function create_default_slot_1(ctx) {
 			insert_dev(target, t, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*settingsSections*/ 8 && t_value !== (t_value = /*section*/ ctx[13].name + "")) set_data_dev(t, t_value);
+			if (dirty & /*settingsSections*/ 8 && t_value !== (t_value = /*section*/ ctx[14].name + "")) set_data_dev(t, t_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(t);
@@ -175,14 +175,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(151:4) <ListItem        selected={checkIfInCenter(section.element, i == settingsSections.length-1 ? 'last' : (i == 0 ? 'first' : null), scrollTag)}        on:click={scrollToElementF(section.element)}      >",
+		source: "(160:4) <ListItem        selected={checkIfInCenter(section.element, i == settingsSections.length-1 ? 'last' : (i == 0 ? 'first' : null), scrollTag)}        on:click={scrollToElementF(section.element)}      >",
 		ctx
 	});
 
 	return block;
 }
 
-// (150:2) {#each settingsSections as section, i}
+// (159:2) {#each settingsSections as section, i}
 function create_each_block_1(ctx) {
 	let listitem;
 	let current;
@@ -190,10 +190,10 @@ function create_each_block_1(ctx) {
 	listitem = new ListItem({
 			props: {
 				selected: /*checkIfInCenter*/ ctx[6](
-					/*section*/ ctx[13].element,
-					/*i*/ ctx[17] == /*settingsSections*/ ctx[3].length - 1
+					/*section*/ ctx[14].element,
+					/*i*/ ctx[18] == /*settingsSections*/ ctx[3].length - 1
 					? 'last'
-					: /*i*/ ctx[17] == 0 ? 'first' : null,
+					: /*i*/ ctx[18] == 0 ? 'first' : null,
 					/*scrollTag*/ ctx[0]
 				),
 				$$slots: { default: [create_default_slot_1] },
@@ -203,7 +203,7 @@ function create_each_block_1(ctx) {
 		});
 
 	listitem.$on("click", function () {
-		if (is_function(/*scrollToElementF*/ ctx[7](/*section*/ ctx[13].element))) /*scrollToElementF*/ ctx[7](/*section*/ ctx[13].element).apply(this, arguments);
+		if (is_function(/*scrollToElementF*/ ctx[7](/*section*/ ctx[14].element))) /*scrollToElementF*/ ctx[7](/*section*/ ctx[14].element).apply(this, arguments);
 	});
 
 	const block = {
@@ -219,14 +219,14 @@ function create_each_block_1(ctx) {
 			const listitem_changes = {};
 
 			if (dirty & /*settingsSections, scrollTag*/ 9) listitem_changes.selected = /*checkIfInCenter*/ ctx[6](
-				/*section*/ ctx[13].element,
-				/*i*/ ctx[17] == /*settingsSections*/ ctx[3].length - 1
+				/*section*/ ctx[14].element,
+				/*i*/ ctx[18] == /*settingsSections*/ ctx[3].length - 1
 				? 'last'
-				: /*i*/ ctx[17] == 0 ? 'first' : null,
+				: /*i*/ ctx[18] == 0 ? 'first' : null,
 				/*scrollTag*/ ctx[0]
 			);
 
-			if (dirty & /*$$scope, settingsSections*/ 262152) {
+			if (dirty & /*$$scope, settingsSections*/ 524296) {
 				listitem_changes.$$scope = { dirty, ctx };
 			}
 
@@ -250,7 +250,7 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(150:2) {#each settingsSections as section, i}",
+		source: "(159:2) {#each settingsSections as section, i}",
 		ctx
 	});
 
@@ -279,7 +279,7 @@ function create_catch_block(ctx) {
 	return block;
 }
 
-// (163:4) {:then _}
+// (172:4) {:then _}
 function create_then_block(ctx) {
 	let each_1_anchor;
 	let current;
@@ -312,7 +312,7 @@ function create_then_block(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*settingsSections*/ 8) {
+			if (dirty & /*settingsSections, update*/ 264) {
 				each_value = /*settingsSections*/ ctx[3];
 				validate_each_argument(each_value);
 				let i;
@@ -368,16 +368,16 @@ function create_then_block(ctx) {
 		block,
 		id: create_then_block.name,
 		type: "then",
-		source: "(163:4) {:then _}",
+		source: "(172:4) {:then _}",
 		ctx
 	});
 
 	return block;
 }
 
-// (165:8) <TextBlock variant="titleLarge" style="margin-bottom: 15px;">
+// (174:8) <TextBlock variant="titleLarge" style="margin-bottom: 15px;">
 function create_default_slot(ctx) {
-	let t_value = /*section*/ ctx[13].name + "";
+	let t_value = /*section*/ ctx[14].name + "";
 	let t;
 
 	const block = {
@@ -388,7 +388,7 @@ function create_default_slot(ctx) {
 			insert_dev(target, t, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*settingsSections*/ 8 && t_value !== (t_value = /*section*/ ctx[13].name + "")) set_data_dev(t, t_value);
+			if (dirty & /*settingsSections*/ 8 && t_value !== (t_value = /*section*/ ctx[14].name + "")) set_data_dev(t, t_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(t);
@@ -399,22 +399,22 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(165:8) <TextBlock variant=\\\"titleLarge\\\" style=\\\"margin-bottom: 15px;\\\">",
+		source: "(174:8) <TextBlock variant=\\\"titleLarge\\\" style=\\\"margin-bottom: 15px;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (164:6) {#each settingsSections as section}
+// (173:6) {#each settingsSections as section}
 function create_each_block(ctx) {
 	let textblock;
 	let t0;
 	let section;
 	let switch_instance;
 	let t1;
-	let each_value = /*each_value*/ ctx[14];
-	let section_index = /*section_index*/ ctx[15];
+	let each_value = /*each_value*/ ctx[15];
+	let section_index = /*section_index*/ ctx[16];
 	let current;
 
 	textblock = new TextBlock({
@@ -427,18 +427,21 @@ function create_each_block(ctx) {
 			$$inline: true
 		});
 
-	var switch_value = /*section*/ ctx[13].component;
+	var switch_value = /*section*/ ctx[14].component;
 
 	function switch_props(ctx) {
-		return { $$inline: true };
+		return {
+			props: { update: /*update*/ ctx[8] },
+			$$inline: true
+		};
 	}
 
 	if (switch_value) {
 		switch_instance = new switch_value(switch_props(ctx));
 	}
 
-	const assign_section = () => /*section_binding*/ ctx[9](section, each_value, section_index);
-	const unassign_section = () => /*section_binding*/ ctx[9](null, each_value, section_index);
+	const assign_section = () => /*section_binding*/ ctx[10](section, each_value, section_index);
+	const unassign_section = () => /*section_binding*/ ctx[10](null, each_value, section_index);
 
 	const block = {
 		c: function create() {
@@ -448,7 +451,7 @@ function create_each_block(ctx) {
 			if (switch_instance) create_component(switch_instance.$$.fragment);
 			t1 = space();
 			attr_dev(section, "class", "svelte-12ohqlm");
-			add_location(section, file, 166, 8, 4783);
+			add_location(section, file, 175, 8, 4977);
 		},
 		m: function mount(target, anchor) {
 			mount_component(textblock, target, anchor);
@@ -467,13 +470,13 @@ function create_each_block(ctx) {
 			ctx = new_ctx;
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope, settingsSections*/ 262152) {
+			if (dirty & /*$$scope, settingsSections*/ 524296) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock.$set(textblock_changes);
 
-			if (switch_value !== (switch_value = /*section*/ ctx[13].component)) {
+			if (switch_value !== (switch_value = /*section*/ ctx[14].component)) {
 				if (switch_instance) {
 					group_outros();
 					const old_component = switch_instance;
@@ -497,10 +500,10 @@ function create_each_block(ctx) {
 				
 			}
 
-			if (each_value !== /*each_value*/ ctx[14] || section_index !== /*section_index*/ ctx[15]) {
+			if (each_value !== /*each_value*/ ctx[15] || section_index !== /*section_index*/ ctx[16]) {
 				unassign_section();
-				each_value = /*each_value*/ ctx[14];
-				section_index = /*section_index*/ ctx[15];
+				each_value = /*each_value*/ ctx[15];
+				section_index = /*section_index*/ ctx[16];
 				assign_section();
 			}
 		},
@@ -528,14 +531,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(164:6) {#each settingsSections as section}",
+		source: "(173:6) {#each settingsSections as section}",
 		ctx
 	});
 
 	return block;
 }
 
-// (159:23)         <div class="absolute-center">          <ProgressRing />        </div>      {:then _}
+// (168:23)         <div class="absolute-center">          <ProgressRing />        </div>      {:then _}
 function create_pending_block(ctx) {
 	let div;
 	let progressring;
@@ -547,7 +550,7 @@ function create_pending_block(ctx) {
 			div = element("div");
 			create_component(progressring.$$.fragment);
 			attr_dev(div, "class", "absolute-center svelte-12ohqlm");
-			add_location(div, file, 159, 6, 4545);
+			add_location(div, file, 168, 6, 4739);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -574,7 +577,7 @@ function create_pending_block(ctx) {
 		block,
 		id: create_pending_block.name,
 		type: "pending",
-		source: "(159:23)         <div class=\\\"absolute-center\\\">          <ProgressRing />        </div>      {:then _}",
+		source: "(168:23)         <div class=\\\"absolute-center\\\">          <ProgressRing />        </div>      {:then _}",
 		ctx
 	});
 
@@ -594,7 +597,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function flyout_open_binding(value) {
-		/*flyout_open_binding*/ ctx[8](value);
+		/*flyout_open_binding*/ ctx[9](value);
 	}
 
 	let flyout_props = {
@@ -633,7 +636,7 @@ function create_fragment(ctx) {
 		pending: create_pending_block,
 		then: create_then_block,
 		catch: create_catch_block,
-		value: 12,
+		value: 13,
 		blocks: [,,,]
 	};
 
@@ -655,13 +658,13 @@ function create_fragment(ctx) {
 			div1 = element("div");
 			info.block.c();
 			set_style(div0, "margin-bottom", "30px");
-			add_location(div0, file, 140, 2, 3852);
+			add_location(div0, file, 149, 2, 4046);
 			attr_dev(aside, "class", "svelte-12ohqlm");
-			add_location(aside, file, 139, 0, 3841);
+			add_location(aside, file, 148, 0, 4035);
 			attr_dev(div1, "class", "content svelte-12ohqlm");
-			add_location(div1, file, 157, 2, 4491);
+			add_location(div1, file, 166, 2, 4685);
 			attr_dev(main_1, "class", "svelte-12ohqlm");
-			add_location(main_1, file, 156, 0, 4464);
+			add_location(main_1, file, 165, 0, 4658);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -682,14 +685,14 @@ function create_fragment(ctx) {
 			info.block.m(div1, info.anchor = null);
 			info.mount = () => div1;
 			info.anchor = null;
-			/*main_1_binding*/ ctx[10](main_1);
+			/*main_1_binding*/ ctx[11](main_1);
 			current = true;
 		},
 		p: function update(new_ctx, [dirty]) {
 			ctx = new_ctx;
 			const flyout_changes = {};
 
-			if (dirty & /*$$scope*/ 262144) {
+			if (dirty & /*$$scope*/ 524288) {
 				flyout_changes.$$scope = { dirty, ctx };
 			}
 
@@ -766,7 +769,7 @@ function create_fragment(ctx) {
 			info.block.d();
 			info.token = null;
 			info = null;
-			/*main_1_binding*/ ctx[10](null);
+			/*main_1_binding*/ ctx[11](null);
 		}
 	};
 
@@ -788,7 +791,7 @@ function instance($$self, $$props, $$invalidate) {
 	const configProm = window.monolith.userdata.config.get();
 	let config = writable(null);
 	validate_store(config, 'config');
-	component_subscribe($$self, config, value => $$invalidate(11, $config = value));
+	component_subscribe($$self, config, value => $$invalidate(12, $config = value));
 	setContext('config', config);
 
 	configProm.then(c => {
@@ -872,6 +875,15 @@ function instance($$self, $$props, $$invalidate) {
 		};
 	}
 
+	async function update() {
+		window.monolith.userdata.config.set($config);
+	}
+
+	window.monolith.userdata.config.subscribe(c => {
+		console.log('sub', c);
+		set_store_value(config, $config = c, $config);
+	});
+
 	const writable_props = [];
 
 	Object.keys($$props).forEach(key => {
@@ -919,6 +931,7 @@ function instance($$self, $$props, $$invalidate) {
 		settingsSections,
 		checkIfInCenter,
 		scrollToElementF,
+		update,
 		$config
 	});
 
@@ -942,6 +955,7 @@ function instance($$self, $$props, $$invalidate) {
 		config,
 		checkIfInCenter,
 		scrollToElementF,
+		update,
 		flyout_open_binding,
 		section_binding,
 		main_1_binding

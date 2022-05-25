@@ -44,7 +44,7 @@ import { getContext } from "mth://.svelte/internal";
 import noFirstTime from "mth://js/nft.js";
 const file = "src\\browser\\mth\\$svelte\\src\\Settings\\Appearance.svelte";
 
-// (63:2) <TextBlock>
+// (65:2) <TextBlock>
 function create_default_slot_3(ctx) {
 	let t;
 
@@ -64,14 +64,14 @@ function create_default_slot_3(ctx) {
 		block,
 		id: create_default_slot_3.name,
 		type: "slot",
-		source: "(63:2) <TextBlock>",
+		source: "(65:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (75:2) <Checkbox      bind:checked={bookmarkBar}    >
+// (77:2) <Checkbox      bind:checked={bookmarkBar}    >
 function create_default_slot_2(ctx) {
 	let t;
 
@@ -91,14 +91,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(75:2) <Checkbox      bind:checked={bookmarkBar}    >",
+		source: "(77:2) <Checkbox      bind:checked={bookmarkBar}    >",
 		ctx
 	});
 
 	return block;
 }
 
-// (79:0) {#if bookmarkBar}
+// (81:0) {#if bookmarkBar}
 function create_if_block(ctx) {
 	let infobar;
 	let current;
@@ -138,14 +138,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(79:0) {#if bookmarkBar}",
+		source: "(81:0) {#if bookmarkBar}",
 		ctx
 	});
 
 	return block;
 }
 
-// (83:2) <TextBlock>
+// (85:2) <TextBlock>
 function create_default_slot_1(ctx) {
 	let t;
 
@@ -165,14 +165,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(83:2) <TextBlock>",
+		source: "(85:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (91:2) <TextBlock>
+// (93:2) <TextBlock>
 function create_default_slot(ctx) {
 	let t;
 
@@ -192,7 +192,7 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(91:2) <TextBlock>",
+		source: "(93:2) <TextBlock>",
 		ctx
 	});
 
@@ -233,7 +233,7 @@ function create_fragment(ctx) {
 		});
 
 	function combobox_value_binding(value) {
-		/*combobox_value_binding*/ ctx[7](value);
+		/*combobox_value_binding*/ ctx[8](value);
 	}
 
 	let combobox_props = {
@@ -256,7 +256,7 @@ function create_fragment(ctx) {
 	});
 
 	function checkbox_checked_binding(value) {
-		/*checkbox_checked_binding*/ ctx[8](value);
+		/*checkbox_checked_binding*/ ctx[9](value);
 	}
 
 	let checkbox_props = {
@@ -281,7 +281,7 @@ function create_fragment(ctx) {
 		});
 
 	function slider0_value_binding(value) {
-		/*slider0_value_binding*/ ctx[9](value);
+		/*slider0_value_binding*/ ctx[10](value);
 	}
 
 	let slider0_props = { suffix: "%", min: 1, max: 200 };
@@ -302,7 +302,7 @@ function create_fragment(ctx) {
 		});
 
 	function slider1_value_binding(value) {
-		/*slider1_value_binding*/ ctx[10](value);
+		/*slider1_value_binding*/ ctx[11](value);
 	}
 
 	let slider1_props = { suffix: "%", min: 1, max: 200 };
@@ -336,13 +336,13 @@ function create_fragment(ctx) {
 			t6 = space();
 			create_component(slider1.$$.fragment);
 			attr_dev(div0, "class", "s-option");
-			add_location(div0, file, 61, 0, 2062);
+			add_location(div0, file, 63, 0, 1942);
 			attr_dev(div1, "class", "s-option");
-			add_location(div1, file, 73, 0, 2364);
+			add_location(div1, file, 75, 0, 2244);
 			attr_dev(div2, "class", "s-option");
-			add_location(div2, file, 81, 0, 2598);
+			add_location(div2, file, 83, 0, 2478);
 			attr_dev(div3, "class", "s-option");
-			add_location(div3, file, 89, 0, 2773);
+			add_location(div3, file, 91, 0, 2653);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -373,7 +373,7 @@ function create_fragment(ctx) {
 			ctx = new_ctx;
 			const textblock0_changes = {};
 
-			if (dirty & /*$$scope*/ 131072) {
+			if (dirty & /*$$scope*/ 262144) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
@@ -389,7 +389,7 @@ function create_fragment(ctx) {
 			combobox.$set(combobox_changes);
 			const checkbox_changes = {};
 
-			if (dirty & /*$$scope*/ 131072) {
+			if (dirty & /*$$scope*/ 262144) {
 				checkbox_changes.$$scope = { dirty, ctx };
 			}
 
@@ -424,7 +424,7 @@ function create_fragment(ctx) {
 
 			const textblock1_changes = {};
 
-			if (dirty & /*$$scope*/ 131072) {
+			if (dirty & /*$$scope*/ 262144) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -440,7 +440,7 @@ function create_fragment(ctx) {
 			slider0.$set(slider0_changes);
 			const textblock2_changes = {};
 
-			if (dirty & /*$$scope*/ 131072) {
+			if (dirty & /*$$scope*/ 262144) {
 				textblock2_changes.$$scope = { dirty, ctx };
 			}
 
@@ -525,15 +525,16 @@ function instance($$self, $$props, $$invalidate) {
 	let $config;
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Appearance', slots, []);
+	let { update } = $$props;
 	let config = getContext('config');
 	validate_store(config, 'config');
-	component_subscribe($$self, config, value => $$invalidate(11, $config = value));
+	component_subscribe($$self, config, value => $$invalidate(12, $config = value));
 
 	const theme = {
 		select({ detail }) {
 			console.log('selected', detail);
 			set_store_value(config, $config.ui.theme = detail.value, $config);
-			window.monolith.userdata.config.set($config);
+			update();
 		},
 		value: $config.ui.theme
 	};
@@ -543,7 +544,7 @@ function instance($$self, $$props, $$invalidate) {
 	const updateBookmarkBar = noFirstTime(() => {
 		console.log('bm-b', bookmarkBar);
 		set_store_value(config, $config.ui.showBookmarks = bookmarkBar, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	let defaultPageZoom = $config.ui.defaultZoomFactor * 100;
@@ -552,11 +553,11 @@ function instance($$self, $$props, $$invalidate) {
 	const updatePageZoom = noFirstTime(() => {
 		console.log('z-page', defaultPageZoom);
 		set_store_value(config, $config.ui.defaultZoomFactor = Number((defaultPageZoom / 100).toPrecision(2)), $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	const pageZoomThrottled = throttle(() => {
-		$$invalidate(5, defaultPageZoom = defaultPageZoom_proxy);
+		$$invalidate(6, defaultPageZoom = defaultPageZoom_proxy);
 	});
 
 	let chromeZoom = $config.ui.chromeZoomFactor * 100;
@@ -565,14 +566,14 @@ function instance($$self, $$props, $$invalidate) {
 	const updateChromeZoom = noFirstTime(() => {
 		console.log('z-chr', chromeZoom);
 		set_store_value(config, $config.ui.chromeZoomFactor = Number((chromeZoom / 100).toPrecision(2)), $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	const chromeZoomThrottled = throttle(() => {
-		$$invalidate(6, chromeZoom = chromeZoom_proxy);
+		$$invalidate(7, chromeZoom = chromeZoom_proxy);
 	});
 
-	const writable_props = [];
+	const writable_props = ['update'];
 
 	Object.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Appearance> was created with unknown prop '${key}'`);
@@ -600,6 +601,10 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(2, chromeZoom_proxy);
 	}
 
+	$$self.$$set = $$props => {
+		if ('update' in $$props) $$invalidate(5, update = $$props.update);
+	};
+
 	$$self.$capture_state = () => ({
 		TextBlock,
 		ComboBox,
@@ -608,6 +613,7 @@ function instance($$self, $$props, $$invalidate) {
 		Slider,
 		getContext,
 		noFirstTime,
+		update,
 		throttle,
 		config,
 		theme,
@@ -625,11 +631,12 @@ function instance($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
+		if ('update' in $$props) $$invalidate(5, update = $$props.update);
 		if ('config' in $$props) $$invalidate(4, config = $$props.config);
 		if ('bookmarkBar' in $$props) $$invalidate(0, bookmarkBar = $$props.bookmarkBar);
-		if ('defaultPageZoom' in $$props) $$invalidate(5, defaultPageZoom = $$props.defaultPageZoom);
+		if ('defaultPageZoom' in $$props) $$invalidate(6, defaultPageZoom = $$props.defaultPageZoom);
 		if ('defaultPageZoom_proxy' in $$props) $$invalidate(1, defaultPageZoom_proxy = $$props.defaultPageZoom_proxy);
-		if ('chromeZoom' in $$props) $$invalidate(6, chromeZoom = $$props.chromeZoom);
+		if ('chromeZoom' in $$props) $$invalidate(7, chromeZoom = $$props.chromeZoom);
 		if ('chromeZoom_proxy' in $$props) $$invalidate(2, chromeZoom_proxy = $$props.chromeZoom_proxy);
 	};
 
@@ -645,7 +652,7 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty & /*defaultPageZoom*/ 32) {
+		if ($$self.$$.dirty & /*defaultPageZoom*/ 64) {
 			$: {
 				defaultPageZoom;
 				updatePageZoom();
@@ -659,7 +666,7 @@ function instance($$self, $$props, $$invalidate) {
 			}
 		}
 
-		if ($$self.$$.dirty & /*chromeZoom*/ 64) {
+		if ($$self.$$.dirty & /*chromeZoom*/ 128) {
 			$: {
 				chromeZoom;
 				updateChromeZoom();
@@ -680,6 +687,7 @@ function instance($$self, $$props, $$invalidate) {
 		chromeZoom_proxy,
 		theme,
 		config,
+		update,
 		defaultPageZoom,
 		chromeZoom,
 		combobox_value_binding,
@@ -692,7 +700,7 @@ function instance($$self, $$props, $$invalidate) {
 class Appearance extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance, create_fragment, safe_not_equal, {});
+		init(this, options, instance, create_fragment, safe_not_equal, { update: 5 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -700,6 +708,21 @@ class Appearance extends SvelteComponentDev {
 			options,
 			id: create_fragment.name
 		});
+
+		const { ctx } = this.$$;
+		const props = options.props || {};
+
+		if (/*update*/ ctx[5] === undefined && !('update' in props)) {
+			console_1.warn("<Appearance> was created without expected prop 'update'");
+		}
+	}
+
+	get update() {
+		throw new Error("<Appearance>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set update(value) {
+		throw new Error("<Appearance>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
 

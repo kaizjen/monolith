@@ -56,12 +56,12 @@ function add_css(target) {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[31] = list[i];
-	child_ctx[33] = i;
+	child_ctx[32] = list[i];
+	child_ctx[34] = i;
 	return child_ctx;
 }
 
-// (69:4) <TextBlock>
+// (71:4) <TextBlock>
 function create_default_slot_23(ctx) {
 	let t;
 
@@ -81,14 +81,14 @@ function create_default_slot_23(ctx) {
 		block,
 		id: create_default_slot_23.name,
 		type: "slot",
-		source: "(69:4) <TextBlock>",
+		source: "(71:4) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (73:4) <TextBlock>
+// (75:4) <TextBlock>
 function create_default_slot_22(ctx) {
 	let t;
 
@@ -108,14 +108,14 @@ function create_default_slot_22(ctx) {
 		block,
 		id: create_default_slot_22.name,
 		type: "slot",
-		source: "(73:4) <TextBlock>",
+		source: "(75:4) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (77:4) <TextBlock>
+// (79:4) <TextBlock>
 function create_default_slot_21(ctx) {
 	let t;
 
@@ -135,14 +135,14 @@ function create_default_slot_21(ctx) {
 		block,
 		id: create_default_slot_21.name,
 		type: "slot",
-		source: "(77:4) <TextBlock>",
+		source: "(79:4) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (67:0) <ContentDialog title="Edit search engine" closable={false} append={document.body} bind:open={editEngineDialog}>
+// (69:0) <ContentDialog title="Edit search engine" closable={false} append={document.body} bind:open={editEngineDialog}>
 function create_default_slot_20(ctx) {
 	let div0;
 	let textblock0;
@@ -172,13 +172,13 @@ function create_default_slot_20(ctx) {
 		});
 
 	function textbox0_value_binding(value) {
-		/*textbox0_value_binding*/ ctx[13](value);
+		/*textbox0_value_binding*/ ctx[14](value);
 	}
 
 	let textbox0_props = { placeholder: "Must not be empty" };
 
-	if (/*currentEngine*/ ctx[5].name !== void 0) {
-		textbox0_props.value = /*currentEngine*/ ctx[5].name;
+	if (/*currentEngine*/ ctx[6].name !== void 0) {
+		textbox0_props.value = /*currentEngine*/ ctx[6].name;
 	}
 
 	textbox0 = new TextBox({ props: textbox0_props, $$inline: true });
@@ -193,13 +193,13 @@ function create_default_slot_20(ctx) {
 		});
 
 	function textbox1_value_binding(value) {
-		/*textbox1_value_binding*/ ctx[14](value);
+		/*textbox1_value_binding*/ ctx[15](value);
 	}
 
 	let textbox1_props = { placeholder: "Must not be empty" };
 
-	if (/*currentEngine*/ ctx[5].searchURL !== void 0) {
-		textbox1_props.value = /*currentEngine*/ ctx[5].searchURL;
+	if (/*currentEngine*/ ctx[6].searchURL !== void 0) {
+		textbox1_props.value = /*currentEngine*/ ctx[6].searchURL;
 	}
 
 	textbox1 = new TextBox({ props: textbox1_props, $$inline: true });
@@ -214,15 +214,15 @@ function create_default_slot_20(ctx) {
 		});
 
 	function textbox2_value_binding(value) {
-		/*textbox2_value_binding*/ ctx[15](value);
+		/*textbox2_value_binding*/ ctx[16](value);
 	}
 
 	let textbox2_props = {
 		placeholder: "Leave empty to disable hints"
 	};
 
-	if (/*currentEngine*/ ctx[5].suggestURL !== void 0) {
-		textbox2_props.value = /*currentEngine*/ ctx[5].suggestURL;
+	if (/*currentEngine*/ ctx[6].suggestURL !== void 0) {
+		textbox2_props.value = /*currentEngine*/ ctx[6].suggestURL;
 	}
 
 	textbox2 = new TextBox({ props: textbox2_props, $$inline: true });
@@ -245,11 +245,11 @@ function create_default_slot_20(ctx) {
 			t4 = space();
 			create_component(textbox2.$$.fragment);
 			attr_dev(div0, "class", "flex svelte-16di8yi");
-			add_location(div0, file, 67, 2, 1655);
+			add_location(div0, file, 69, 2, 1642);
 			attr_dev(div1, "class", "flex svelte-16di8yi");
-			add_location(div1, file, 71, 2, 1804);
+			add_location(div1, file, 73, 2, 1791);
 			attr_dev(div2, "class", "flex svelte-16di8yi");
-			add_location(div2, file, 75, 2, 2000);
+			add_location(div2, file, 77, 2, 1987);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div0, anchor);
@@ -271,48 +271,48 @@ function create_default_slot_20(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock0.$set(textblock0_changes);
 			const textbox0_changes = {};
 
-			if (!updating_value && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value && dirty[0] & /*currentEngine*/ 64) {
 				updating_value = true;
-				textbox0_changes.value = /*currentEngine*/ ctx[5].name;
+				textbox0_changes.value = /*currentEngine*/ ctx[6].name;
 				add_flush_callback(() => updating_value = false);
 			}
 
 			textbox0.$set(textbox0_changes);
 			const textblock1_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock1.$set(textblock1_changes);
 			const textbox1_changes = {};
 
-			if (!updating_value_1 && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value_1 && dirty[0] & /*currentEngine*/ 64) {
 				updating_value_1 = true;
-				textbox1_changes.value = /*currentEngine*/ ctx[5].searchURL;
+				textbox1_changes.value = /*currentEngine*/ ctx[6].searchURL;
 				add_flush_callback(() => updating_value_1 = false);
 			}
 
 			textbox1.$set(textbox1_changes);
 			const textblock2_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock2_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock2.$set(textblock2_changes);
 			const textbox2_changes = {};
 
-			if (!updating_value_2 && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value_2 && dirty[0] & /*currentEngine*/ 64) {
 				updating_value_2 = true;
-				textbox2_changes.value = /*currentEngine*/ ctx[5].suggestURL;
+				textbox2_changes.value = /*currentEngine*/ ctx[6].suggestURL;
 				add_flush_callback(() => updating_value_2 = false);
 			}
 
@@ -356,14 +356,14 @@ function create_default_slot_20(ctx) {
 		block,
 		id: create_default_slot_20.name,
 		type: "slot",
-		source: "(67:0) <ContentDialog title=\\\"Edit search engine\\\" closable={false} append={document.body} bind:open={editEngineDialog}>",
+		source: "(69:0) <ContentDialog title=\\\"Edit search engine\\\" closable={false} append={document.body} bind:open={editEngineDialog}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (82:4) <Button on:click={() => {        Object.assign(currentEngine, backupEngine) // need to undo all changes        currentEngine = null;        editEngineDialog = false;      }}>
+// (84:4) <Button on:click={() => {        Object.assign(currentEngine, backupEngine) // need to undo all changes        currentEngine = null;        editEngineDialog = false;      }}>
 function create_default_slot_19(ctx) {
 	let t;
 
@@ -383,14 +383,14 @@ function create_default_slot_19(ctx) {
 		block,
 		id: create_default_slot_19.name,
 		type: "slot",
-		source: "(82:4) <Button on:click={() => {        Object.assign(currentEngine, backupEngine) // need to undo all changes        currentEngine = null;        editEngineDialog = false;      }}>",
+		source: "(84:4) <Button on:click={() => {        Object.assign(currentEngine, backupEngine) // need to undo all changes        currentEngine = null;        editEngineDialog = false;      }}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (87:4) <Button variant="accent" on:click={() => {        $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though        window.monolith.userdata.config.set($config)        editEngineDialog = false;      }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>
+// (89:4) <Button variant="accent" on:click={() => {        $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though        update()        editEngineDialog = false;      }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>
 function create_default_slot_18(ctx) {
 	let t;
 
@@ -410,14 +410,14 @@ function create_default_slot_18(ctx) {
 		block,
 		id: create_default_slot_18.name,
 		type: "slot",
-		source: "(87:4) <Button variant=\\\"accent\\\" on:click={() => {        $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though        window.monolith.userdata.config.set($config)        editEngineDialog = false;      }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>",
+		source: "(89:4) <Button variant=\\\"accent\\\" on:click={() => {        $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though        update()        editEngineDialog = false;      }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (81:2) <svelte:fragment slot="footer">
+// (83:2) <svelte:fragment slot="footer">
 function create_footer_slot_2(ctx) {
 	let button0;
 	let t;
@@ -432,19 +432,19 @@ function create_footer_slot_2(ctx) {
 			$$inline: true
 		});
 
-	button0.$on("click", /*click_handler*/ ctx[11]);
+	button0.$on("click", /*click_handler*/ ctx[12]);
 
 	button1 = new Button({
 			props: {
 				variant: "accent",
-				disabled: /*currentEngine*/ ctx[5].name == '' || /*currentEngine*/ ctx[5].searchURL == '',
+				disabled: /*currentEngine*/ ctx[6].name == '' || /*currentEngine*/ ctx[6].searchURL == '',
 				$$slots: { default: [create_default_slot_18] },
 				$$scope: { ctx }
 			},
 			$$inline: true
 		});
 
-	button1.$on("click", /*click_handler_1*/ ctx[12]);
+	button1.$on("click", /*click_handler_1*/ ctx[13]);
 
 	const block = {
 		c: function create() {
@@ -461,15 +461,15 @@ function create_footer_slot_2(ctx) {
 		p: function update(ctx, dirty) {
 			const button0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
 			button0.$set(button0_changes);
 			const button1_changes = {};
-			if (dirty[0] & /*currentEngine*/ 32) button1_changes.disabled = /*currentEngine*/ ctx[5].name == '' || /*currentEngine*/ ctx[5].searchURL == '';
+			if (dirty[0] & /*currentEngine*/ 64) button1_changes.disabled = /*currentEngine*/ ctx[6].name == '' || /*currentEngine*/ ctx[6].searchURL == '';
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -497,17 +497,17 @@ function create_footer_slot_2(ctx) {
 		block,
 		id: create_footer_slot_2.name,
 		type: "slot",
-		source: "(81:2) <svelte:fragment slot=\\\"footer\\\">",
+		source: "(83:2) <svelte:fragment slot=\\\"footer\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (101:2) <TextBlock>
+// (103:2) <TextBlock>
 function create_default_slot_17(ctx) {
 	let t0;
-	let t1_value = /*currentEngine*/ ctx[5].name + "";
+	let t1_value = /*currentEngine*/ ctx[6].name + "";
 	let t1;
 	let t2;
 
@@ -523,7 +523,7 @@ function create_default_slot_17(ctx) {
 			insert_dev(target, t2, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*currentEngine*/ 32 && t1_value !== (t1_value = /*currentEngine*/ ctx[5].name + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*currentEngine*/ 64 && t1_value !== (t1_value = /*currentEngine*/ ctx[6].name + "")) set_data_dev(t1, t1_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(t0);
@@ -536,14 +536,14 @@ function create_default_slot_17(ctx) {
 		block,
 		id: create_default_slot_17.name,
 		type: "slot",
-		source: "(101:2) <TextBlock>",
+		source: "(103:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (95:0) <ContentDialog    title="Confirm your choice"    append={document.body}    bind:open={delEngineDialog}    on:backdropclick={() => { currentEngine = null; delEngineDialog = false; }}  >
+// (97:0) <ContentDialog    title="Confirm your choice"    append={document.body}    bind:open={delEngineDialog}    on:backdropclick={() => { currentEngine = null; delEngineDialog = false; }}  >
 function create_default_slot_16(ctx) {
 	let textblock;
 	let current;
@@ -567,7 +567,7 @@ function create_default_slot_16(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty[0] & /*currentEngine*/ 32 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*currentEngine*/ 64 | dirty[1] & /*$$scope*/ 16) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -591,14 +591,14 @@ function create_default_slot_16(ctx) {
 		block,
 		id: create_default_slot_16.name,
 		type: "slot",
-		source: "(95:0) <ContentDialog    title=\\\"Confirm your choice\\\"    append={document.body}    bind:open={delEngineDialog}    on:backdropclick={() => { currentEngine = null; delEngineDialog = false; }}  >",
+		source: "(97:0) <ContentDialog    title=\\\"Confirm your choice\\\"    append={document.body}    bind:open={delEngineDialog}    on:backdropclick={() => { currentEngine = null; delEngineDialog = false; }}  >",
 		ctx
 	});
 
 	return block;
 }
 
-// (104:4) <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>
+// (106:4) <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>
 function create_default_slot_15(ctx) {
 	let t;
 
@@ -618,14 +618,14 @@ function create_default_slot_15(ctx) {
 		block,
 		id: create_default_slot_15.name,
 		type: "slot",
-		source: "(104:4) <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>",
+		source: "(106:4) <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (105:4) <Button on:click={() => {        let i = $config.search.available.indexOf(currentEngine);        if (i == -1) throw(new Error("This should NOT happen"))          $config.search.available.splice(i, 1);        if (i <= selectedIndex) {          // shift the selected engine so it stays the same          selectedIndex--;          $config.search.selectedIndex--;        }        $config = $config;        window.monolith.userdata.config.set($config)        delEngineDialog = false;      }}>
+// (107:4) <Button on:click={() => {        let i = $config.search.available.indexOf(currentEngine);        if (i == -1) throw(new Error("This should NOT happen"))          $config.search.available.splice(i, 1);        if (i <= selectedIndex) {          // shift the selected engine so it stays the same          selectedIndex--;          $config.search.selectedIndex--;        }        $config = $config;        update()        delEngineDialog = false;      }}>
 function create_default_slot_14(ctx) {
 	let t;
 
@@ -645,14 +645,14 @@ function create_default_slot_14(ctx) {
 		block,
 		id: create_default_slot_14.name,
 		type: "slot",
-		source: "(105:4) <Button on:click={() => {        let i = $config.search.available.indexOf(currentEngine);        if (i == -1) throw(new Error(\\\"This should NOT happen\\\"))          $config.search.available.splice(i, 1);        if (i <= selectedIndex) {          // shift the selected engine so it stays the same          selectedIndex--;          $config.search.selectedIndex--;        }        $config = $config;        window.monolith.userdata.config.set($config)        delEngineDialog = false;      }}>",
+		source: "(107:4) <Button on:click={() => {        let i = $config.search.available.indexOf(currentEngine);        if (i == -1) throw(new Error(\\\"This should NOT happen\\\"))          $config.search.available.splice(i, 1);        if (i <= selectedIndex) {          // shift the selected engine so it stays the same          selectedIndex--;          $config.search.selectedIndex--;        }        $config = $config;        update()        delEngineDialog = false;      }}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (103:2) <svelte:fragment slot="footer">
+// (105:2) <svelte:fragment slot="footer">
 function create_footer_slot_1(ctx) {
 	let button0;
 	let t;
@@ -667,7 +667,7 @@ function create_footer_slot_1(ctx) {
 			$$inline: true
 		});
 
-	button0.$on("click", /*click_handler_2*/ ctx[17]);
+	button0.$on("click", /*click_handler_2*/ ctx[18]);
 
 	button1 = new Button({
 			props: {
@@ -677,7 +677,7 @@ function create_footer_slot_1(ctx) {
 			$$inline: true
 		});
 
-	button1.$on("click", /*click_handler_3*/ ctx[18]);
+	button1.$on("click", /*click_handler_3*/ ctx[19]);
 
 	const block = {
 		c: function create() {
@@ -694,14 +694,14 @@ function create_footer_slot_1(ctx) {
 		p: function update(ctx, dirty) {
 			const button0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
 			button0.$set(button0_changes);
 			const button1_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -729,14 +729,14 @@ function create_footer_slot_1(ctx) {
 		block,
 		id: create_footer_slot_1.name,
 		type: "slot",
-		source: "(103:2) <svelte:fragment slot=\\\"footer\\\">",
+		source: "(105:2) <svelte:fragment slot=\\\"footer\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (123:2) <TextBlock>
+// (125:2) <TextBlock>
 function create_default_slot_13(ctx) {
 	let t;
 
@@ -756,14 +756,14 @@ function create_default_slot_13(ctx) {
 		block,
 		id: create_default_slot_13.name,
 		type: "slot",
-		source: "(123:2) <TextBlock>",
+		source: "(125:2) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (130:2) <TextBlock variant="bodyStrong">
+// (132:2) <TextBlock variant="bodyStrong">
 function create_default_slot_12(ctx) {
 	let t;
 
@@ -783,14 +783,14 @@ function create_default_slot_12(ctx) {
 		block,
 		id: create_default_slot_12.name,
 		type: "slot",
-		source: "(130:2) <TextBlock variant=\\\"bodyStrong\\\">",
+		source: "(132:2) <TextBlock variant=\\\"bodyStrong\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (129:0) <Expander>
+// (131:0) <Expander>
 function create_default_slot_11(ctx) {
 	let textblock;
 	let current;
@@ -815,7 +815,7 @@ function create_default_slot_11(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -839,17 +839,17 @@ function create_default_slot_11(ctx) {
 		block,
 		id: create_default_slot_11.name,
 		type: "slot",
-		source: "(129:0) <Expander>",
+		source: "(131:0) <Expander>",
 		ctx
 	});
 
 	return block;
 }
 
-// (136:10) <TextBlock variant="caption" style="color: gray;">
+// (138:10) <TextBlock variant="caption" style="color: gray;">
 function create_default_slot_10(ctx) {
 	let t0;
-	let t1_value = getHost(/*SE*/ ctx[31].searchURL) + "";
+	let t1_value = getHost(/*SE*/ ctx[32].searchURL) + "";
 	let t1;
 
 	const block = {
@@ -862,7 +862,7 @@ function create_default_slot_10(ctx) {
 			insert_dev(target, t1, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*$config*/ 2 && t1_value !== (t1_value = getHost(/*SE*/ ctx[31].searchURL) + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*$config*/ 4 && t1_value !== (t1_value = getHost(/*SE*/ ctx[32].searchURL) + "")) set_data_dev(t1, t1_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(t0);
@@ -874,16 +874,16 @@ function create_default_slot_10(ctx) {
 		block,
 		id: create_default_slot_10.name,
 		type: "slot",
-		source: "(136:10) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
+		source: "(138:10) <TextBlock variant=\\\"caption\\\" style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (134:8) <TextBlock>
+// (136:8) <TextBlock>
 function create_default_slot_9(ctx) {
-	let t0_value = /*SE*/ ctx[31].name + "";
+	let t0_value = /*SE*/ ctx[32].name + "";
 	let t0;
 	let br;
 	let t1;
@@ -906,7 +906,7 @@ function create_default_slot_9(ctx) {
 			br = element("br");
 			t1 = space();
 			create_component(textblock.$$.fragment);
-			add_location(br, file, 134, 19, 4266);
+			add_location(br, file, 136, 19, 4181);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, t0, anchor);
@@ -916,10 +916,10 @@ function create_default_slot_9(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if ((!current || dirty[0] & /*$config*/ 2) && t0_value !== (t0_value = /*SE*/ ctx[31].name + "")) set_data_dev(t0, t0_value);
+			if ((!current || dirty[0] & /*$config*/ 4) && t0_value !== (t0_value = /*SE*/ ctx[32].name + "")) set_data_dev(t0, t0_value);
 			const textblock_changes = {};
 
-			if (dirty[0] & /*$config*/ 2 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*$config*/ 4 | dirty[1] & /*$$scope*/ 16) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -946,14 +946,14 @@ function create_default_slot_9(ctx) {
 		block,
 		id: create_default_slot_9.name,
 		type: "slot",
-		source: "(134:8) <TextBlock>",
+		source: "(136:8) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (141:10) <Button on:click={editEngineF(SE, i)}>
+// (143:10) <Button on:click={editEngineF(SE, i)}>
 function create_default_slot_8(ctx) {
 	let t;
 
@@ -973,14 +973,14 @@ function create_default_slot_8(ctx) {
 		block,
 		id: create_default_slot_8.name,
 		type: "slot",
-		source: "(141:10) <Button on:click={editEngineF(SE, i)}>",
+		source: "(143:10) <Button on:click={editEngineF(SE, i)}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (144:10) <Button on:click={delEngineF(SE, i)} disabled={items.length == 1}>
+// (146:10) <Button on:click={delEngineF(SE, i)} disabled={items.length == 1}>
 function create_default_slot_7(ctx) {
 	let t;
 
@@ -1000,14 +1000,14 @@ function create_default_slot_7(ctx) {
 		block,
 		id: create_default_slot_7.name,
 		type: "slot",
-		source: "(144:10) <Button on:click={delEngineF(SE, i)} disabled={items.length == 1}>",
+		source: "(146:10) <Button on:click={delEngineF(SE, i)} disabled={items.length == 1}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (132:4) {#each $config.search.available as SE, i}
+// (134:4) {#each $config.search.available as SE, i}
 function create_each_block(ctx) {
 	let div1;
 	let textblock;
@@ -1035,12 +1035,12 @@ function create_each_block(ctx) {
 		});
 
 	button0.$on("click", function () {
-		if (is_function(/*editEngineF*/ ctx[9](/*SE*/ ctx[31], /*i*/ ctx[33]))) /*editEngineF*/ ctx[9](/*SE*/ ctx[31], /*i*/ ctx[33]).apply(this, arguments);
+		if (is_function(/*editEngineF*/ ctx[10](/*SE*/ ctx[32], /*i*/ ctx[34]))) /*editEngineF*/ ctx[10](/*SE*/ ctx[32], /*i*/ ctx[34]).apply(this, arguments);
 	});
 
 	button1 = new Button({
 			props: {
-				disabled: /*items*/ ctx[2].length == 1,
+				disabled: /*items*/ ctx[3].length == 1,
 				$$slots: { default: [create_default_slot_7] },
 				$$scope: { ctx }
 			},
@@ -1048,7 +1048,7 @@ function create_each_block(ctx) {
 		});
 
 	button1.$on("click", function () {
-		if (is_function(/*delEngineF*/ ctx[10](/*SE*/ ctx[31], /*i*/ ctx[33]))) /*delEngineF*/ ctx[10](/*SE*/ ctx[31], /*i*/ ctx[33]).apply(this, arguments);
+		if (is_function(/*delEngineF*/ ctx[11](/*SE*/ ctx[32], /*i*/ ctx[34]))) /*delEngineF*/ ctx[11](/*SE*/ ctx[32], /*i*/ ctx[34]).apply(this, arguments);
 	});
 
 	const block = {
@@ -1060,9 +1060,9 @@ function create_each_block(ctx) {
 			create_component(button0.$$.fragment);
 			t1 = space();
 			create_component(button1.$$.fragment);
-			add_location(div0, file, 139, 8, 4431);
+			add_location(div0, file, 141, 8, 4346);
 			attr_dev(div1, "class", "flex svelte-16di8yi");
-			add_location(div1, file, 132, 6, 4206);
+			add_location(div1, file, 134, 6, 4121);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div1, anchor);
@@ -1078,22 +1078,22 @@ function create_each_block(ctx) {
 			ctx = new_ctx;
 			const textblock_changes = {};
 
-			if (dirty[0] & /*$config*/ 2 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*$config*/ 4 | dirty[1] & /*$$scope*/ 16) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock.$set(textblock_changes);
 			const button0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
 			button0.$set(button0_changes);
 			const button1_changes = {};
-			if (dirty[0] & /*items*/ 4) button1_changes.disabled = /*items*/ ctx[2].length == 1;
+			if (dirty[0] & /*items*/ 8) button1_changes.disabled = /*items*/ ctx[3].length == 1;
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1124,14 +1124,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(132:4) {#each $config.search.available as SE, i}",
+		source: "(134:4) {#each $config.search.available as SE, i}",
 		ctx
 	});
 
 	return block;
 }
 
-// (151:4) <Button variant="accent" on:click={() => {currentEngine = {}; newEngineDialog = true}}>
+// (153:4) <Button variant="accent" on:click={() => {currentEngine = {}; newEngineDialog = true}}>
 function create_default_slot_6(ctx) {
 	let t;
 
@@ -1151,14 +1151,14 @@ function create_default_slot_6(ctx) {
 		block,
 		id: create_default_slot_6.name,
 		type: "slot",
-		source: "(151:4) <Button variant=\\\"accent\\\" on:click={() => {currentEngine = {}; newEngineDialog = true}}>",
+		source: "(153:4) <Button variant=\\\"accent\\\" on:click={() => {currentEngine = {}; newEngineDialog = true}}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (160:8) <TextBlock>
+// (162:8) <TextBlock>
 function create_default_slot_5(ctx) {
 	let t;
 
@@ -1178,14 +1178,14 @@ function create_default_slot_5(ctx) {
 		block,
 		id: create_default_slot_5.name,
 		type: "slot",
-		source: "(160:8) <TextBlock>",
+		source: "(162:8) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (164:8) <TextBlock>
+// (166:8) <TextBlock>
 function create_default_slot_4(ctx) {
 	let t;
 
@@ -1205,14 +1205,14 @@ function create_default_slot_4(ctx) {
 		block,
 		id: create_default_slot_4.name,
 		type: "slot",
-		source: "(164:8) <TextBlock>",
+		source: "(166:8) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (168:8) <TextBlock>
+// (170:8) <TextBlock>
 function create_default_slot_3(ctx) {
 	let t;
 
@@ -1232,14 +1232,14 @@ function create_default_slot_3(ctx) {
 		block,
 		id: create_default_slot_3.name,
 		type: "slot",
-		source: "(168:8) <TextBlock>",
+		source: "(170:8) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (154:4) <ContentDialog        title="New search engine"        bind:open={newEngineDialog} append={document.body}        on:close={() => currentEngine = null}      >
+// (156:4) <ContentDialog        title="New search engine"        bind:open={newEngineDialog} append={document.body}        on:close={() => currentEngine = null}      >
 function create_default_slot_2(ctx) {
 	let div0;
 	let textblock0;
@@ -1269,13 +1269,13 @@ function create_default_slot_2(ctx) {
 		});
 
 	function textbox0_value_binding_1(value) {
-		/*textbox0_value_binding_1*/ ctx[25](value);
+		/*textbox0_value_binding_1*/ ctx[26](value);
 	}
 
 	let textbox0_props = { placeholder: "Must not be empty" };
 
-	if (/*currentEngine*/ ctx[5].name !== void 0) {
-		textbox0_props.value = /*currentEngine*/ ctx[5].name;
+	if (/*currentEngine*/ ctx[6].name !== void 0) {
+		textbox0_props.value = /*currentEngine*/ ctx[6].name;
 	}
 
 	textbox0 = new TextBox({ props: textbox0_props, $$inline: true });
@@ -1290,13 +1290,13 @@ function create_default_slot_2(ctx) {
 		});
 
 	function textbox1_value_binding_1(value) {
-		/*textbox1_value_binding_1*/ ctx[26](value);
+		/*textbox1_value_binding_1*/ ctx[27](value);
 	}
 
 	let textbox1_props = { placeholder: "Must not be empty" };
 
-	if (/*currentEngine*/ ctx[5].searchURL !== void 0) {
-		textbox1_props.value = /*currentEngine*/ ctx[5].searchURL;
+	if (/*currentEngine*/ ctx[6].searchURL !== void 0) {
+		textbox1_props.value = /*currentEngine*/ ctx[6].searchURL;
 	}
 
 	textbox1 = new TextBox({ props: textbox1_props, $$inline: true });
@@ -1311,15 +1311,15 @@ function create_default_slot_2(ctx) {
 		});
 
 	function textbox2_value_binding_1(value) {
-		/*textbox2_value_binding_1*/ ctx[27](value);
+		/*textbox2_value_binding_1*/ ctx[28](value);
 	}
 
 	let textbox2_props = {
 		placeholder: "Leave empty to disable hints"
 	};
 
-	if (/*currentEngine*/ ctx[5].suggestURL !== void 0) {
-		textbox2_props.value = /*currentEngine*/ ctx[5].suggestURL;
+	if (/*currentEngine*/ ctx[6].suggestURL !== void 0) {
+		textbox2_props.value = /*currentEngine*/ ctx[6].suggestURL;
 	}
 
 	textbox2 = new TextBox({ props: textbox2_props, $$inline: true });
@@ -1342,11 +1342,11 @@ function create_default_slot_2(ctx) {
 			t4 = space();
 			create_component(textbox2.$$.fragment);
 			attr_dev(div0, "class", "flex svelte-16di8yi");
-			add_location(div0, file, 158, 6, 5008);
+			add_location(div0, file, 160, 6, 4923);
 			attr_dev(div1, "class", "flex svelte-16di8yi");
-			add_location(div1, file, 162, 6, 5173);
+			add_location(div1, file, 164, 6, 5088);
 			attr_dev(div2, "class", "flex svelte-16di8yi");
-			add_location(div2, file, 166, 6, 5385);
+			add_location(div2, file, 168, 6, 5300);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div0, anchor);
@@ -1368,48 +1368,48 @@ function create_default_slot_2(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock0_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock0.$set(textblock0_changes);
 			const textbox0_changes = {};
 
-			if (!updating_value && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value && dirty[0] & /*currentEngine*/ 64) {
 				updating_value = true;
-				textbox0_changes.value = /*currentEngine*/ ctx[5].name;
+				textbox0_changes.value = /*currentEngine*/ ctx[6].name;
 				add_flush_callback(() => updating_value = false);
 			}
 
 			textbox0.$set(textbox0_changes);
 			const textblock1_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock1_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock1.$set(textblock1_changes);
 			const textbox1_changes = {};
 
-			if (!updating_value_1 && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value_1 && dirty[0] & /*currentEngine*/ 64) {
 				updating_value_1 = true;
-				textbox1_changes.value = /*currentEngine*/ ctx[5].searchURL;
+				textbox1_changes.value = /*currentEngine*/ ctx[6].searchURL;
 				add_flush_callback(() => updating_value_1 = false);
 			}
 
 			textbox1.$set(textbox1_changes);
 			const textblock2_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock2_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock2.$set(textblock2_changes);
 			const textbox2_changes = {};
 
-			if (!updating_value_2 && dirty[0] & /*currentEngine*/ 32) {
+			if (!updating_value_2 && dirty[0] & /*currentEngine*/ 64) {
 				updating_value_2 = true;
-				textbox2_changes.value = /*currentEngine*/ ctx[5].suggestURL;
+				textbox2_changes.value = /*currentEngine*/ ctx[6].suggestURL;
 				add_flush_callback(() => updating_value_2 = false);
 			}
 
@@ -1453,14 +1453,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(154:4) <ContentDialog        title=\\\"New search engine\\\"        bind:open={newEngineDialog} append={document.body}        on:close={() => currentEngine = null}      >",
+		source: "(156:4) <ContentDialog        title=\\\"New search engine\\\"        bind:open={newEngineDialog} append={document.body}        on:close={() => currentEngine = null}      >",
 		ctx
 	});
 
 	return block;
 }
 
-// (172:8) <Button on:click={() => newEngineDialog = false}>
+// (174:8) <Button on:click={() => newEngineDialog = false}>
 function create_default_slot_1(ctx) {
 	let t;
 
@@ -1480,14 +1480,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(172:8) <Button on:click={() => newEngineDialog = false}>",
+		source: "(174:8) <Button on:click={() => newEngineDialog = false}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (175:8) <Button on:click={() => {            console.log('setting $available.push()');            $config.search.available.push({ ...currentEngine, suggestAlgorithm: 'find' });            $config = $config;              window.monolith.userdata.config.set($config)              currentEngine = null;            newEngineDialog = false;          }} variant="accent" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>
+// (177:8) <Button on:click={() => {            console.log('setting $available.push()');            $config.search.available.push({ ...currentEngine, suggestAlgorithm: 'find' });            $config = $config;              update()              currentEngine = null;            newEngineDialog = false;          }} variant="accent" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>
 function create_default_slot(ctx) {
 	let t;
 
@@ -1507,14 +1507,14 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(175:8) <Button on:click={() => {            console.log('setting $available.push()');            $config.search.available.push({ ...currentEngine, suggestAlgorithm: 'find' });            $config = $config;              window.monolith.userdata.config.set($config)              currentEngine = null;            newEngineDialog = false;          }} variant=\\\"accent\\\" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>",
+		source: "(177:8) <Button on:click={() => {            console.log('setting $available.push()');            $config.search.available.push({ ...currentEngine, suggestAlgorithm: 'find' });            $config = $config;              update()              currentEngine = null;            newEngineDialog = false;          }} variant=\\\"accent\\\" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (171:6) <svelte:fragment slot="footer">
+// (173:6) <svelte:fragment slot="footer">
 function create_footer_slot(ctx) {
 	let button0;
 	let t;
@@ -1529,19 +1529,19 @@ function create_footer_slot(ctx) {
 			$$inline: true
 		});
 
-	button0.$on("click", /*click_handler_5*/ ctx[23]);
+	button0.$on("click", /*click_handler_5*/ ctx[24]);
 
 	button1 = new Button({
 			props: {
 				variant: "accent",
-				disabled: /*currentEngine*/ ctx[5].name == '' || /*currentEngine*/ ctx[5].searchURL == '',
+				disabled: /*currentEngine*/ ctx[6].name == '' || /*currentEngine*/ ctx[6].searchURL == '',
 				$$slots: { default: [create_default_slot] },
 				$$scope: { ctx }
 			},
 			$$inline: true
 		});
 
-	button1.$on("click", /*click_handler_6*/ ctx[24]);
+	button1.$on("click", /*click_handler_6*/ ctx[25]);
 
 	const block = {
 		c: function create() {
@@ -1558,15 +1558,15 @@ function create_footer_slot(ctx) {
 		p: function update(ctx, dirty) {
 			const button0_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
 			button0.$set(button0_changes);
 			const button1_changes = {};
-			if (dirty[0] & /*currentEngine*/ 32) button1_changes.disabled = /*currentEngine*/ ctx[5].name == '' || /*currentEngine*/ ctx[5].searchURL == '';
+			if (dirty[0] & /*currentEngine*/ 64) button1_changes.disabled = /*currentEngine*/ ctx[6].name == '' || /*currentEngine*/ ctx[6].searchURL == '';
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1594,14 +1594,14 @@ function create_footer_slot(ctx) {
 		block,
 		id: create_footer_slot.name,
 		type: "slot",
-		source: "(171:6) <svelte:fragment slot=\\\"footer\\\">",
+		source: "(173:6) <svelte:fragment slot=\\\"footer\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (131:2) <svelte:fragment slot="content">
+// (133:2) <svelte:fragment slot="content">
 function create_content_slot(ctx) {
 	let t0;
 	let br;
@@ -1611,7 +1611,7 @@ function create_content_slot(ctx) {
 	let contentdialog;
 	let updating_open;
 	let current;
-	let each_value = /*$config*/ ctx[1].search.available;
+	let each_value = /*$config*/ ctx[2].search.available;
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -1632,10 +1632,10 @@ function create_content_slot(ctx) {
 			$$inline: true
 		});
 
-	button.$on("click", /*click_handler_4*/ ctx[22]);
+	button.$on("click", /*click_handler_4*/ ctx[23]);
 
 	function contentdialog_open_binding(value) {
-		/*contentdialog_open_binding*/ ctx[28](value);
+		/*contentdialog_open_binding*/ ctx[29](value);
 	}
 
 	let contentdialog_props = {
@@ -1648,8 +1648,8 @@ function create_content_slot(ctx) {
 		$$scope: { ctx }
 	};
 
-	if (/*newEngineDialog*/ ctx[7] !== void 0) {
-		contentdialog_props.open = /*newEngineDialog*/ ctx[7];
+	if (/*newEngineDialog*/ ctx[8] !== void 0) {
+		contentdialog_props.open = /*newEngineDialog*/ ctx[8];
 	}
 
 	contentdialog = new ContentDialog({
@@ -1658,7 +1658,7 @@ function create_content_slot(ctx) {
 		});
 
 	binding_callbacks.push(() => bind(contentdialog, 'open', contentdialog_open_binding));
-	contentdialog.$on("close", /*close_handler*/ ctx[29]);
+	contentdialog.$on("close", /*close_handler*/ ctx[30]);
 
 	const block = {
 		c: function create() {
@@ -1672,7 +1672,7 @@ function create_content_slot(ctx) {
 			create_component(button.$$.fragment);
 			t2 = space();
 			create_component(contentdialog.$$.fragment);
-			add_location(br, file, 149, 4, 4693);
+			add_location(br, file, 151, 4, 4608);
 		},
 		m: function mount(target, anchor) {
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -1688,8 +1688,8 @@ function create_content_slot(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*items, delEngineF, $config, editEngineF*/ 1542) {
-				each_value = /*$config*/ ctx[1].search.available;
+			if (dirty[0] & /*items, delEngineF, $config, editEngineF*/ 3084) {
+				each_value = /*$config*/ ctx[2].search.available;
 				validate_each_argument(each_value);
 				let i;
 
@@ -1718,20 +1718,20 @@ function create_content_slot(ctx) {
 
 			const button_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				button_changes.$$scope = { dirty, ctx };
 			}
 
 			button.$set(button_changes);
 			const contentdialog_changes = {};
 
-			if (dirty[0] & /*currentEngine, $config, newEngineDialog*/ 162 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*currentEngine, $config, update, newEngineDialog*/ 325 | dirty[1] & /*$$scope*/ 16) {
 				contentdialog_changes.$$scope = { dirty, ctx };
 			}
 
-			if (!updating_open && dirty[0] & /*newEngineDialog*/ 128) {
+			if (!updating_open && dirty[0] & /*newEngineDialog*/ 256) {
 				updating_open = true;
-				contentdialog_changes.open = /*newEngineDialog*/ ctx[7];
+				contentdialog_changes.open = /*newEngineDialog*/ ctx[8];
 				add_flush_callback(() => updating_open = false);
 			}
 
@@ -1774,7 +1774,7 @@ function create_content_slot(ctx) {
 		block,
 		id: create_content_slot.name,
 		type: "slot",
-		source: "(131:2) <svelte:fragment slot=\\\"content\\\">",
+		source: "(133:2) <svelte:fragment slot=\\\"content\\\">",
 		ctx
 	});
 
@@ -1798,7 +1798,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function contentdialog0_open_binding(value) {
-		/*contentdialog0_open_binding*/ ctx[16](value);
+		/*contentdialog0_open_binding*/ ctx[17](value);
 	}
 
 	let contentdialog0_props = {
@@ -1812,8 +1812,8 @@ function create_fragment(ctx) {
 		$$scope: { ctx }
 	};
 
-	if (/*editEngineDialog*/ ctx[3] !== void 0) {
-		contentdialog0_props.open = /*editEngineDialog*/ ctx[3];
+	if (/*editEngineDialog*/ ctx[4] !== void 0) {
+		contentdialog0_props.open = /*editEngineDialog*/ ctx[4];
 	}
 
 	contentdialog0 = new ContentDialog({
@@ -1824,7 +1824,7 @@ function create_fragment(ctx) {
 	binding_callbacks.push(() => bind(contentdialog0, 'open', contentdialog0_open_binding));
 
 	function contentdialog1_open_binding(value) {
-		/*contentdialog1_open_binding*/ ctx[19](value);
+		/*contentdialog1_open_binding*/ ctx[20](value);
 	}
 
 	let contentdialog1_props = {
@@ -1837,8 +1837,8 @@ function create_fragment(ctx) {
 		$$scope: { ctx }
 	};
 
-	if (/*delEngineDialog*/ ctx[6] !== void 0) {
-		contentdialog1_props.open = /*delEngineDialog*/ ctx[6];
+	if (/*delEngineDialog*/ ctx[7] !== void 0) {
+		contentdialog1_props.open = /*delEngineDialog*/ ctx[7];
 	}
 
 	contentdialog1 = new ContentDialog({
@@ -1847,7 +1847,7 @@ function create_fragment(ctx) {
 		});
 
 	binding_callbacks.push(() => bind(contentdialog1, 'open', contentdialog1_open_binding));
-	contentdialog1.$on("backdropclick", /*backdropclick_handler*/ ctx[20]);
+	contentdialog1.$on("backdropclick", /*backdropclick_handler*/ ctx[21]);
 
 	textblock = new TextBlock({
 			props: {
@@ -1858,13 +1858,13 @@ function create_fragment(ctx) {
 		});
 
 	function combobox_value_binding(value) {
-		/*combobox_value_binding*/ ctx[21](value);
+		/*combobox_value_binding*/ ctx[22](value);
 	}
 
-	let combobox_props = { items: /*items*/ ctx[2] };
+	let combobox_props = { items: /*items*/ ctx[3] };
 
-	if (/*selectedIndex*/ ctx[0] !== void 0) {
-		combobox_props.value = /*selectedIndex*/ ctx[0];
+	if (/*selectedIndex*/ ctx[1] !== void 0) {
+		combobox_props.value = /*selectedIndex*/ ctx[1];
 	}
 
 	combobox = new ComboBox({ props: combobox_props, $$inline: true });
@@ -1894,7 +1894,7 @@ function create_fragment(ctx) {
 			t3 = space();
 			create_component(expander.$$.fragment);
 			attr_dev(div, "class", "s-option");
-			add_location(div, file, 121, 0, 3792);
+			add_location(div, file, 123, 0, 3707);
 		},
 		l: function claim(nodes) {
 			throw new Error_1("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1915,50 +1915,50 @@ function create_fragment(ctx) {
 		p: function update(ctx, dirty) {
 			const contentdialog0_changes = {};
 
-			if (dirty[0] & /*currentEngine, $config, editEngineDialog, backupEngine*/ 58 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*currentEngine, $config, update, editEngineDialog, backupEngine*/ 117 | dirty[1] & /*$$scope*/ 16) {
 				contentdialog0_changes.$$scope = { dirty, ctx };
 			}
 
-			if (!updating_open && dirty[0] & /*editEngineDialog*/ 8) {
+			if (!updating_open && dirty[0] & /*editEngineDialog*/ 16) {
 				updating_open = true;
-				contentdialog0_changes.open = /*editEngineDialog*/ ctx[3];
+				contentdialog0_changes.open = /*editEngineDialog*/ ctx[4];
 				add_flush_callback(() => updating_open = false);
 			}
 
 			contentdialog0.$set(contentdialog0_changes);
 			const contentdialog1_changes = {};
 
-			if (dirty[0] & /*$config, currentEngine, selectedIndex, delEngineDialog*/ 99 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*$config, currentEngine, selectedIndex, update, delEngineDialog*/ 199 | dirty[1] & /*$$scope*/ 16) {
 				contentdialog1_changes.$$scope = { dirty, ctx };
 			}
 
-			if (!updating_open_1 && dirty[0] & /*delEngineDialog*/ 64) {
+			if (!updating_open_1 && dirty[0] & /*delEngineDialog*/ 128) {
 				updating_open_1 = true;
-				contentdialog1_changes.open = /*delEngineDialog*/ ctx[6];
+				contentdialog1_changes.open = /*delEngineDialog*/ ctx[7];
 				add_flush_callback(() => updating_open_1 = false);
 			}
 
 			contentdialog1.$set(contentdialog1_changes);
 			const textblock_changes = {};
 
-			if (dirty[1] & /*$$scope*/ 8) {
+			if (dirty[1] & /*$$scope*/ 16) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock.$set(textblock_changes);
 			const combobox_changes = {};
-			if (dirty[0] & /*items*/ 4) combobox_changes.items = /*items*/ ctx[2];
+			if (dirty[0] & /*items*/ 8) combobox_changes.items = /*items*/ ctx[3];
 
-			if (!updating_value && dirty[0] & /*selectedIndex*/ 1) {
+			if (!updating_value && dirty[0] & /*selectedIndex*/ 2) {
 				updating_value = true;
-				combobox_changes.value = /*selectedIndex*/ ctx[0];
+				combobox_changes.value = /*selectedIndex*/ ctx[1];
 				add_flush_callback(() => updating_value = false);
 			}
 
 			combobox.$set(combobox_changes);
 			const expander_changes = {};
 
-			if (dirty[0] & /*newEngineDialog, currentEngine, $config, items*/ 166 | dirty[1] & /*$$scope*/ 8) {
+			if (dirty[0] & /*newEngineDialog, currentEngine, $config, update, items*/ 333 | dirty[1] & /*$$scope*/ 16) {
 				expander_changes.$$scope = { dirty, ctx };
 			}
 
@@ -2018,9 +2018,10 @@ function instance($$self, $$props, $$invalidate) {
 	let $config;
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('SearchEngines', slots, []);
+	let { update } = $$props;
 	let config = getContext('config');
 	validate_store(config, 'config');
-	component_subscribe($$self, config, value => $$invalidate(1, $config = value));
+	component_subscribe($$self, config, value => $$invalidate(2, $config = value));
 	let selectedIndex = $config.search.selectedIndex;
 	let items = [];
 	let editEngineDialog = false;
@@ -2032,26 +2033,26 @@ function instance($$self, $$props, $$invalidate) {
 	const handleSelect = noFirstTime(() => {
 		console.log('selecting', selectedIndex);
 		set_store_value(config, $config.search.selectedIndex = selectedIndex, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
 	function editEngineF(engine) {
 		return function () {
-			$$invalidate(5, currentEngine = engine);
-			$$invalidate(4, backupEngine = Object.assign({}, engine));
-			$$invalidate(3, editEngineDialog = true);
+			$$invalidate(6, currentEngine = engine);
+			$$invalidate(5, backupEngine = Object.assign({}, engine));
+			$$invalidate(4, editEngineDialog = true);
 		};
 	}
 
 	function delEngineF(engine) {
 		return function () {
-			$$invalidate(5, currentEngine = engine);
-			$$invalidate(4, backupEngine = Object.assign({}, engine));
-			$$invalidate(6, delEngineDialog = true);
+			$$invalidate(6, currentEngine = engine);
+			$$invalidate(5, backupEngine = Object.assign({}, engine));
+			$$invalidate(7, delEngineDialog = true);
 		};
 	}
 
-	const writable_props = [];
+	const writable_props = ['update'];
 
 	Object_1.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<SearchEngines> was created with unknown prop '${key}'`);
@@ -2059,45 +2060,45 @@ function instance($$self, $$props, $$invalidate) {
 
 	const click_handler = () => {
 		Object.assign(currentEngine, backupEngine); // need to undo all changes
-		$$invalidate(5, currentEngine = null);
-		$$invalidate(3, editEngineDialog = false);
+		$$invalidate(6, currentEngine = null);
+		$$invalidate(4, editEngineDialog = false);
 	};
 
 	const click_handler_1 = () => {
 		config.set($config); // object reference is alredy updated every time a change is made, we have to update the store manually though
-		window.monolith.userdata.config.set($config);
-		$$invalidate(3, editEngineDialog = false);
+		update();
+		$$invalidate(4, editEngineDialog = false);
 	};
 
 	function textbox0_value_binding(value) {
 		if ($$self.$$.not_equal(currentEngine.name, value)) {
 			currentEngine.name = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function textbox1_value_binding(value) {
 		if ($$self.$$.not_equal(currentEngine.searchURL, value)) {
 			currentEngine.searchURL = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function textbox2_value_binding(value) {
 		if ($$self.$$.not_equal(currentEngine.suggestURL, value)) {
 			currentEngine.suggestURL = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function contentdialog0_open_binding(value) {
 		editEngineDialog = value;
-		$$invalidate(3, editEngineDialog);
+		$$invalidate(4, editEngineDialog);
 	}
 
 	const click_handler_2 = () => {
-		$$invalidate(5, currentEngine = null);
-		$$invalidate(6, delEngineDialog = false);
+		$$invalidate(6, currentEngine = null);
+		$$invalidate(7, delEngineDialog = false);
 	};
 
 	const click_handler_3 = () => {
@@ -2107,37 +2108,37 @@ function instance($$self, $$props, $$invalidate) {
 
 		if (i <= selectedIndex) {
 			// shift the selected engine so it stays the same
-			$$invalidate(0, selectedIndex--, selectedIndex);
+			$$invalidate(1, selectedIndex--, selectedIndex);
 
 			set_store_value(config, $config.search.selectedIndex--, $config);
 		}
 
 		config.set($config);
-		window.monolith.userdata.config.set($config);
-		$$invalidate(6, delEngineDialog = false);
+		update();
+		$$invalidate(7, delEngineDialog = false);
 	};
 
 	function contentdialog1_open_binding(value) {
 		delEngineDialog = value;
-		$$invalidate(6, delEngineDialog);
+		$$invalidate(7, delEngineDialog);
 	}
 
 	const backdropclick_handler = () => {
-		$$invalidate(5, currentEngine = null);
-		$$invalidate(6, delEngineDialog = false);
+		$$invalidate(6, currentEngine = null);
+		$$invalidate(7, delEngineDialog = false);
 	};
 
 	function combobox_value_binding(value) {
 		selectedIndex = value;
-		$$invalidate(0, selectedIndex);
+		$$invalidate(1, selectedIndex);
 	}
 
 	const click_handler_4 = () => {
-		$$invalidate(5, currentEngine = {});
-		$$invalidate(7, newEngineDialog = true);
+		$$invalidate(6, currentEngine = {});
+		$$invalidate(8, newEngineDialog = true);
 	};
 
-	const click_handler_5 = () => $$invalidate(7, newEngineDialog = false);
+	const click_handler_5 = () => $$invalidate(8, newEngineDialog = false);
 
 	const click_handler_6 = () => {
 		console.log('setting $available.push()');
@@ -2148,38 +2149,42 @@ function instance($$self, $$props, $$invalidate) {
 		});
 
 		config.set($config);
-		window.monolith.userdata.config.set($config);
-		$$invalidate(5, currentEngine = null);
-		$$invalidate(7, newEngineDialog = false);
+		update();
+		$$invalidate(6, currentEngine = null);
+		$$invalidate(8, newEngineDialog = false);
 	};
 
 	function textbox0_value_binding_1(value) {
 		if ($$self.$$.not_equal(currentEngine.name, value)) {
 			currentEngine.name = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function textbox1_value_binding_1(value) {
 		if ($$self.$$.not_equal(currentEngine.searchURL, value)) {
 			currentEngine.searchURL = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function textbox2_value_binding_1(value) {
 		if ($$self.$$.not_equal(currentEngine.suggestURL, value)) {
 			currentEngine.suggestURL = value;
-			$$invalidate(5, currentEngine);
+			$$invalidate(6, currentEngine);
 		}
 	}
 
 	function contentdialog_open_binding(value) {
 		newEngineDialog = value;
-		$$invalidate(7, newEngineDialog);
+		$$invalidate(8, newEngineDialog);
 	}
 
-	const close_handler = () => $$invalidate(5, currentEngine = null);
+	const close_handler = () => $$invalidate(6, currentEngine = null);
+
+	$$self.$$set = $$props => {
+		if ('update' in $$props) $$invalidate(0, update = $$props.update);
+	};
 
 	$$self.$capture_state = () => ({
 		Expander,
@@ -2191,6 +2196,7 @@ function instance($$self, $$props, $$invalidate) {
 		Flyout,
 		getContext,
 		noFirstTime,
+		update,
 		config,
 		selectedIndex,
 		items,
@@ -2207,14 +2213,15 @@ function instance($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
-		if ('config' in $$props) $$invalidate(8, config = $$props.config);
-		if ('selectedIndex' in $$props) $$invalidate(0, selectedIndex = $$props.selectedIndex);
-		if ('items' in $$props) $$invalidate(2, items = $$props.items);
-		if ('editEngineDialog' in $$props) $$invalidate(3, editEngineDialog = $$props.editEngineDialog);
-		if ('backupEngine' in $$props) $$invalidate(4, backupEngine = $$props.backupEngine);
-		if ('currentEngine' in $$props) $$invalidate(5, currentEngine = $$props.currentEngine);
-		if ('delEngineDialog' in $$props) $$invalidate(6, delEngineDialog = $$props.delEngineDialog);
-		if ('newEngineDialog' in $$props) $$invalidate(7, newEngineDialog = $$props.newEngineDialog);
+		if ('update' in $$props) $$invalidate(0, update = $$props.update);
+		if ('config' in $$props) $$invalidate(9, config = $$props.config);
+		if ('selectedIndex' in $$props) $$invalidate(1, selectedIndex = $$props.selectedIndex);
+		if ('items' in $$props) $$invalidate(3, items = $$props.items);
+		if ('editEngineDialog' in $$props) $$invalidate(4, editEngineDialog = $$props.editEngineDialog);
+		if ('backupEngine' in $$props) $$invalidate(5, backupEngine = $$props.backupEngine);
+		if ('currentEngine' in $$props) $$invalidate(6, currentEngine = $$props.currentEngine);
+		if ('delEngineDialog' in $$props) $$invalidate(7, delEngineDialog = $$props.delEngineDialog);
+		if ('newEngineDialog' in $$props) $$invalidate(8, newEngineDialog = $$props.newEngineDialog);
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -2222,11 +2229,11 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*$config*/ 2) {
-			$: $$invalidate(2, items = $config.search.available.map(({ name }, i) => ({ name, value: i })));
+		if ($$self.$$.dirty[0] & /*$config*/ 4) {
+			$: $$invalidate(3, items = $config.search.available.map(({ name }, i) => ({ name, value: i })));
 		}
 
-		if ($$self.$$.dirty[0] & /*selectedIndex*/ 1) {
+		if ($$self.$$.dirty[0] & /*selectedIndex*/ 2) {
 			$: {
 				selectedIndex;
 				handleSelect();
@@ -2235,6 +2242,7 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	return [
+		update,
 		selectedIndex,
 		$config,
 		items,
@@ -2271,7 +2279,7 @@ function instance($$self, $$props, $$invalidate) {
 class SearchEngines extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance, create_fragment, safe_not_equal, {}, add_css, [-1, -1]);
+		init(this, options, instance, create_fragment, safe_not_equal, { update: 0 }, add_css, [-1, -1]);
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -2279,6 +2287,21 @@ class SearchEngines extends SvelteComponentDev {
 			options,
 			id: create_fragment.name
 		});
+
+		const { ctx } = this.$$;
+		const props = options.props || {};
+
+		if (/*update*/ ctx[0] === undefined && !('update' in props)) {
+			console_1.warn("<SearchEngines> was created without expected prop 'update'");
+		}
+	}
+
+	get update() {
+		throw new Error_1("<SearchEngines>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set update(value) {
+		throw new Error_1("<SearchEngines>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
 

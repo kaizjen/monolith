@@ -35,7 +35,7 @@ import { RadioButton, TextBlock, Button } from "mth://js/fluent-svelte/index.js"
 import { getContext } from "mth://.svelte/internal";
 const file = "src\\browser\\mth\\$svelte\\src\\Settings\\Downloads.svelte";
 
-// (35:2) <TextBlock variant="subtitle">
+// (37:2) <TextBlock variant="subtitle">
 function create_default_slot_8(ctx) {
 	let t;
 
@@ -55,14 +55,14 @@ function create_default_slot_8(ctx) {
 		block,
 		id: create_default_slot_8.name,
 		type: "slot",
-		source: "(35:2) <TextBlock variant=\\\"subtitle\\\">",
+		source: "(37:2) <TextBlock variant=\\\"subtitle\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (40:6) <TextBlock>
+// (42:6) <TextBlock>
 function create_default_slot_7(ctx) {
 	let t;
 
@@ -82,14 +82,14 @@ function create_default_slot_7(ctx) {
 		block,
 		id: create_default_slot_7.name,
 		type: "slot",
-		source: "(40:6) <TextBlock>",
+		source: "(42:6) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (38:2) <RadioButton bind:group value="unknown" on:click={selectUnknown}>
+// (40:2) <RadioButton bind:group value="unknown" on:click={selectUnknown}>
 function create_default_slot_6(ctx) {
 	let div;
 	let textblock;
@@ -107,7 +107,7 @@ function create_default_slot_6(ctx) {
 		c: function create() {
 			div = element("div");
 			create_component(textblock.$$.fragment);
-			add_location(div, file, 38, 4, 1138);
+			add_location(div, file, 40, 4, 1090);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -117,7 +117,7 @@ function create_default_slot_6(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -142,14 +142,14 @@ function create_default_slot_6(ctx) {
 		block,
 		id: create_default_slot_6.name,
 		type: "slot",
-		source: "(38:2) <RadioButton bind:group value=\\\"unknown\\\" on:click={selectUnknown}>",
+		source: "(40:2) <RadioButton bind:group value=\\\"unknown\\\" on:click={selectUnknown}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (47:6) <TextBlock>
+// (49:6) <TextBlock>
 function create_default_slot_5(ctx) {
 	let t;
 
@@ -169,14 +169,14 @@ function create_default_slot_5(ctx) {
 		block,
 		id: create_default_slot_5.name,
 		type: "slot",
-		source: "(47:6) <TextBlock>",
+		source: "(49:6) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (48:6) {#if group == 'known'}
+// (50:6) {#if group == 'known'}
 function create_if_block(ctx) {
 	let br;
 	let textblock;
@@ -195,7 +195,7 @@ function create_if_block(ctx) {
 		c: function create() {
 			br = element("br");
 			create_component(textblock.$$.fragment);
-			add_location(br, file, 48, 8, 1396);
+			add_location(br, file, 50, 8, 1348);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, br, anchor);
@@ -205,7 +205,7 @@ function create_if_block(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope, $config*/ 258) {
+			if (dirty & /*$$scope, $config*/ 514) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -230,14 +230,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(48:6) {#if group == 'known'}",
+		source: "(50:6) {#if group == 'known'}",
 		ctx
 	});
 
 	return block;
 }
 
-// (49:12) <TextBlock style="color: gray;">
+// (51:12) <TextBlock style="color: gray;">
 function create_default_slot_4(ctx) {
 	let t_value = (/*$config*/ ctx[1].behaviour.downloadPath ?? 'No path selected') + "";
 	let t;
@@ -261,14 +261,14 @@ function create_default_slot_4(ctx) {
 		block,
 		id: create_default_slot_4.name,
 		type: "slot",
-		source: "(49:12) <TextBlock style=\\\"color: gray;\\\">",
+		source: "(51:12) <TextBlock style=\\\"color: gray;\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (45:2) <RadioButton bind:group value="known">
+// (47:2) <RadioButton bind:group value="known">
 function create_default_slot_3(ctx) {
 	let div;
 	let textblock;
@@ -291,7 +291,7 @@ function create_default_slot_3(ctx) {
 			create_component(textblock.$$.fragment);
 			t = space();
 			if (if_block) if_block.c();
-			add_location(div, file, 45, 4, 1299);
+			add_location(div, file, 47, 4, 1251);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -303,7 +303,7 @@ function create_default_slot_3(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -354,14 +354,14 @@ function create_default_slot_3(ctx) {
 		block,
 		id: create_default_slot_3.name,
 		type: "slot",
-		source: "(45:2) <RadioButton bind:group value=\\\"known\\\">",
+		source: "(47:2) <RadioButton bind:group value=\\\"known\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (53:2) <Button variant="accent" disabled={group != 'known'} on:click={selectFolder}>
+// (55:2) <Button variant="accent" disabled={group != 'known'} on:click={selectFolder}>
 function create_default_slot_2(ctx) {
 	let t;
 
@@ -381,14 +381,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(53:2) <Button variant=\\\"accent\\\" disabled={group != 'known'} on:click={selectFolder}>",
+		source: "(55:2) <Button variant=\\\"accent\\\" disabled={group != 'known'} on:click={selectFolder}>",
 		ctx
 	});
 
 	return block;
 }
 
-// (57:2) <Button      disabled={$config.behaviour.downloadPath == null}      variant="hyperlink"      on:click={() => { window.monolith.shell.openPath($config.behaviour.downloadPath) }}    >
+// (59:2) <Button      disabled={$config.behaviour.downloadPath == null}      variant="hyperlink"      on:click={() => { window.monolith.shell.openPath($config.behaviour.downloadPath) }}    >
 function create_default_slot_1(ctx) {
 	let t;
 
@@ -408,14 +408,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(57:2) <Button      disabled={$config.behaviour.downloadPath == null}      variant=\\\"hyperlink\\\"      on:click={() => { window.monolith.shell.openPath($config.behaviour.downloadPath) }}    >",
+		source: "(59:2) <Button      disabled={$config.behaviour.downloadPath == null}      variant=\\\"hyperlink\\\"      on:click={() => { window.monolith.shell.openPath($config.behaviour.downloadPath) }}    >",
 		ctx
 	});
 
 	return block;
 }
 
-// (62:2) <Button variant="hyperlink" href="mth://downloads" target="_blank">
+// (64:2) <Button variant="hyperlink" href="mth://downloads" target="_blank">
 function create_default_slot(ctx) {
 	let t;
 
@@ -435,7 +435,7 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(62:2) <Button variant=\\\"hyperlink\\\" href=\\\"mth://downloads\\\" target=\\\"_blank\\\">",
+		source: "(64:2) <Button variant=\\\"hyperlink\\\" href=\\\"mth://downloads\\\" target=\\\"_blank\\\">",
 		ctx
 	});
 
@@ -474,7 +474,7 @@ function create_fragment(ctx) {
 		});
 
 	function radiobutton0_group_binding(value) {
-		/*radiobutton0_group_binding*/ ctx[5](value);
+		/*radiobutton0_group_binding*/ ctx[6](value);
 	}
 
 	let radiobutton0_props = {
@@ -496,7 +496,7 @@ function create_fragment(ctx) {
 	radiobutton0.$on("click", /*selectUnknown*/ ctx[3]);
 
 	function radiobutton1_group_binding(value) {
-		/*radiobutton1_group_binding*/ ctx[6](value);
+		/*radiobutton1_group_binding*/ ctx[7](value);
 	}
 
 	let radiobutton1_props = {
@@ -538,7 +538,7 @@ function create_fragment(ctx) {
 			$$inline: true
 		});
 
-	button1.$on("click", /*click_handler*/ ctx[7]);
+	button1.$on("click", /*click_handler*/ ctx[8]);
 
 	button2 = new Button({
 			props: {
@@ -571,15 +571,15 @@ function create_fragment(ctx) {
 			t5 = space();
 			create_component(button2.$$.fragment);
 			attr_dev(div0, "class", "s-option");
-			add_location(div0, file, 33, 0, 938);
+			add_location(div0, file, 35, 0, 890);
 			attr_dev(div1, "class", "s-option");
-			add_location(div1, file, 36, 0, 1041);
+			add_location(div1, file, 38, 0, 993);
 			attr_dev(div2, "class", "s-option");
-			add_location(div2, file, 43, 0, 1229);
+			add_location(div2, file, 45, 0, 1181);
 			attr_dev(div3, "class", "separator");
-			add_location(div3, file, 54, 0, 1656);
+			add_location(div3, file, 56, 0, 1608);
 			attr_dev(div4, "class", "s-option");
-			add_location(div4, file, 55, 0, 1687);
+			add_location(div4, file, 57, 0, 1639);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -607,14 +607,14 @@ function create_fragment(ctx) {
 		p: function update(ctx, [dirty]) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
 			textblock.$set(textblock_changes);
 			const radiobutton0_changes = {};
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				radiobutton0_changes.$$scope = { dirty, ctx };
 			}
 
@@ -627,7 +627,7 @@ function create_fragment(ctx) {
 			radiobutton0.$set(radiobutton0_changes);
 			const radiobutton1_changes = {};
 
-			if (dirty & /*$$scope, $config, group*/ 259) {
+			if (dirty & /*$$scope, $config, group*/ 515) {
 				radiobutton1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -641,7 +641,7 @@ function create_fragment(ctx) {
 			const button0_changes = {};
 			if (dirty & /*group*/ 1) button0_changes.disabled = /*group*/ ctx[0] != 'known';
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				button0_changes.$$scope = { dirty, ctx };
 			}
 
@@ -649,14 +649,14 @@ function create_fragment(ctx) {
 			const button1_changes = {};
 			if (dirty & /*$config*/ 2) button1_changes.disabled = /*$config*/ ctx[1].behaviour.downloadPath == null;
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				button1_changes.$$scope = { dirty, ctx };
 			}
 
 			button1.$set(button1_changes);
 			const button2_changes = {};
 
-			if (dirty & /*$$scope*/ 256) {
+			if (dirty & /*$$scope*/ 512) {
 				button2_changes.$$scope = { dirty, ctx };
 			}
 
@@ -715,6 +715,7 @@ function instance($$self, $$props, $$invalidate) {
 	let $config;
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Downloads', slots, []);
+	let { update } = $$props;
 	let config = getContext('config');
 	validate_store(config, 'config');
 	component_subscribe($$self, config, value => $$invalidate(1, $config = value));
@@ -726,7 +727,7 @@ function instance($$self, $$props, $$invalidate) {
 	function selectUnknown() {
 		console.log('selecting unknown');
 		set_store_value(config, $config.behaviour.downloadPath = null, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	}
 
 	async function selectFolder() {
@@ -741,10 +742,10 @@ function instance($$self, $$props, $$invalidate) {
 		if (dialogResponse.canceled) return;
 		let path = dialogResponse.filePaths[0];
 		set_store_value(config, $config.behaviour.downloadPath = path, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	}
 
-	const writable_props = [];
+	const writable_props = ['update'];
 
 	Object.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<Downloads> was created with unknown prop '${key}'`);
@@ -764,11 +765,16 @@ function instance($$self, $$props, $$invalidate) {
 		window.monolith.shell.openPath($config.behaviour.downloadPath);
 	};
 
+	$$self.$$set = $$props => {
+		if ('update' in $$props) $$invalidate(5, update = $$props.update);
+	};
+
 	$$self.$capture_state = () => ({
 		RadioButton,
 		TextBlock,
 		Button,
 		getContext,
+		update,
 		config,
 		group,
 		selectUnknown,
@@ -777,6 +783,7 @@ function instance($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
+		if ('update' in $$props) $$invalidate(5, update = $$props.update);
 		if ('config' in $$props) $$invalidate(2, config = $$props.config);
 		if ('group' in $$props) $$invalidate(0, group = $$props.group);
 	};
@@ -791,6 +798,7 @@ function instance($$self, $$props, $$invalidate) {
 		config,
 		selectUnknown,
 		selectFolder,
+		update,
 		radiobutton0_group_binding,
 		radiobutton1_group_binding,
 		click_handler
@@ -800,7 +808,7 @@ function instance($$self, $$props, $$invalidate) {
 class Downloads extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance, create_fragment, safe_not_equal, {});
+		init(this, options, instance, create_fragment, safe_not_equal, { update: 5 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -808,6 +816,21 @@ class Downloads extends SvelteComponentDev {
 			options,
 			id: create_fragment.name
 		});
+
+		const { ctx } = this.$$;
+		const props = options.props || {};
+
+		if (/*update*/ ctx[5] === undefined && !('update' in props)) {
+			console_1.warn("<Downloads> was created without expected prop 'update'");
+		}
+	}
+
+	get update() {
+		throw new Error("<Downloads>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set update(value) {
+		throw new Error("<Downloads>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
 

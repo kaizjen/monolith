@@ -3,6 +3,8 @@
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
 
+  export let update;
+
   let config = getContext('config');
 
   let group = $config.behaviour.onStart.type;
@@ -13,14 +15,14 @@
       type: 'page',
       url: currentUrl
     };
-    window.monolith.userdata.config.set($config)
+    update()
   }
 
   const onGroupChange = noFirstTime(() => {
     if (group == 'page') return; // 'page' is handled by handleSave()
   
     $config.behaviour.onStart = { type: group };
-    window.monolith.userdata.config.set($config)
+    update()
   })
 
   function isValidURL(url) {

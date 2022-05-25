@@ -12,6 +12,8 @@
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
 
+  export let update;
+
   let config = getContext('config')
   let selectedIndex = $config.search.selectedIndex;
   let items = []
@@ -31,7 +33,7 @@
     console.log('selecting', selectedIndex);
   
     $config.search.selectedIndex = selectedIndex;
-    window.monolith.userdata.config.set($config);
+    update()
   })
   $: { selectedIndex; handleSelect() }
 
@@ -86,7 +88,7 @@
     }}>Cancel</Button>
     <Button variant="accent" on:click={() => {
       $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though
-      window.monolith.userdata.config.set($config)
+      update()
       editEngineDialog = false;
     }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>Save changes</Button>
   </svelte:fragment>
@@ -113,7 +115,7 @@
         $config.search.selectedIndex--;
       }
       $config = $config;
-      window.monolith.userdata.config.set($config)
+      update()
       delEngineDialog = false;
     }}>Delete</Button>
   </svelte:fragment>
@@ -177,7 +179,7 @@
           $config.search.available.push({ ...currentEngine, suggestAlgorithm: 'find' });
           $config = $config;
 
-          window.monolith.userdata.config.set($config)
+          update()
 
           currentEngine = null;
           newEngineDialog = false;

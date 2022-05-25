@@ -41,7 +41,7 @@ import { getContext } from "mth://.svelte/internal";
 import noFirstTime from "mth://js/nft.js";
 const file = "src\\browser\\mth\\$svelte\\src\\Settings\\OnStart.svelte";
 
-// (43:6) <TextBlock>
+// (45:6) <TextBlock>
 function create_default_slot_6(ctx) {
 	let t;
 
@@ -61,14 +61,14 @@ function create_default_slot_6(ctx) {
 		block,
 		id: create_default_slot_6.name,
 		type: "slot",
-		source: "(43:6) <TextBlock>",
+		source: "(45:6) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (41:2) <RadioButton bind:group value="new-tab">
+// (43:2) <RadioButton bind:group value="new-tab">
 function create_default_slot_5(ctx) {
 	let div;
 	let textblock;
@@ -86,7 +86,7 @@ function create_default_slot_5(ctx) {
 		c: function create() {
 			div = element("div");
 			create_component(textblock.$$.fragment);
-			add_location(div, file, 41, 4, 998);
+			add_location(div, file, 43, 4, 950);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -96,7 +96,7 @@ function create_default_slot_5(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -121,14 +121,14 @@ function create_default_slot_5(ctx) {
 		block,
 		id: create_default_slot_5.name,
 		type: "slot",
-		source: "(41:2) <RadioButton bind:group value=\\\"new-tab\\\">",
+		source: "(43:2) <RadioButton bind:group value=\\\"new-tab\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (50:6) <TextBlock>
+// (52:6) <TextBlock>
 function create_default_slot_4(ctx) {
 	let t;
 
@@ -148,14 +148,14 @@ function create_default_slot_4(ctx) {
 		block,
 		id: create_default_slot_4.name,
 		type: "slot",
-		source: "(50:6) <TextBlock>",
+		source: "(52:6) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (48:2) <RadioButton bind:group value="last-tabs">
+// (50:2) <RadioButton bind:group value="last-tabs">
 function create_default_slot_3(ctx) {
 	let div;
 	let textblock;
@@ -173,7 +173,7 @@ function create_default_slot_3(ctx) {
 		c: function create() {
 			div = element("div");
 			create_component(textblock.$$.fragment);
-			add_location(div, file, 48, 4, 1164);
+			add_location(div, file, 50, 4, 1116);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -183,7 +183,7 @@ function create_default_slot_3(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -208,14 +208,14 @@ function create_default_slot_3(ctx) {
 		block,
 		id: create_default_slot_3.name,
 		type: "slot",
-		source: "(48:2) <RadioButton bind:group value=\\\"last-tabs\\\">",
+		source: "(50:2) <RadioButton bind:group value=\\\"last-tabs\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (57:6) <TextBlock>
+// (59:6) <TextBlock>
 function create_default_slot_2(ctx) {
 	let t;
 
@@ -235,14 +235,14 @@ function create_default_slot_2(ctx) {
 		block,
 		id: create_default_slot_2.name,
 		type: "slot",
-		source: "(57:6) <TextBlock>",
+		source: "(59:6) <TextBlock>",
 		ctx
 	});
 
 	return block;
 }
 
-// (55:2) <RadioButton bind:group value="page">
+// (57:2) <RadioButton bind:group value="page">
 function create_default_slot_1(ctx) {
 	let div;
 	let textblock;
@@ -260,7 +260,7 @@ function create_default_slot_1(ctx) {
 		c: function create() {
 			div = element("div");
 			create_component(textblock.$$.fragment);
-			add_location(div, file, 55, 4, 1350);
+			add_location(div, file, 57, 4, 1302);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -270,7 +270,7 @@ function create_default_slot_1(ctx) {
 		p: function update(ctx, dirty) {
 			const textblock_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				textblock_changes.$$scope = { dirty, ctx };
 			}
 
@@ -295,14 +295,14 @@ function create_default_slot_1(ctx) {
 		block,
 		id: create_default_slot_1.name,
 		type: "slot",
-		source: "(55:2) <RadioButton bind:group value=\\\"page\\\">",
+		source: "(57:2) <RadioButton bind:group value=\\\"page\\\">",
 		ctx
 	});
 
 	return block;
 }
 
-// (61:0) {#if group == 'page'}
+// (63:0) {#if group == 'page'}
 function create_if_block(ctx) {
 	let div;
 	let textbox;
@@ -312,7 +312,7 @@ function create_if_block(ctx) {
 	let current;
 
 	function textbox_value_binding(value) {
-		/*textbox_value_binding*/ ctx[7](value);
+		/*textbox_value_binding*/ ctx[8](value);
 	}
 
 	let textbox_props = {
@@ -347,7 +347,7 @@ function create_if_block(ctx) {
 			create_component(button.$$.fragment);
 			attr_dev(div, "class", "s-option");
 			set_style(div, "margin-left", "25px");
-			add_location(div, file, 61, 2, 1473);
+			add_location(div, file, 63, 2, 1425);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -369,7 +369,7 @@ function create_if_block(ctx) {
 			const button_changes = {};
 			if (dirty & /*currentUrl*/ 2) button_changes.disabled = !isValidURL(/*currentUrl*/ ctx[1]);
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				button_changes.$$scope = { dirty, ctx };
 			}
 
@@ -397,14 +397,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(61:0) {#if group == 'page'}",
+		source: "(63:0) {#if group == 'page'}",
 		ctx
 	});
 
 	return block;
 }
 
-// (64:4) <Button variant="accent" on:click={handleSave} style="margin-left: 20px;" disabled={!isValidURL(currentUrl)}>
+// (66:4) <Button variant="accent" on:click={handleSave} style="margin-left: 20px;" disabled={!isValidURL(currentUrl)}>
 function create_default_slot(ctx) {
 	let t;
 
@@ -424,7 +424,7 @@ function create_default_slot(ctx) {
 		block,
 		id: create_default_slot.name,
 		type: "slot",
-		source: "(64:4) <Button variant=\\\"accent\\\" on:click={handleSave} style=\\\"margin-left: 20px;\\\" disabled={!isValidURL(currentUrl)}>",
+		source: "(66:4) <Button variant=\\\"accent\\\" on:click={handleSave} style=\\\"margin-left: 20px;\\\" disabled={!isValidURL(currentUrl)}>",
 		ctx
 	});
 
@@ -448,7 +448,7 @@ function create_fragment(ctx) {
 	let current;
 
 	function radiobutton0_group_binding(value) {
-		/*radiobutton0_group_binding*/ ctx[4](value);
+		/*radiobutton0_group_binding*/ ctx[5](value);
 	}
 
 	let radiobutton0_props = {
@@ -469,7 +469,7 @@ function create_fragment(ctx) {
 	binding_callbacks.push(() => bind(radiobutton0, 'group', radiobutton0_group_binding));
 
 	function radiobutton1_group_binding(value) {
-		/*radiobutton1_group_binding*/ ctx[5](value);
+		/*radiobutton1_group_binding*/ ctx[6](value);
 	}
 
 	let radiobutton1_props = {
@@ -490,7 +490,7 @@ function create_fragment(ctx) {
 	binding_callbacks.push(() => bind(radiobutton1, 'group', radiobutton1_group_binding));
 
 	function radiobutton2_group_binding(value) {
-		/*radiobutton2_group_binding*/ ctx[6](value);
+		/*radiobutton2_group_binding*/ ctx[7](value);
 	}
 
 	let radiobutton2_props = {
@@ -525,11 +525,11 @@ function create_fragment(ctx) {
 			if (if_block) if_block.c();
 			if_block_anchor = empty();
 			attr_dev(div0, "class", "s-option");
-			add_location(div0, file, 39, 0, 926);
+			add_location(div0, file, 41, 0, 878);
 			attr_dev(div1, "class", "s-option");
-			add_location(div1, file, 46, 0, 1090);
+			add_location(div1, file, 48, 0, 1042);
 			attr_dev(div2, "class", "s-option");
-			add_location(div2, file, 53, 0, 1281);
+			add_location(div2, file, 55, 0, 1233);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -551,7 +551,7 @@ function create_fragment(ctx) {
 		p: function update(ctx, [dirty]) {
 			const radiobutton0_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				radiobutton0_changes.$$scope = { dirty, ctx };
 			}
 
@@ -564,7 +564,7 @@ function create_fragment(ctx) {
 			radiobutton0.$set(radiobutton0_changes);
 			const radiobutton1_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				radiobutton1_changes.$$scope = { dirty, ctx };
 			}
 
@@ -577,7 +577,7 @@ function create_fragment(ctx) {
 			radiobutton1.$set(radiobutton1_changes);
 			const radiobutton2_changes = {};
 
-			if (dirty & /*$$scope*/ 1024) {
+			if (dirty & /*$$scope*/ 2048) {
 				radiobutton2_changes.$$scope = { dirty, ctx };
 			}
 
@@ -666,24 +666,25 @@ function instance($$self, $$props, $$invalidate) {
 	let $config;
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('OnStart', slots, []);
+	let { update } = $$props;
 	let config = getContext('config');
 	validate_store(config, 'config');
-	component_subscribe($$self, config, value => $$invalidate(8, $config = value));
+	component_subscribe($$self, config, value => $$invalidate(9, $config = value));
 	let group = $config.behaviour.onStart.type;
 	let currentUrl = $config.behaviour.onStart.url ?? '';
 
 	function handleSave() {
 		set_store_value(config, $config.behaviour.onStart = { type: 'page', url: currentUrl }, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	}
 
 	const onGroupChange = noFirstTime(() => {
 		if (group == 'page') return; // 'page' is handled by handleSave()
 		set_store_value(config, $config.behaviour.onStart = { type: group }, $config);
-		window.monolith.userdata.config.set($config);
+		update();
 	});
 
-	const writable_props = [];
+	const writable_props = ['update'];
 
 	Object.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<OnStart> was created with unknown prop '${key}'`);
@@ -709,6 +710,10 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(1, currentUrl);
 	}
 
+	$$self.$$set = $$props => {
+		if ('update' in $$props) $$invalidate(4, update = $$props.update);
+	};
+
 	$$self.$capture_state = () => ({
 		RadioButton,
 		TextBlock,
@@ -716,6 +721,7 @@ function instance($$self, $$props, $$invalidate) {
 		Button,
 		getContext,
 		noFirstTime,
+		update,
 		config,
 		group,
 		currentUrl,
@@ -726,6 +732,7 @@ function instance($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
+		if ('update' in $$props) $$invalidate(4, update = $$props.update);
 		if ('config' in $$props) $$invalidate(2, config = $$props.config);
 		if ('group' in $$props) $$invalidate(0, group = $$props.group);
 		if ('currentUrl' in $$props) $$invalidate(1, currentUrl = $$props.currentUrl);
@@ -749,6 +756,7 @@ function instance($$self, $$props, $$invalidate) {
 		currentUrl,
 		config,
 		handleSave,
+		update,
 		radiobutton0_group_binding,
 		radiobutton1_group_binding,
 		radiobutton2_group_binding,
@@ -759,7 +767,7 @@ function instance($$self, $$props, $$invalidate) {
 class OnStart extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance, create_fragment, safe_not_equal, {});
+		init(this, options, instance, create_fragment, safe_not_equal, { update: 4 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -767,6 +775,21 @@ class OnStart extends SvelteComponentDev {
 			options,
 			id: create_fragment.name
 		});
+
+		const { ctx } = this.$$;
+		const props = options.props || {};
+
+		if (/*update*/ ctx[4] === undefined && !('update' in props)) {
+			console.warn("<OnStart> was created without expected prop 'update'");
+		}
+	}
+
+	get update() {
+		throw new Error("<OnStart>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set update(value) {
+		throw new Error("<OnStart>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
 

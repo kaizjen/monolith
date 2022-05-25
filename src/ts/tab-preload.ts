@@ -26,6 +26,10 @@ function sendInternalSync(id: string, ...args: any[]) {
   return ipcRenderer.sendSync(`internal:${id}`, ...args)
 }
 
+let subscriptions = {
+  config: false
+}
+
 if (location.protocol == 'mth:') {
   expose('monolith', {
     clipboard: {
@@ -36,6 +40,17 @@ if (location.protocol == 'mth:') {
       config: {
         get: () => sendInternal('userData', 'config'),
         set: (config: any) => sendInternal('userData', 'config:set', config),
+        subscribe(fun: Function) {
+          if (subscriptions.config) throw(new MonolithError("Already subscribed"))
+
+          sendInternal('userData', 'config:subscribe');
+          subscriptions.config = true;
+
+          let sub = (_e, newVal) => {
+            fun(newVal)
+          }
+          ipcRenderer.on('subscription:config', sub)
+        }
       },
       history: {
         get: ({ entries = 20, offset }) => sendInternal('userData', 'history', { entries, offset }),

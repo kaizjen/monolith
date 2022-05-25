@@ -380,12 +380,12 @@ function create_default_slot_2(ctx) {
 			t5 = space();
 			create_component(checkbox5.$$.fragment);
 			br5 = element("br");
-			add_location(br0, file, 59, 60, 1517);
-			add_location(br1, file, 60, 59, 1582);
-			add_location(br2, file, 61, 80, 1668);
-			add_location(br3, file, 62, 63, 1737);
-			add_location(br4, file, 63, 63, 1806);
-			add_location(br5, file, 67, 73, 2037);
+			add_location(br0, file, 59, 60, 1538);
+			add_location(br1, file, 60, 59, 1603);
+			add_location(br2, file, 61, 80, 1689);
+			add_location(br3, file, 62, 63, 1758);
+			add_location(br4, file, 63, 63, 1827);
+			add_location(br5, file, 67, 73, 2058);
 		},
 		m: function mount(target, anchor) {
 			mount_component(checkbox0, target, anchor);
@@ -836,7 +836,7 @@ function instance($$self, $$props, $$invalidate) {
 
 		if (clear.siteSettings) {
 			set_store_value(config, $config.privacy.sitePermissions = {}, $config);
-			userdata.config.set($config);
+			userdata.config.set({ privacy: $config.privacy });
 		}
 
 		$$invalidate(1, isLoading = false);

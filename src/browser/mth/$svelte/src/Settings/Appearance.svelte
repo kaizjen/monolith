@@ -3,6 +3,8 @@
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
 
+  export let update;
+
   function throttle(func, ms = 200) {
     let timeout;
     return function wrapper() {
@@ -19,7 +21,7 @@
     select({ detail }) {
       console.log('selected', detail);
       $config.ui.theme = detail.value;
-      window.monolith.userdata.config.set($config)
+      update()
     },
     value: $config.ui.theme
   }
@@ -28,7 +30,7 @@
   const updateBookmarkBar = noFirstTime(() => {
     console.log('bm-b', bookmarkBar);
     $config.ui.showBookmarks = bookmarkBar;
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {bookmarkBar; updateBookmarkBar()}
 
@@ -37,7 +39,7 @@
   const updatePageZoom = noFirstTime(() => {
     console.log('z-page', defaultPageZoom);
     $config.ui.defaultZoomFactor = Number((defaultPageZoom / 100).toPrecision(2));
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {defaultPageZoom; updatePageZoom()}
   const pageZoomThrottled = throttle(() => {
@@ -50,7 +52,7 @@
   const updateChromeZoom = noFirstTime(() => {
     console.log('z-chr', chromeZoom);
     $config.ui.chromeZoomFactor = Number((chromeZoom / 100).toPrecision(2));
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {chromeZoom; updateChromeZoom()}
   const chromeZoomThrottled = throttle(() => {

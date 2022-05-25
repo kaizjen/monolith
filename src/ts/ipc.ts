@@ -4,7 +4,7 @@ import { ipcMain, BrowserWindow, clipboard, nativeTheme, safeStorage, dialog, sh
 import type { WebContents, IpcMainEvent } from "electron";
 import fetch from "electron-fetch";
 import * as userData from "./userdata";
-import type { TabWindow, TabOptions } from "./types"
+import type { TabWindow, TabOptions, Configuration } from "./types"
 import $ from "./vars";
 import * as tabManager from './tabs'
 import * as _url from "url";
@@ -476,13 +476,28 @@ export function init() {
       e.returnValue = { error: `Error: ${_err}` }
     }
   })
-  onInternal('userData', async(_e, action, obj, obj2) => {
+  onInternal('userData', async(e, action, obj, obj2) => {
     switch (action) {
       case 'config': {
         return userData.config.get()
       }
       case 'config:set': {
         return userData.config.set(obj)
+      }
+      case 'config:subscribe': {
+        function sub(c: Configuration) {
+          if (e.sender.isDestroyed()) {
+            // had to resort to this terrible method because "destroyed" event doesn't fire (???)
+            unsub();
+            return;
+          }
+          e.sender.send('subscription:config', c)
+        }
+        function unsub() {
+          userData.config.unlisten(sub)
+        }
+        userData.config.listen(sub);
+        e.sender.once('did-navigate', unsub)
       }
       case 'lastlaunch': {
         return userData.lastlaunch.get()

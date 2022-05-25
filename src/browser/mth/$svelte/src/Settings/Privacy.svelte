@@ -7,34 +7,36 @@
 
   let config = getContext('config')
 
+  export let update;
+
   let clearDialog = false;
   let siteSettingsDialog = location.hash.startsWith('#siteSettings');
 
   let noCOPermissions = $config.privacy.denyCrossOriginPermissions;
   const updateCOPs = noFirstTime(() => {
     $config.privacy.denyCrossOriginPermissions = noCOPermissions;
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {noCOPermissions; updateCOPs()}
 
   let useHintingService = $config.privacy.useSuggestions;
   const updateHintingService = noFirstTime(() => {
     $config.privacy.useSuggestions = useHintingService;
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {useHintingService; updateHintingService()}
 
   let maskSessionWhenHints = $config.privacy.hideSessionForSuggestions;
   const updateMask = noFirstTime(() => {
     $config.privacy.hideSessionForSuggestions = maskSessionWhenHints;
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {maskSessionWhenHints; updateMask()}
 
   let useHTTPSOnly = $config.privacy.httpsOnly;
   const updateHTTPSOnly = noFirstTime(() => {
     $config.privacy.httpsOnly = useHTTPSOnly;
-    window.monolith.userdata.config.set($config)
+    update()
   })
   $: {useHTTPSOnly; updateHTTPSOnly()}
 </script>

@@ -242,6 +242,12 @@ export let config = {
   listenCall(fn: (c: Configuration) => void) {
     this.listeners.push(fn);
     fn(this.get())
+  },
+  unlisten(fn: (c: Configuration) => void) {
+    let i: number = this.listeners.indexOf(fn);
+    if (i == -1) return;
+
+    this.listeners.splice(i, 1);
   }
 }
 
@@ -264,6 +270,12 @@ export let lastlaunch = {
   listenCall(fn: (c: LastLaunch) => void) {
     this.listeners.push(fn);
     fn(this.get())
+  },
+  unlisten(fn: (c: LastLaunch) => void) {
+    let i: number = this.listeners.indexOf(fn);
+    if (i == -1) return;
+
+    this.listeners.splice(i, 1);
   }
 }
 

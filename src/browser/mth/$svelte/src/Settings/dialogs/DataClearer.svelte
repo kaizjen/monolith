@@ -49,7 +49,7 @@
     }
     if (clear.siteSettings) {
       $config.privacy.sitePermissions = {};
-      userdata.config.set($config);
+      userdata.config.set({ privacy: $config.privacy });
     }
     isLoading = false;
     open = false;

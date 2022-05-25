@@ -134,6 +134,15 @@
       main.scrollTo(0, absoluteElementCenter - halfWindowSize)
     }
   }
+
+  async function update() {
+    window.monolith.userdata.config.set($config)
+  }
+  
+  window.monolith.userdata.config.subscribe(c => {
+    console.log('sub', c);
+    $config = c;
+  })
 </script>
 
 
@@ -165,7 +174,7 @@
         <TextBlock variant="titleLarge" style="margin-bottom: 15px;">{section.name}</TextBlock>
   
         <section bind:this={section.element}>
-          <svelte:component this={section.component} />
+          <svelte:component this={section.component} {update} />
         </section>
       {/each}
     {/await}
