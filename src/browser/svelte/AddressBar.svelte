@@ -21,13 +21,7 @@
   #addressbar:not(.abignore):hover {
     background: #00000042;
   }
-  #addressbar:not(.abignore):active {
-    background: #00000085;
-  }
   #addressbar.focus:hover {
-    background: inherit;
-  }
-  #addressbar.focus:active {
     background: inherit;
   }
   #sec {

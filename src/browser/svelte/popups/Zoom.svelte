@@ -24,19 +24,9 @@
     right: 0;
     cursor: default;
   }
-  button {
-    background: var(--button-color);
-    padding: 8px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--trivial-color);
-  }
-  button:hover {
-    background: var(--button-hover);
-  }
-  button:active {
-    background: var(--button-active);
-    transition: 0.15s;
+  .title {
+    display: flex;
+    margin-bottom: 10px;
   }
 </style>
 
@@ -54,6 +44,7 @@
   import { getContext } from "svelte/internal";
   import { ipcRenderer } from "electron";
   import { fly } from 'svelte/transition'
+  import Button from "../lib/Button.svelte";
 
   const setTop = getContext('setTop')
   const colorTheme = getContext('colorTheme')
@@ -64,8 +55,8 @@
   
 </script>
 
-<div class="dialog" in:fly={{ y: 16, duration: 150 }}>
-  <div style="display: flex;">
+<div class="dialog" in:fly={window.flyerProperties}>
+  <div class="title">
     <img
       style="margin-right: 8px;"
       src="m-res://{$colorTheme}/state_zoom{level - $config?.ui.defaultZoomFactor > 0 ? 'in' : 'out'}.svg"
@@ -73,13 +64,13 @@
     >
     <b> {_.INFO({ zoom: Math.round(level * 100) })} </b>
   </div>
-  <button on:click={() => {
+  <Button on:click={() => {
     ipcRenderer.send('@tab', 'setZoom', $config?.ui.defaultZoomFactor);
     setTop(false);
     open = false;
   }}>
     {_.RESET}
-  </button>
+  </Button>
 </div>
 
 <div class="blocker" on:click={() => {setTop(false); open = false}}></div>

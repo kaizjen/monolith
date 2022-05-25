@@ -78,6 +78,8 @@
     $colorTheme = m.matches ? 'dark' : 'light';
   })
 
+  window.flyerProperties = { y: 4, duration: 100, opacity: 0.8 };
+
   requestAnimationFrame(() => {
     ipcRenderer.send('chrome:setHeight', document.body.getBoundingClientRect().height)
   })

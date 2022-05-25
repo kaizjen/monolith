@@ -81,21 +81,6 @@
     font-size: small;
     color: var(--trivial-text);
   }
-
-  .big-btn {
-    background: var(--button-background);
-    padding: 8px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--trivial-color);
-  }
-  .big-btn:hover {
-    background: var(--button-hover);
-  }
-  .big-btn:active {
-    background: var(--button-active);
-    transition: 0.15s;
-  }
 </style>
 
 <script>
@@ -106,6 +91,7 @@
   import * as pathModule from "path";
   import { ipcRenderer, shell } from "electron"
   import { fly } from "svelte/transition";
+  import Button from "../lib/Button.svelte";
 
   const { t } = window;
   const _ = {
@@ -143,7 +129,7 @@
   }}
 </script>
 
-<div class="dialog" in:fly={{ y: 4, duration: 100, opacity: 0.8 }}>
+<div class="dialog" in:fly={window.flyerProperties}>
   {#if downloadInfo}
     <h3>{_.CURRENT}</h3>
     <div class="dl-wrapper">
@@ -214,19 +200,19 @@
   </div>
 
   <div style="display: flex; justify-content: space-between">
-    <button class="big-btn" on:click={() => {
+    <Button outline={true} on:click={() => {
       ipcRenderer.send('newTab', { url: 'mth://downloads' });
       open = false;
       setTop(false)
     }}>
       {_.OPEN_PAGE}
-    </button>
+    </Button>
     {#if $config?.behaviour.downloadPath}
-      <button class="big-btn" on:click={() => {
+      <Button outline={true} on:click={() => {
         shell.openPath(($config?.behaviour.downloadPath).replaceAll('%s', ''))
       }}>
       {_.OPEN_FOLDER}
-    </button>
+    </Button>
     {/if}
   </div>
 </div>

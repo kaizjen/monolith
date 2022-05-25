@@ -110,7 +110,7 @@
   }
 </script>
 
-<div class="dialog" in:fly={{ y: 4, duration: 100, opacity: 0.8 }}>
+<div class="dialog" in:fly={window.flyerProperties}>
   <div class="info" class:secure={tab.security === true}>
     <img src={
       tab.security === true ? `m-res://${$colorTheme}/sec_https.svg` : 
