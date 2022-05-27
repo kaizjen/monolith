@@ -1,13 +1,11 @@
 // This file is for all types of windows
 
 import type { TabWindow, TabOptions, Tab } from "./types";
-import { app, BrowserView, BrowserWindow, Menu, nativeTheme, session } from "electron";
+import { app, BrowserView, BrowserWindow, nativeTheme } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
 import * as pathModule from "path";
-import $ from "./vars"
 import { config, control } from './userdata'
-import { t } from "./i18n";
 import { showAppMenu } from "./menu";
 import { CHROME_PARTITION } from "./sessions";
 
@@ -31,7 +29,6 @@ const platform = {
   linux_BSD: process.platform != 'darwin' && process.platform != 'win32'
 }
 
-let _privateIDsAmount = 0;
 let windows: TabWindow[] = [];
 
 
@@ -67,42 +64,6 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     w.setEnabled(false);
     w.setEnabled(true);
     // voodoo magic to prevent default menu from showing
-
-    /* Menu.buildFromTemplate([
-      {
-        label: t('menu.common.newTab'),
-        click() {
-          tabManager.createTab(w, {
-            url: $.newTabUrl
-          })
-        }
-      },
-      {
-        type: 'separator'
-      },
-      {
-        label: t('menu.window.minimize'),
-        click() {
-          w.minimize()
-        }
-      },
-      {
-        label: w.isMaximized() ? t('menu.window.unmaximize') : t('menu.window.maximize'),
-        click() {
-          w.isMaximized() ? w.unmaximize() : w.maximize()
-        }
-      },
-      {
-        type: 'separator'
-      },
-      {
-        label: t('menu.window.close'),
-        click() {
-          w.close()
-        }
-      }
-    ]).popup();
-    */
     
     showAppMenu();
   })

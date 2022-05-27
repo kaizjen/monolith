@@ -83,7 +83,6 @@ function displayPreventUnloadDialog(win: BrowserWindow, url: string, sync?: bool
 
 function handleBeforeUnload<T>(wc: WebContents, proceed: () => T): Promise<false | T> {
   const code = `(function(){
-    console.log("BEFOREUNLOAD")
     let bUnloadEvent = new Event('beforeunload', { cancelable: true })
     let isReturnValueSet = false;
     Object.defineProperty(bUnloadEvent, 'returnValue', {
