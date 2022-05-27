@@ -3,3 +3,4 @@ node_modules
 src/browser/out
 src/js
 src/i18n/final/**
+src/browser/mth/js

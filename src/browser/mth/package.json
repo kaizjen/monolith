@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "name": "mth-pages",
+  "private": true,
+  "dependencies": {
+    "fluent-svelte": "^1.5.1"
+  }
+}

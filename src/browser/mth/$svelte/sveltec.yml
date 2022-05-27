@@ -1,6 +1,0 @@
-target: src/
-output: ../js/
-options:
-  dev: true
-  esm: true
-  sveltePath: mth://.svelte
