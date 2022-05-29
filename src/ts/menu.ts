@@ -211,7 +211,7 @@ const view: Electron.MenuItemConstructorOptions[] = [
     }
   }
 ]
-const appMenu = Menu.buildFromTemplate([
+export const appMenu = Menu.buildFromTemplate([
   {
     label: t('name') + ((process.platform == 'win32') ? '        ' : ''),
     submenu: [
@@ -416,7 +416,7 @@ Menu.setApplicationMenu(appMenu)
 
 
 export function showAppMenu() {
-  appMenu.popup();
+  Menu.getApplicationMenu().popup();
 }
 
 export async function displayOptions(win: TabWindow, { x, y }) {

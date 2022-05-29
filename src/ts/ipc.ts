@@ -1,6 +1,6 @@
 // Manages the recieving IPC
 
-import { ipcMain, BrowserWindow, clipboard, nativeTheme, safeStorage, dialog, shell, session, app } from "electron";
+import { ipcMain, BrowserWindow, clipboard, nativeTheme, safeStorage, dialog, shell, session, app, Menu } from "electron";
 import type { WebContents, IpcMainEvent } from "electron";
 import fetch from "electron-fetch";
 import * as userData from "./userdata";
@@ -8,11 +8,11 @@ import type { TabWindow, TabOptions, Configuration } from "./types"
 import $ from "./vars";
 import * as tabManager from './tabs'
 import * as _url from "url";
-import { displayOptions, menuOfTab } from "./menu";
-import { getTabWindowByID, isTabWindow } from "./windows";
+import { appMenu, displayOptions, menuOfTab } from "./menu";
+import { getTabWindowByID, isTabWindow, setCurrentTabBounds } from "./windows";
 import type TypeFuse from "fuse.js";
 import { DEFAULT_PARTITION, NO_CACHE_PARTITION } from "./sessions";
-import { t } from "./i18n";
+import { getSupportedLanguage, t, availableTranslations } from "./i18n";
 const Fuse = require('fuse.js') as typeof TypeFuse;
 // must use require here because fuse.js, when require()d, doesnt have a .default property.
 
@@ -666,6 +666,85 @@ export function init() {
       default:
         throw new Error(`[session]: Unknown action: ${action}`);
     }
+  })
+
+  function preventEvent(e: Electron.Event) {
+    e.preventDefault()
+  }
+  onInternal('requestFullWindowView', (e) => {
+    const win = BrowserWindow.fromWebContents(e.sender) as TabWindow
+    if (!win || !isTabWindow(win)) return;
+
+    if (win.currentTab.webContents != e.sender) {
+      throw "Hidden tabs are not allowed to request full window view"
+    }
+
+    const { width, height } = win.getContentBounds()
+    win.currentTab.setBounds({ x: 0, y: 0, width, height });
+
+    win.isFullScreen = () => {
+      // a hack around the 'setCurrentTabBounds' function
+      // this is the easiest solution right now, maybe should be done more gracefully
+      return true;
+    }
+
+    win.currentTab.webContents.on('will-navigate', preventEvent)
+    // this is easier than to try to leave full window view when webContents navigate
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate([
+      {
+        label: 'Monolith',
+        submenu: [{
+          role: 'quit'
+        }]
+      }
+    ]))
+  })
+  onInternal('leaveFullWindowView', (e) => {
+    const win = BrowserWindow.fromWebContents(e.sender) as TabWindow
+    if (!win || !isTabWindow(win)) return;
+
+    win.isFullScreen = BrowserWindow.prototype.isFullScreen
+    setCurrentTabBounds(win);
+    win.currentTab.webContents.off('will-navigate', preventEvent)
+
+    Menu.setApplicationMenu(appMenu)
+  })
+  onInternalSync('getSupportedLanguage', (e, locale) => {
+    e.returnValue = getSupportedLanguage(locale)
+  })
+  onInternalSync('getAvailableTranslations', (e) => {
+    e.returnValue = availableTranslations;
+  })
+
+  onInternal('restart', () => {
+    app.relaunch();
+    app.quit();
+  })
+  onInternal('quit', () => {
+    app.quit();
+  })
+
+  onInternal('closeMe', (e) => {
+    const win = BrowserWindow.fromWebContents(e.sender) as TabWindow
+    if (!win || !isTabWindow(win)) return;
+
+    let tab = win.tabs.find(t => t.webContents == e.sender);
+    if (!tab) throw "No tab found in window"
+
+    tabManager.closeTab(win, { tab })
+  })
+  onInternal('createTab', (e, url) => {
+    const win = BrowserWindow.fromWebContents(e.sender) as TabWindow
+    if (!win || !isTabWindow(win)) return;
+
+    tabManager.createTab(win, { url })
+  })
+  onInternal('navigateMe', (e, url) => {
+    const win = BrowserWindow.fromWebContents(e.sender) as TabWindow
+    if (!win || !isTabWindow(win)) return;
+
+    e.sender.loadURL(url)
   })
 }
 

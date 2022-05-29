@@ -128,6 +128,7 @@ try {
 (function() {
   const bool_null: ['boolean', null] = ['boolean', null];
   let validation = runType(configContent, {
+    welcomePhase: 'realnumber',
     i18n: [{
       lang: 'string',
       locale: 'string'

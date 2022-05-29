@@ -54,17 +54,17 @@ if (configData.i18n != null) {
   }
 
   const resources = {}
-  resources['en-US'] = {
-    root: parseTranslation('en-US')
+  resources['en'] = {
+    root: parseTranslation('en')
   };
-  if (lang != 'en-US') {
+  if (lang != 'en') {
     resources[lang] = {
       root: parseTranslation(lang)
     }
   }
 
   i18n.init({
-    fallbackLng: 'en-US',
+    fallbackLng: 'en',
     lng: lang,
     resources,
     defaultNS: 'root',

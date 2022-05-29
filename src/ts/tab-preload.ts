@@ -32,6 +32,11 @@ let subscriptions = {
 
 if (location.protocol == 'mth:') {
   expose('monolith', {
+    i18n: {
+      t: (...args) => ipcRenderer.sendSync('t', ...args),
+      getSupportedLanguage: (locale: string) => sendInternalSync('getSupportedLanguage', locale),
+      getAvailableTranslations: (locale: string) => sendInternalSync('getAvailableTranslations', locale)
+    },
     clipboard: {
       readText: () => sendInternalSync('clipboard', 'readText'),
       writeText: (str: string) => sendInternalSync('clipboard', 'writeText', str),
@@ -84,6 +89,19 @@ if (location.protocol == 'mth:') {
     session: {
       clearData: (clearObj) => sendInternal('session', 'clear', clearObj),
       isPrivate: () => sendInternal('session', 'isPrivate')
+    },
+    view: {
+      requestFullWindowView: () => sendInternal('requestFullWindowView'),
+      leaveFullWindowView: () => sendInternal('leaveFullWindowView')
+    },
+    app: {
+      restart: () => sendInternal('restart'),
+      quit: () => sendInternal('quit')
+    },
+    tab: {
+      close: () => sendInternal('closeMe'),
+      create: (url) => sendInternal('createTab', url),
+      go: (url) => sendInternal('navigateMe', url),
     }
   })
 }
