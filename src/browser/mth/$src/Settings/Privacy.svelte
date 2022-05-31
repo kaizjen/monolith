@@ -49,26 +49,26 @@
 <ContentDialog size="max" append={document.body} bind:open={siteSettingsDialog} closable={false} style="max-height: 100%; overflow: auto;">
   <SiteSettings {update} />
   <svelte:fragment slot="footer">
-    <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>Done</Button>
+    <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>{t('common.done')}</Button>
   </svelte:fragment>
 </ContentDialog>
 
 
 <ListItem on:click={() => clearDialog = true} style="block-size: 57px;">
-  <TextBlock variant="body">Clear your data...</TextBlock><br>
-  <TextBlock variant="caption" style="color: gray;">Clear history, cookies, and other data...</TextBlock>
+  <TextBlock variant="body">{t('pages.settings.privacy.clearData.title')}</TextBlock><br>
+  <TextBlock variant="caption" style="color: gray;">{t('pages.settings.privacy.clearData.description')}</TextBlock>
 </ListItem>
 <div class="separator"></div>
 
 <ListItem on:click={() => {siteSettingsDialog = true; location.hash = '#siteSettings'}} style="block-size: 57px;">
-  <TextBlock variant="body">Manage site settings...</TextBlock><br>
-  <TextBlock variant="caption" style="color: gray;">Permissions, local storage, cookies</TextBlock>
+  <TextBlock variant="body">{t('pages.settings.privacy.siteSettings.title')}</TextBlock><br>
+  <TextBlock variant="caption" style="color: gray;">{t('pages.settings.privacy.siteSettings.description')}</TextBlock>
 </ListItem>
 <div class="s-option">
   <TextBlock>
-    Deny cross-origin permissions <br>
+    {t('pages.settings.privacy.denyCrossOriginPermissions.title')} <br>
     <TextBlock variant="caption" style="color: gray;">
-      Sites embedded in other sites won't be able to request permissions
+      {t('pages.settings.privacy.denyCrossOriginPermissions.description')}
     </TextBlock>
   </TextBlock>
   <ToggleSwitch bind:checked={noCOPermissions} />
@@ -77,19 +77,18 @@
 
 <div class="s-option">
   <TextBlock>
-    Use the default search engine hinting service <br>
+    {t('pages.settings.privacy.useHintingService.title')} <br>
     <TextBlock variant="caption" style="color: gray;">
-      That will send requests to its server each time you're typing in the search bar.
-      Requests will not be sent in private mode.
+      {t('pages.settings.privacy.useHintingService.description')}
     </TextBlock>
   </TextBlock>
   <ToggleSwitch bind:checked={useHintingService} />
 </div>
 <div class="s-option">
   <TextBlock>
-    Hide your session while getting hints <br>
+    {t('pages.settings.privacy..title')} <br>
     <TextBlock variant="caption" style="color: gray;">
-      Hiding your session prevents some tracking, but can make hints less personalized.
+      {t('pages.settings.privacy.hideSessionForHints.description')}
     </TextBlock>
   </TextBlock>
   <ToggleSwitch bind:checked={maskSessionWhenHints} />
@@ -97,7 +96,7 @@
 <div class="separator"></div>
 <div class="s-option">
   <TextBlock>
-    Only use secure connections (HTTPS)
+    {t('pages.settings.privacy.httpsOnly')}
   </TextBlock>
   <ToggleSwitch bind:checked={useHTTPSOnly} />
 </div>

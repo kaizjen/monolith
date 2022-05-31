@@ -151,7 +151,7 @@
 <aside>
   <div style="margin-bottom: 30px;">
     <Flyout placement="bottom" alignment="start" bind:open={unsupportedFlyoutOpened}>
-      <TextBox type="search" placeholder="Search settings..." />
+      <TextBox type="search" placeholder={t('pages.settings.searchInSettings')} />
       <svelte:fragment slot="flyout">
         {t('unimplemented')}
       </svelte:fragment>

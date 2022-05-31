@@ -6,6 +6,8 @@
   const { session, userdata } = window.monolith;
   const config = getContext('config')
 
+  const { t } = window.monolith.i18n;
+
   let isLoading = false;
 
   let clear = {
@@ -56,19 +58,19 @@
   }
 </script>
 
-<ContentDialog size="max" title="Choose what to erase" append={document.body} bind:open closable={false}>
-  <Checkbox bind:checked={clear.cache}>Site cache</Checkbox><br>
-  <Checkbox bind:checked={clear.cookies}>Cookies</Checkbox><br>
-  <Checkbox bind:checked={clear.storages}>Databases and local storage</Checkbox><br>
-  <Checkbox bind:checked={clear.history}>All history</Checkbox><br>
-  <Checkbox bind:checked={clear.downs}>All downloads</Checkbox><br>
+<ContentDialog size="max" title={t('pages.settings.privacy.clearData.dialog.title')} append={document.body} bind:open closable={false}>
+  <Checkbox bind:checked={clear.cache}>{t('pages.settings.privacy.clearData.dialog.cache')}</Checkbox><br>
+  <Checkbox bind:checked={clear.cookies}>{t('pages.settings.privacy.clearData.dialog.cookies')}</Checkbox><br>
+  <Checkbox bind:checked={clear.storages}>{t('pages.settings.privacy.clearData.dialog.storages')}</Checkbox><br>
+  <Checkbox bind:checked={clear.history}>{t('pages.settings.privacy.clearData.dialog.history')}</Checkbox><br>
+  <Checkbox bind:checked={clear.downs}>{t('pages.settings.privacy.clearData.dialog.downloads')}</Checkbox><br>
   <TextBlock variant="caption" style="color: gray;">
-    The pages for history and downloads provide more control over what to clear.
+    {t('pages.settings.privacy.clearData.dialog.notice')}
   </TextBlock>
-  <Checkbox bind:checked={clear.siteSettings}>Site permissions</Checkbox><br>
+  <Checkbox bind:checked={clear.siteSettings}>{t('pages.settings.privacy.clearData.dialog.permissions')}</Checkbox><br>
 
   <svelte:fragment slot="footer">
-    <Button on:click={() => open = false}>Cancel</Button>
-    <Button on:click={clearSelected} variant="accent" disabled={isLoading}>{isLoading ? "Loading..." : "Clear"}</Button>
+    <Button on:click={() => open = false}>{t('common.cancel')}</Button>
+    <Button on:click={clearSelected} variant="accent" disabled={isLoading}>{isLoading ? t('common.loading') : t('pages.settings.privacy.clearData.dialog.clear-button')}</Button>
   </svelte:fragment>
 </ContentDialog>

@@ -5,6 +5,12 @@
 
   export let update;
 
+  const { t } = window.monolith.i18n;
+
+  function tt(key, ...args) {
+    return t(`pages.settings.on-start.${key}`, ...args)
+  }
+
   let config = getContext('config');
 
   let group = $config.behaviour.onStart.type;
@@ -42,27 +48,27 @@
 <div class="s-option">
   <RadioButton bind:group value="new-tab">
     <div>
-      <TextBlock> Open a new tab </TextBlock>
+      <TextBlock> {tt('newTab')} </TextBlock>
     </div>
   </RadioButton>
 </div>
 <div class="s-option">
   <RadioButton bind:group value="last-tabs">
     <div>
-      <TextBlock> Open the tabs from the previous session </TextBlock>
+      <TextBlock> {tt('previousTabs')} </TextBlock>
     </div>
   </RadioButton>
 </div>
 <div class="s-option">
   <RadioButton bind:group value="page">
     <div>
-      <TextBlock> Open a specific page </TextBlock>
+      <TextBlock> {tt('specificPage')} </TextBlock>
     </div>
   </RadioButton>
 </div>
 {#if group == 'page'}
   <div class="s-option" style="margin-left: 25px;">
-    <TextBox bind:value={currentUrl} placeholder="The URL of the page that should open." />
-    <Button variant="accent" on:click={handleSave} style="margin-left: 20px;" disabled={!isValidURL(currentUrl)}>Save</Button>
+    <TextBox bind:value={currentUrl} placeholder={tt('specificPageURL')} />
+    <Button variant="accent" on:click={handleSave} style="margin-left: 20px;" disabled={!isValidURL(currentUrl)}>{tt('button-save')}</Button>
   </div>
 {/if}

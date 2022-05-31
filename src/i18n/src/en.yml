@@ -280,6 +280,7 @@ menu:
     close: Close window
 pages:
   settings:
+    searchInSettings: Search settings...
     appearance:
       title: Appearance
       theme-dark: Dark
@@ -321,9 +322,53 @@ pages:
             hostPlaceholder: Enter a host
           permissions:
             title: Default permissions
+      denyCrossOriginPermissions:
+        title: Deny cross origin permissions
+        description: Sites embedded in other sites won't be able to request permissions
+      useHintingService:
+        title: Use the default search engine hinting service
+        description: That will send requests to its server each time you're typing in the search bar. Requests will not be sent in private mode.
+      hideSessionForHints:
+        title: Hide your session while getting hints
+        description: Hiding your session prevents some tracking, but can make hints less personalized.
+      httpsOnly: Only use secure connections (HTTPS)
     search:
-      title: Search
+      title: Search engines
+      dialogs:
+        edit: Edit search engine
+        add: New search engine
+        name: "Name:"
+        searchURL: 'Search URL (with "%s" instead of search query):'
+        suggestURL: "Suggestion query URL:"
+        noEmpty: Must not be empty
+        emptyDisablesHints: Leave empty to disable hints
+        save: Save changes
+        delete:
+          title: Confirm your choice
+          prompt: Are you sure you want to delete the search engine ${engine}?
+          delete-button: Delete
+      defaultSE: Default search engine
+      manage: Manage search engines
+      host: "Host:"
+      button-edit: Edit
+      button-delete: Delete
+      button-add: Add a new search engine
     on-start:
       title: When Monolith starts
+      newTab: Open a new tab
+      previousTabs: Open the tabs from the previous session
+      specificPage: Open a specific page
+      specificPageURL: The URL of the page that should open
+      button-save: Save
     downloads:
       title: Downloads
+      subtitle: "Save downloaded files to:"
+      ask: Ask each time
+      choose: Choose the location
+      dialog:
+        title: Choose the downloads path
+        button-choose: Choose
+      noPath: No path selected
+      button-select: Select folder
+      openFolder: Open downloads folder
+      allDownloads: View all downloads

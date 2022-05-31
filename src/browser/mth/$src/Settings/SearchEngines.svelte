@@ -14,6 +14,12 @@
 
   export let update;
 
+  const { t } = window.monolith.i18n;
+
+  function tt(key, ...args) {
+    return t(`pages.settings.search.${key}`, ...args)
+  }
+
   let config = getContext('config')
   let selectedIndex = $config.search.selectedIndex;
   let items = []
@@ -66,18 +72,18 @@
   }
 </script>
 
-<ContentDialog title="Edit search engine" closable={false} append={document.body} bind:open={editEngineDialog}>
+<ContentDialog title={tt('dialogs.edit')} closable={false} append={document.body} bind:open={editEngineDialog}>
   <div class="flex">
-    <TextBlock> Name: </TextBlock>
-    <TextBox placeholder="Must not be empty" bind:value={currentEngine.name} />
+    <TextBlock> {tt('dialogs.name')} </TextBlock>
+    <TextBox placeholder={tt('dialogs.noEmpty')} bind:value={currentEngine.name} />
   </div>
   <div class="flex">
-    <TextBlock> Search URL (with "%s" instead of search query): </TextBlock>
-    <TextBox placeholder="Must not be empty" bind:value={currentEngine.searchURL} />
+    <TextBlock> {tt('dialogs.searchURL')} </TextBlock>
+    <TextBox placeholder={tt('dialogs.noEmpty')} bind:value={currentEngine.searchURL} />
   </div>
   <div class="flex">
-    <TextBlock> Suggestion query URL: </TextBlock>
-    <TextBox placeholder="Leave empty to disable hints" bind:value={currentEngine.suggestURL} />
+    <TextBlock> {tt('dialogs.suggestURL')} </TextBlock>
+    <TextBox placeholder={tt('dialogs.emptyDisablesHints')} bind:value={currentEngine.suggestURL} />
   </div>
 
   <svelte:fragment slot="footer">
@@ -85,25 +91,25 @@
       Object.assign(currentEngine, backupEngine) // need to undo all changes
       currentEngine = null;
       editEngineDialog = false;
-    }}>Cancel</Button>
+    }}>{t('common.cancel')}</Button>
     <Button variant="accent" on:click={() => {
       $config = $config; // object reference is alredy updated every time a change is made, we have to update the store manually though
       update()
       editEngineDialog = false;
-    }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>Save changes</Button>
+    }} disabled={currentEngine.name == '' || currentEngine.searchURL == ''}>{tt('dialogs.save')}</Button>
   </svelte:fragment>
 </ContentDialog>
 
 <ContentDialog
-  title="Confirm your choice"
+  title={tt('dialogs.delete.title')}
   append={document.body}
   bind:open={delEngineDialog}
   on:backdropclick={() => { currentEngine = null; delEngineDialog = false; }}
 >
-  <TextBlock>Are you sure you want to delete the search engine {currentEngine.name}?</TextBlock>
+  <TextBlock>{tt('dialogs.delete.prompt', { engine: currentEngine.name })}</TextBlock>
   
   <svelte:fragment slot="footer">
-    <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>Cancel</Button>
+    <Button on:click={() => { currentEngine = null; delEngineDialog = false }}>{t('common.cancel')}</Button>
     <Button on:click={() => {
       let i = $config.search.available.indexOf(currentEngine);
       if (i == -1) throw(new Error("This should NOT happen"))
@@ -117,62 +123,62 @@
       $config = $config;
       update()
       delEngineDialog = false;
-    }}>Delete</Button>
+    }}>{tt('dialogs.delete.delete-button')}</Button>
   </svelte:fragment>
 </ContentDialog>
 
 <div class="s-option">
-  <TextBlock> Default search engine: </TextBlock>
+  <TextBlock> {tt('defaultSE')} </TextBlock>
   <ComboBox 
     bind:value={selectedIndex}
     {items}
   /> <!-- on:select fires every time the items array is changed. Probably a bug in fluent-svelte -->
 </div>
 <Expander>
-  <TextBlock variant="bodyStrong">Manage search engines</TextBlock>
+  <TextBlock variant="bodyStrong">{tt('manage')}</TextBlock>
   <svelte:fragment slot="content">
     {#each $config.search.available as SE, i}
       <div class="flex">
         <TextBlock>
           {SE.name}<br>
           <TextBlock variant="caption" style="color: gray;">
-            Host: {getHost(SE.searchURL)}
+            {tt('host')} {getHost(SE.searchURL)}
           </TextBlock>
         </TextBlock>
         <div>
           <Button on:click={editEngineF(SE, i)}>
-            Edit
+            {tt('button-edit')}
           </Button>
           <Button on:click={delEngineF(SE, i)} disabled={items.length == 1}>
-            Delete
+            {tt('button-delete')}
           </Button>
         </div>
       </div>
     {/each}
     <br>
     <Button variant="accent" on:click={() => {currentEngine = {}; newEngineDialog = true}}> 
-      Add a new search engine
+      {tt('button-add')}
     </Button>
     <ContentDialog
-      title="New search engine"
+      title={tt('dialogs.add')}
       bind:open={newEngineDialog} append={document.body}
       on:close={() => currentEngine = null}
     >
       <div class="flex">
-        <TextBlock> Name: </TextBlock>
-        <TextBox placeholder="Must not be empty" bind:value={currentEngine.name} />
+        <TextBlock> {tt('dialogs.name')} </TextBlock>
+        <TextBox placeholder={tt('dialogs.noEmpty')} bind:value={currentEngine.name} />
       </div>
       <div class="flex">
-        <TextBlock> Search URL (with "%s" instead of search query): </TextBlock>
-        <TextBox placeholder="Must not be empty" bind:value={currentEngine.searchURL} />
+        <TextBlock> {tt('dialogs.searchURL')} </TextBlock>
+        <TextBox placeholder={tt('dialogs.noEmpty')} bind:value={currentEngine.searchURL} />
       </div>
       <div class="flex">
-        <TextBlock> Suggestion query URL: </TextBlock>
-        <TextBox placeholder="Leave empty to disable hints" bind:value={currentEngine.suggestURL} />
+        <TextBlock> {tt('dialogs.suggestURL')} </TextBlock>
+        <TextBox placeholder={tt('dialogs.emptyDisablesHints')} bind:value={currentEngine.suggestURL} />
       </div>
       <svelte:fragment slot="footer">
         <Button on:click={() => newEngineDialog = false}>
-          Cancel
+          {t('common.cancel')}
         </Button>
         <Button on:click={() => {
           console.log('setting $available.push()');
@@ -183,7 +189,7 @@
 
           currentEngine = null;
           newEngineDialog = false;
-        }} variant="accent" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}> Done </Button>
+        }} variant="accent" disabled={currentEngine.name == '' || currentEngine.searchURL == ''}> {t('common.done')} </Button>
       </svelte:fragment>
     </ContentDialog>
   </svelte:fragment>

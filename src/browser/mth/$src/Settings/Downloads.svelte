@@ -8,6 +8,12 @@
 
   export let update;
 
+  const { t } = window.monolith.i18n;
+
+  function tt(key, ...args) {
+    return t(`pages.settings.downloads.${key}`, ...args)
+  }
+
   let config = getContext('config');
   let group = $config.behaviour.downloadPath == null ? 'unknown' : 'known'
 
@@ -21,8 +27,8 @@
     console.log('selecting fld');
     let dialogResponse = await window.monolith.dialog.selectDirectory({
       defaultPath: $config.behaviour.downloadPath ?? '/',
-      title: 'Choose the download path',
-      buttonLabel: 'Choose'
+      title: tt('dialog.title'),
+      buttonLabel: tt('dialog.button-choose')
     })
 
     if (dialogResponse.canceled) return;
@@ -34,25 +40,25 @@
 </script>
 
 <div class="s-option">
-  <TextBlock variant="subtitle">Save downloaded files to:</TextBlock>
+  <TextBlock variant="subtitle">{tt('subtitle')}</TextBlock>
 </div>
 <div class="s-option">
   <RadioButton bind:group value="unknown" on:click={selectUnknown}>
     <div>
-      <TextBlock> Ask each time </TextBlock>
+      <TextBlock> {tt('ask')} </TextBlock>
     </div>
   </RadioButton>
 </div>
 <div class="s-option">
   <RadioButton bind:group value="known">
     <div>
-      <TextBlock> Choose the location </TextBlock>
+      <TextBlock> {tt('choose')} </TextBlock>
       {#if group == 'known'}
-        <br><TextBlock style="color: gray;">{$config.behaviour.downloadPath ?? 'No path selected'}</TextBlock>
+        <br><TextBlock style="color: gray;">{$config.behaviour.downloadPath ?? tt('noPath')}</TextBlock>
       {/if}
     </div>
   </RadioButton>
-  <Button variant="accent" disabled={group != 'known'} on:click={selectFolder}> Select folder </Button>
+  <Button variant="accent" disabled={group != 'known'} on:click={selectFolder}> {tt('button-select')} </Button>
 </div>
 <div class="separator"></div>
 <div class="s-option">
@@ -60,8 +66,8 @@
     disabled={$config.behaviour.downloadPath == null}
     variant="hyperlink"
     on:click={() => { window.monolith.shell.openPath($config.behaviour.downloadPath) }}
-  > Open downloads folder </Button>
+  > {tt('openFolder')} </Button>
   <Button variant="hyperlink" href="mth://downloads" target="_blank">
-    View all downloads
+    {tt('allDownloads')}
   </Button>
 </div>
