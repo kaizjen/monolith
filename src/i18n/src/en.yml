@@ -1,5 +1,6 @@
 # When translating, it's best to leave the name unchanged
 name: Monolith
+unimplemented: This feature is unimplemented
 common:
   downloads: Downloads
   settings: Settings
@@ -9,6 +10,7 @@ common:
   ok: OK
   cancel: Cancel
   loading: Loading...
+  done: Done
   permissions:
     status:
       allow: Allow
@@ -276,3 +278,52 @@ menu:
     unmaximize: Restore
     maximize: Maximize
     close: Close window
+pages:
+  settings:
+    appearance:
+      title: Appearance
+      theme-dark: Dark
+      theme-light: Light
+      theme-system: Same as system
+      bookmarkBar: Show bookmarks panel
+      pageZoom: "Default page zoom:"
+      uiZoom: "Monolith's UI zoom:"
+    privacy:
+      title: Privacy
+      clearData:
+        title: Clear your data...
+        description: Clear history, cookies, and other data...
+        dialog:
+          title: Choose what to erase
+          cache: Site cache
+          cookies: Cookies
+          storages: Databases and local storage
+          history: All history
+          downloads: All downloads
+          notice: The pages for history and downloads provide more control over what to clear.
+          permissions: Site permissions
+          clear-button: Clear
+      siteSettings:
+        title: Manage site settings
+        description: Permissions, local storage, cookies
+        dialog:
+          main:
+            viewSites: View sites
+            viewSites-desc: Manage site settings by site
+            permissions: Permissions
+            permissions-desc: Default settings for permissions
+          sites:
+            title: Sites
+            more: More sites...
+            with-permissions: Sites with permissions
+          sitePage:
+            invalidURL: Invalid URL
+            hostPlaceholder: Enter a host
+          permissions:
+            title: Default permissions
+    search:
+      title: Search
+    on-start:
+      title: When Monolith starts
+    downloads:
+      title: Downloads

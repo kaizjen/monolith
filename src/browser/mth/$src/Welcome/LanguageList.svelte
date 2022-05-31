@@ -13,6 +13,7 @@
   let value = Codes.getNativeName(selected);
   let error = false;
 
+  $: console.log({value});
   $: {
     if (!Codes.getCode(value)) {
       error = true
@@ -26,7 +27,6 @@
     }
   }
 
-  console.log(Codes);
 
   function uniq(value, index, self) {
     return self.indexOf(value) === index;

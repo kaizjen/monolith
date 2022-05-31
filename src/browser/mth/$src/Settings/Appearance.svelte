@@ -5,6 +5,8 @@
 
   export let update;
 
+  const { t } = window.monolith.i18n;
+
   function throttle(func, ms = 200) {
     let timeout;
     return function wrapper() {
@@ -65,9 +67,9 @@
   <TextBlock> Theme: </TextBlock>
   <ComboBox
     items={[
-      { name: 'Dark', value: 'dark' },
-      { name: 'Light', value: 'light' },
-      { name: 'Same as system', value: 'system' },
+      { name: t('pages.settings.appearance.theme-dark'), value: 'dark' },
+      { name: t('pages.settings.appearance.theme-light'), value: 'light' },
+      { name: t('pages.settings.appearance.theme-system'), value: 'system' },
     ]}
     bind:value={theme.value}
     on:select={theme.select}
@@ -76,13 +78,13 @@
 <div class="s-option">
   <Checkbox
     bind:checked={bookmarkBar}
-  > Show bookmarks panel </Checkbox>
+  > {t('pages.settings.appearance.bookmarkBar')} </Checkbox>
 </div>
 {#if bookmarkBar}
-  <InfoBar closable={false} severity="caution" title="This feature is not yet available" />
+  <InfoBar closable={false} severity="caution" title={t('unimplemented')} />
 {/if}
 <div class="s-option">
-  <TextBlock> Default page zoom: </TextBlock>
+  <TextBlock> {t('pages.settings.appearance.pageZoom')} </TextBlock>
   <Slider
     suffix="%"
     bind:value={defaultPageZoom_proxy}
@@ -90,7 +92,7 @@
   />
 </div>
 <div class="s-option">
-  <TextBlock> Monolith's UI zoom: </TextBlock>
+  <TextBlock> {t('pages.settings.appearance.uiZoom')} </TextBlock>
   <Slider
     suffix="%"
     bind:value={chromeZoom_proxy}

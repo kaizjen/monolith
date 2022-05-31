@@ -2,10 +2,13 @@
   import { ListItem, TextBlock, ContentDialog, Button, ToggleSwitch } from "fluent-svelte";
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
+  import SiteSettings from "./dialogs/SiteSettings.svelte";
 
   import DataClearer from "./dialogs/DataClearer.svelte";
 
-  let config = getContext('config')
+  let config = getContext('config');
+
+  const { t } = window.monolith.i18n;
 
   export let update;
 
@@ -43,8 +46,8 @@
 
 <DataClearer bind:open={clearDialog} />
 
-<ContentDialog size="max" append={document.body} bind:open={siteSettingsDialog} closable={false}>
-  Not implemented.
+<ContentDialog size="max" append={document.body} bind:open={siteSettingsDialog} closable={false} style="max-height: 100%; overflow: auto;">
+  <SiteSettings {update} />
   <svelte:fragment slot="footer">
     <Button on:click={() => {siteSettingsDialog = false; location.hash = ''}}>Done</Button>
   </svelte:fragment>

@@ -8,7 +8,7 @@
 </style>
 
 <script>
-  import { Expander, TextBlock, ComboBox, Button, ContentDialog, TextBox, Flyout } from "fluent-svelte";
+  import { Expander, TextBlock, ComboBox, Button, ContentDialog, TextBox } from "fluent-svelte";
   import { getContext } from "svelte/internal";
   import noFirstTime from "mth://js/nft.js"
 

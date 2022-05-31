@@ -70,7 +70,9 @@
 
   const configProm = window.monolith.userdata.config.get()
   let config = writable(null)
-  setContext('config', config)
+  setContext('config', config);
+
+  const { t } = window.monolith.i18n;
 
   configProm.then(c => {
     $config = c;
@@ -82,11 +84,11 @@
   let unsupportedFlyoutOpened = false;
   
   const settingsSections = [
-    { name: 'Appearance', element: null, component: Appearance },
-    { name: 'Privacy', element: null, component: Privacy },
-    { name: 'Search engines', element: null, component: SearchEngines },
-    { name: 'When Monolith starts', element: null, component: OnStart },
-    { name: 'Downloads', element: null, component: Downloads },
+    { name: t('pages.settings.appearance.title'), element: null, component: Appearance },
+    { name: t('pages.settings.privacy.title'), element: null, component: Privacy },
+    { name: t('pages.settings.search.title'), element: null, component: SearchEngines },
+    { name: t('pages.settings.on-start.title'), element: null, component: OnStart },
+    { name: t('pages.settings.downloads.title'), element: null, component: Downloads },
   ]
   console.log(settingsSections);
 
@@ -151,7 +153,7 @@
     <Flyout placement="bottom" alignment="start" bind:open={unsupportedFlyoutOpened}>
       <TextBox type="search" placeholder="Search settings..." />
       <svelte:fragment slot="flyout">
-        This feature is unsupported.
+        {t('unimplemented')}
       </svelte:fragment>
     </Flyout>
   </div>
