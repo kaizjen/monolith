@@ -86,7 +86,7 @@
 </div>
 <div class="s-option">
   <TextBlock>
-    {t('pages.settings.privacy..title')} <br>
+    {t('pages.settings.privacy.hideSessionForHints.title')} <br>
     <TextBlock variant="caption" style="color: gray;">
       {t('pages.settings.privacy.hideSessionForHints.description')}
     </TextBlock>
