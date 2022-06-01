@@ -310,6 +310,7 @@ pages:
     searchInSettings: Search settings...
     appearance:
       title: Appearance
+      label-theme: Theme
       theme-dark: Dark
       theme-light: Light
       theme-system: Same as system

@@ -64,7 +64,7 @@
 </script>
 
 <div class="s-option">
-  <TextBlock> Theme: </TextBlock>
+  <TextBlock> {t('pages.settings.appearance.label-theme')} </TextBlock>
   <ComboBox
     items={[
       { name: t('pages.settings.appearance.theme-dark'), value: 'dark' },

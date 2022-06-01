@@ -262,6 +262,7 @@ pages:
     searchInSettings: Поиск в настройках...
     appearance:
       title: Внешний вид
+      label-theme: Тема
       theme-dark: Темная
       theme-light: Светлая
       theme-system: Системная
