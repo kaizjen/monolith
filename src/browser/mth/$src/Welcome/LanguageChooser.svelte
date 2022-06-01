@@ -52,6 +52,8 @@
   export let next;
   export let config;
 
+  const { t } = window.monolith.i18n;
+
   let selectedLocale = 'en';
   let selectedLang = 'en';
   let open = false;
@@ -77,38 +79,36 @@
 <ContentDialog style=" overflow: auto; max-height: 100% " bind:open>
   <LanguageList bind:selected={selectedLang} onlyAvailable={true} />
   <svelte:fragment slot="footer">
-    <Button on:click={() => open = false}>Close</Button>
+    <Button on:click={() => open = false}>{t('common.done')}</Button>
   </svelte:fragment>
 </ContentDialog>
 
 <div class="main">
   <div class="head">
-    <TextBlock variant="titleLarge">Choose your language</TextBlock>
+    <TextBlock variant="titleLarge">{t('pages.welcome.language.title')}</TextBlock>
   </div>
 
   <div>
-    <LanguageList bind:selected={selectedLocale} />
+    <LanguageList bind:selected={selectedLocale} onlyAvailable={false} />
   </div>
 
   <div class="note">
-    Note: not all languages are supported by Monolith. If you pick an unsupported language, you will be additionally prompted to select
-    the language of Monolith. The websites will still be displayed in your selected language, but Monolith's interface will be in one that
-    you have selected for it specifically.
+    {t('pages.welcome.language.note')}
   </div>
 
 </div>
 <footer>
   <div class="info">
     {#if selectedLang != selectedLocale}
-      <span> Monolith is not translated to your language. Pick a language for Monolith:
-      <Button on:click={() => open = true}>{Codes.getNativeName(selectedLang) || '<unknown>'}</Button></span>
+      <span> {t('pages.welcome.language.noTranslation')}
+      <Button on:click={() => open = true}>{Codes.getNativeName(selectedLang) || `[${selectedLang}]`}</Button></span>
     {/if}
     {#if selectedLang != config.i18n.lang || 
       selectedLocale != config.i18n.locale}
-      <span>Monolith will restart when you apply the change</span>
+      <span>{t('pages.welcome.language.restartNotice')}</span>
     {/if}
   </div>
   <Button on:click={endLanguageSelection}>
-    Next
+    {t('pages.welcome.common.next')}
   </Button>
 </footer>

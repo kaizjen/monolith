@@ -19,6 +19,8 @@
 
   export let next;
 
+  const { t } = window.monolith.i18n;
+
   async function goodbye() {
     await next();
     await monolith.view.leaveFullWindowView()
@@ -29,8 +31,8 @@
 <div class="center" in:scale={{ start: 0.8, duration: 200 }}>
   <div class="content">
     <TextBlock variant="display" style="margin-bottom: 50px;">
-      Looks like everything is set up!
+      {t('pages.welcome.final.message')}
     </TextBlock><br>
-    <Button variant="hyperlink" on:click={goodbye}>Let's go!</Button>
+    <Button variant="hyperlink" on:click={goodbye}>{t('pages.welcome.final.motivationalButton')}</Button>
   </div>
 </div>

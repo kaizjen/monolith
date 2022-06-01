@@ -78,6 +78,8 @@
   export let next;
   export let config;
 
+  const { t } = window.monolith.i18n;
+
   let currentTheme = config.ui.theme;
 
   function setThemeF(theme) {
@@ -91,11 +93,11 @@
 
 
 <div class="head">
-  <TextBlock variant="titleLarge">Choose your theme</TextBlock>
+  <TextBlock variant="titleLarge">{t('pages.welcome.themes.title')}</TextBlock>
 </div>
 <div class="main" in:fly={{ x: 400 }}>
   <div class="note">
-    This theme will be applied to Monolith's UI and some of the websites you visit.
+    {t('pages.welcome.themes.note')}
   </div>
 
   <div class="options">
@@ -104,7 +106,7 @@
         <div class="surface">
           <div class="themer white"></div>
         </div>
-        Light
+        {t('pages.welcome.themes.light')}
       </div>
     </Button>
     <Button on:click={setThemeF('dark')} style={currentTheme == 'dark' ? "border-color: var(--fds-accent-default)" : ''}>
@@ -112,7 +114,7 @@
         <div class="surface">
           <div class="themer dark"></div>
         </div>
-        Dark
+        {t('pages.welcome.themes.dark')}
       </div>
     </Button>
     <Button on:click={setThemeF('system')} style={currentTheme == 'system' ? "border-color: var(--fds-accent-default)" : ''}>
@@ -120,7 +122,7 @@
         <div class="surface">
           <div class="themer half"></div>
         </div>
-        Same as system
+        {t('pages.welcome.themes.system')}
       </div>
     </Button>
   </div>
@@ -128,6 +130,6 @@
 </div>
 <footer>
   <Button on:click={next}>
-    Next
+    {t('pages.welcome.common.next')}
   </Button>
 </footer>

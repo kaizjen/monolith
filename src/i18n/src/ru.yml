@@ -9,6 +9,63 @@ common:
   ok: OK
   cancel: Отмена
   loading: Загрузка...
+  done: Готово
+  permissions:
+    status:
+      allow: Разрешить
+      deny: Запретить
+      ignore: Игнорировать
+      ask: Спрашивать
+      useDefault: По умолчанию
+      defaultMark: (по умолчанию)
+    geolocation:
+      name: Геолокация (не работает)
+      desc: Provides access to your percise position
+      prompt: ${hostname} wants to access your geolocation
+    fullscreen:
+      name: Полный экран
+      desc: The ability to show the page in fullscreen mode
+      prompt: ${hostname} хочет перейти в полный экран
+    popups:
+      name: Всплывающие окна
+      desc: Allows to show pop-up windows
+      prompt: Сайт ${hostname} хочет открыть окно
+    media.video:
+      name: Webcam access
+      desc: Allows to access the webcam
+      prompt: ${hostname} wants to access your webcam
+    media.audio:
+      name: Microphone access
+      desc: Allows to access the microphone
+      prompt: ${hostname} wants to access your microphone
+    displayCapture:
+      name: Capturing the display
+      desc: Allows to record your screen
+      prompt: ${hostname} wants to record your screen
+    DRM:
+      name: DRM
+      desc: Allows to play content protected by Digital Rights Management
+      prompt: ${hostname} wants to play DRM-protected content
+    notifications:
+      name: Notifications
+      desc: Allows to show notifications
+      prompt: ${hostname} wants to be able to show notifications
+    midi:
+      name: Use MIDI devices
+      desc: Allows to use MIDI devices
+      prompt: ${hostname} wants to use MIDI devices
+    pointerLock:
+      name: Pointer lock
+      desc: Allows to control your mouse cursor
+      prompt: ${hostname} wants to lock your mouse cursor
+    openExternal:
+      name: Opening external apps
+      desc: Allows opening an app on your device. Allowing this means the site will be able to open almost any app without asking.
+      prompt: ${hostname} wants to open "${app}"
+    idleDetection:
+      name: Idle detection
+      desc: Allows to detect when the user is idle
+      prompt: ${hostname} wants to be able to detect when you are idle
 navigation:
   back: Назад
   forward: Вперед
@@ -174,3 +231,142 @@ menu:
     unmaximize: Restore
     maximize: Maximize
     close: Закрыть
+pages:
+  welcome:
+    common:
+      next: Продолжить
+    welcome: Добро пожаловать
+    begin: Начать
+    language:
+      title: Выберите язык
+      note: |
+        Monolith поддерживает не все языки. Если вы выберите неподдерживаемый язык, вам будет предложено выбрать другой язык из
+        списка поддерживаемых Monolith. Сайты все равно будут показываться на изначально выбранном языке
+      noTranslation: "Monolith не поддерживает ваш язык. Выберите язык для Monolith:"
+      restartNotice: Monolith перезапустится, чтобы применить изменения
+    themes:
+      title: Выберите тему
+      note: Этот выбор повлияет на тему Monolith и некоторых сайтов, которые вы посещаете.
+      light: Светлая
+      dark: Темная
+      system: Системная
+    TOS:
+      title: Условия использования
+      note: Прочитайте это внимательно. Это, оказывается, на самом деле важно.
+      button-decline: Отклонить
+      button-accept: Принять
+    final:
+      message: Всё готово!
+      motivationalButton: Поехали
+  settings:
+    searchInSettings: Поиск в настройках...
+    appearance:
+      title: Внешний вид
+      theme-dark: Темная
+      theme-light: Светлая
+      theme-system: Системная
+      bookmarkBar: Показывать панель закладок
+      pageZoom: "Масштаб страниц по умолчанию:"
+      uiZoom: "Масштаб интерфейса Monolith:"
+    privacy:
+      title: Конфиденциальность
+      clearData:
+        title: Очистить данные...
+        description: Очистить историю, файлы куки, и т.п.
+        dialog:
+          title: Выберите, что удалить
+          cache: Кэш сайтов
+          cookies: Файлы куки
+          storages: Базы данных и локальное хранилище
+          history: Всю историю
+          downloads: Все загрузки
+          notice: Через страницы загрузок и истории можно контролировать, что очистить.
+          permissions: Разрешения для сайтов
+          clear-button: Очистить
+      siteSettings:
+        title: Настройки сайтов
+        description: Разрешения, локальное хранилище, файлы куки.
+        dialog:
+          main:
+            viewSites: Сайты
+            viewSites-desc: Настроить конкретные сайты
+            permissions: Разрешения
+            permissions-desc: Настройки разрешений по умолчанию
+          sites:
+            title: Сайты
+            more: Ещё...
+            with-permissions: Сайты с разрешениями
+          sitePage:
+            invalidURL: Неверный URL
+            hostPlaceholder: Введите имя хоста
+          permissions:
+            title: Разрешения по умолчанию
+      denyCrossOriginPermissions:
+        title: Запрещать межсайтовые разрешения
+        description: Встроенные страницы не смогут запрашивать разрешения
+      useHintingService:
+        title: Использовать сервис подсказок
+        description: Monolith будет отправлять запросы на сервер поисковой системы, когда вы набираете свой запрос. Эта функция отключена в приватном режиме.
+      hideSessionForHints:
+        title: Скрывать вашу личность при получении подсказок
+        description: Это поможет избежать некоторого трекинга, но может сделает подсказки менее персонализированными.
+      httpsOnly: Использовать только защищенные соединения (HTTPS)
+    search:
+      title: Поисковые системы
+      dialogs:
+        edit: Изменить систему
+        add: Новая система
+        name: "Name:"
+        searchURL: 'URL поисковых запростов ("%s" вместо запроса):'
+        suggestURL: "URL подсказок:"
+        noEmpty: Не может быть пустым
+        emptyDisablesHints: Оставьте пустым для отключения подсказок
+        save: Сохранить
+        delete:
+          title: Подтвердите свой выбор
+          prompt: Вы точно хотите удалить поисковую систему ${engine}?
+          delete-button: Удалить
+      defaultSE: Поисковая система по умолчанию
+      manage: Посмотреть или изменить системы
+      host: "Хост:"
+      button-edit: Изменить
+      button-delete: Удалить
+      button-add: Добавить новую поисковую систему
+    on-start:
+      title: При запуске
+      newTab: Открыть новую вкладку
+      previousTabs: Открыть предыдущие вкладки
+      specificPage: Открыть конкретную страницу
+      specificPageURL: URL этой страницы
+      button-save: Сохранить
+    downloads:
+      title: Загрузки
+      subtitle: "Сохранять загруженные файлы:"
+      ask: Спрашивать каждый раз
+      choose: Выбрать место
+      dialog:
+        title: Выберите место для загрузок
+        button-choose: Выбрать
+      noPath: Ничего не выбрано
+      button-select: Выбрать папку
+      openFolder: Открыть папку загрузок
+      allDownloads: Посмотреть все загрузки
+LocalizedTOS: |
+  Здравствуйте. Monolith - бесплатная программа с открытым исходным кодом.
+  Это соглашение разрешает вам использовать и модифицировать Monolith без ограничений.
+  Автор этого ПО освобождается от всякой ответственности за урон, причиненный этим ПО или его использованием.
+
+  [ВАЖНО]
+  В закрытой альфа версии, Monolith всегда отправляет ваши данные на свои сервера.
+  В этих данных содержатся: Ваша ОС, ее версия, физические идентификаторы вашего компьютера, сообщения об ошибках.
+  Эти данные не должны включать в себя вашу историю или другие персональные данные, но в некоторых случаях, например из-за ошибки в коде, такие данные могут быть включены.
+
+  Это ПО распростроняется лицензией MIT: (неофициальный перевод)
+
+  Copyright (c) 2022 @wheezard
+
+  Данная лицензия разрешает лицам, получившим копию данного программного обеспечения и сопутствующей документации (в дальнейшем именуемыми «Программное обеспечение»), безвозмездно использовать Программное обеспечение без ограничений, включая неограниченное право на использование, копирование, изменение, слияние, публикацию, распространение, сублицензирование и/или продажу копий Программного обеспечения, а также лицам, которым предоставляется данное Программное обеспечение, при соблюдении следующих условий:
+
+  Указанное выше уведомление об авторском праве и данные условия должны быть включены во все копии или значимые части данного Программного обеспечения.
+
+  ДАННОЕ ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПРЕДОСТАВЛЯЕТСЯ «КАК ЕСТЬ», БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНО ВЫРАЖЕННЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ ГАРАНТИИ ТОВАРНОЙ ПРИГОДНОСТИ, СООТВЕТСТВИЯ ПО ЕГО КОНКРЕТНОМУ НАЗНАЧЕНИЮ И ОТСУТСТВИЯ НАРУШЕНИЙ, НО НЕ ОГРАНИЧИВАЯСЬ ИМИ. НИ В КАКОМ СЛУЧАЕ АВТОРЫ ИЛИ ПРАВООБЛАДАТЕЛИ НЕ НЕСУТ ОТВЕТСТВЕННОСТИ ПО КАКИМ-ЛИБО ИСКАМ, ЗА УЩЕРБ ИЛИ ПО ИНЫМ ТРЕБОВАНИЯМ, В ТОМ ЧИСЛЕ, ПРИ ДЕЙСТВИИ КОНТРАКТА, ДЕЛИКТЕ ИЛИ ИНОЙ СИТУАЦИИ, ВОЗНИКШИМ ИЗ-ЗА ИСПОЛЬЗОВАНИЯ ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ ИЛИ ИНЫХ ДЕЙСТВИЙ С ПРОГРАММНЫМ ОБЕСПЕЧЕНИЕМ.

@@ -11,14 +11,14 @@
   ;
 
   let value = Codes.getNativeName(selected);
+  $: value_proxy = value ?? ''; // sometimes <AutoSuggestBox> gives null
   let error = false;
 
-  $: console.log({value});
   $: {
-    if (!Codes.getCode(value)) {
+    if (!Codes.getCode(value_proxy)) {
       error = true
     } else {
-      selected = Codes.getCode(value);
+      selected = Codes.getCode(value_proxy);
       error = false;
     }
     if (!languages.includes(selected)) {

@@ -279,6 +279,33 @@ menu:
     maximize: Maximize
     close: Close window
 pages:
+  welcome:
+    common:
+      next: Next
+    welcome: Welcome
+    begin: Begin
+    language:
+      title: Choose your language
+      note: |
+        Note: not all languages are supported by Monolith. If you pick an unsupported language, you will be additionally prompted to select
+        the language of Monolith. The websites will still be displayed in your selected language, but Monolith's interface will be in one that
+        you have selected for it specifically.
+      noTranslation: "Monolith is not translated to your language. Pick a language for Monolith:"
+      restartNotice: Monolith will restart when you apply the change
+    themes:
+      title: Choose your theme
+      note: This theme will be applied to Monolith's UI and some of the websites you visit.
+      light: Light
+      dark: Dark
+      system: Same as system
+    TOS:
+      title: Terms of service
+      note: Please read this carefully. It is, suprisingly, actually important
+      button-decline: Decline
+      button-accept: Accept
+    final:
+      message: Looks like everything is set up!
+      motivationalButton: Let's go!
   settings:
     searchInSettings: Search settings...
     appearance:
@@ -372,3 +399,22 @@ pages:
       button-select: Select folder
       openFolder: Open downloads folder
       allDownloads: View all downloads
+LocalizedTOS: |
+  Hello. Monolith is free to use and modify.
+  This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.
+  The author of this software is released from any liability or responsibility from any damage done by this software.
+
+  [IMPORTANT]
+  As per the closed alpha version of this software, Monolith will send data to its online services without warning.
+  Said data includes: your OS version and tag, your hardware identifdiers, crash reports, other error and log information.
+  These reports should exclude any sensitive data, like the sites you visit or your history, even though in some edge cases, or due to a bug this data may be still sent sometimes.
+
+  The software is licensed under an MIT License, which reads as follows:
+
+  Copyright (c) 2022 @wheezard
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

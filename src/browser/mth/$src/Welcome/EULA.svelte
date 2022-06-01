@@ -31,13 +31,16 @@
 
   export let next;
 
-  const TOS = `
+  const { t } = window.monolith.i18n;
+  let TOS;
+
+  const EnglishTOS = `
 Hello. Monolith is free to use and modify.
 This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.
 The author of this software is released from any liability or responsibility from any damage done by this software.
 
 [IMPORTANT]
-As per the closed beta version of this software, Monolith will send data to its online services without warning.
+As per the closed alpha version of this software, Monolith will send data to its online services without warning.
 Said data includes: your OS version and tag, your hardware identifdiers, crash reports, other error and log information.
 These reports should exclude any sensitive data, like the sites you visit or your history, even though in some edge cases, or due to a bug this data may be still sent sometimes.
 
@@ -51,22 +54,33 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   `
+
+  const LocalizedTOS = t('LocalizedTOS');
+  if (LocalizedTOS == 'LocalizedTOS') {
+    TOS = EnglishTOS;
+    
+  } else if (LocalizedTOS.trim().replaceAll('\n', '').replaceAll(' ', '') == EnglishTOS.trim().replaceAll('\n', '').replaceAll(' ', '')) {
+    TOS = LocalizedTOS;
+
+  } else {
+    TOS = LocalizedTOS + '\n\nEnglish (original) form:\n' + EnglishTOS
+  }
 </script>
 
 
 <div class="head">
-  <TextBlock variant="titleLarge">Terms of service</TextBlock>
+  <TextBlock variant="titleLarge">{t('pages.welcome.TOS.title')}</TextBlock>
 </div>
 <div class="main" in:fly={{ x: 400 }}>
   <div class="note">
-    Please read this carefully. This is, suprisingly, actually important.
+    {t('pages.welcome.TOS.note')}
   </div>
 
   <div class="textframe">
     {TOS}
   </div>
   <div class="flex">
-    <Button on:click={() => window.monolith.app.quit()}>Decline</Button>
-    <Button on:click={next} variant="accent">Accept</Button>
+    <Button on:click={() => window.monolith.app.quit()}>{t('pages.welcome.TOS.button-decline')}</Button>
+    <Button on:click={next} variant="accent">{t('pages.welcome.TOS.button-accept')}</Button>
   </div>
 </div>

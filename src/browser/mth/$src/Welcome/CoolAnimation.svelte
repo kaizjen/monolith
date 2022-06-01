@@ -40,6 +40,8 @@
 
   export let next;
 
+  const { t } = window.monolith.i18n;
+
   let animationDone = false;
   let toggled = false;
   let currentFill = 'none';
@@ -59,13 +61,13 @@
   <div class="fg" out:scale={finalScaleOptions}>
     <div class="backshadow" in:scale={{ delay: svgAnimDuration + 100, duration: svgAnimDuration + 100, start: 0.7, easing: expoOut }} on:introend={() => animationDone = true}>
       <TextBlock variant="display">
-        Welcome
+        {t('pages.welcome.welcome')}
       </TextBlock>
     </div>
     {#if animationDone}
       <div in:fade class="button-wr">
         <Button variant="hyperlink" on:click={next}>
-          Begin
+          {t('pages.welcome.begin')}
         </Button>
       </div>
     {/if}
