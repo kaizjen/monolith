@@ -400,6 +400,14 @@ pages:
       button-select: Select folder
       openFolder: Open downloads folder
       allDownloads: View all downloads
+    languages:
+      title: Languages
+      label-all: "Selected language:"
+      notice: Monolith is not translated to all languages supported by Chromium. Here you can select a language Monolith supports.
+      label-monolith: "Monolith's language:"
+      dialog: Select a language
+      restart-notification: You need to restart Monolith to apply the change
+      restart-button: Restart
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.

@@ -67,6 +67,7 @@
   import SearchEngines from "./Settings/SearchEngines.svelte"
   import OnStart from "./Settings/OnStart.svelte"
   import Downloads from "./Settings/Downloads.svelte"
+  import Languages from "./Settings/Languages.svelte"
 
   const configProm = window.monolith.userdata.config.get()
   let config = writable(null)
@@ -89,6 +90,7 @@
     { name: t('pages.settings.search.title'), element: null, component: SearchEngines },
     { name: t('pages.settings.on-start.title'), element: null, component: OnStart },
     { name: t('pages.settings.downloads.title'), element: null, component: Downloads },
+    { name: t('pages.settings.languages.title'), element: null, component: Languages },
   ]
   console.log(settingsSections);
 
