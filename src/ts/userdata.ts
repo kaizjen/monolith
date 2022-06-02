@@ -85,20 +85,21 @@ function cloneObject<T extends object>(obj: T): T {
 try {
   if (!fs.existsSync(userdataDirectory)) {
     fs.mkdirSync(userdataDirectory, { recursive: true })
-    if (app.isPackaged) {
+    /* if (app.isPackaged) {
       fs.moveSync(
         'src/browser/templates/background_images',
         path.join(userdataDirectory, 'background_images')
       )
       
-    } else {
-      // For testing purposes, will save the 'templates' folder
+    } else { */
+      // ~~For testing purposes, will save the 'templates' folder~~
+      // App should not edit the details of asar archive
       fs.copySync(
         'src/browser/templates/background_images',
         path.join(userdataDirectory, 'background_images'),
         { recursive: true }
       )
-    }
+    //}
     writeDefaults()
   }
   
@@ -218,7 +219,7 @@ try {
   dialog.showErrorBox(
     'The configuration file is invalid',
     `The file at ${join(userdataDirectory, 'config.yml')} is invalid:\n${validation}` +
-    `\n\nTip: run Monolith from the console to copy the error.`
+    `\n\nTip: run Monolith from the console to better inspect the error.`
   )
 
   app.exit(11)

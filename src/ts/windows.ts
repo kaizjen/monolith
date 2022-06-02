@@ -128,7 +128,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   w.chrome = chromeBV;
 
   await chromeBV.webContents.loadFile('src/browser/out/index.html')
-  if (!app.isPackaged || control.options.open_devtools_for_window.value) {
+  if (!app.isPackaged || control.options.open_devtools_for_window?.value) {
     chromeBV.webContents.openDevTools({ mode: 'detach' })
   }
   
