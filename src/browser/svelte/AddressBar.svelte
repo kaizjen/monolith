@@ -1,7 +1,7 @@
 <style>
   #addressbar {
     width: -webkit-fill-available;
-    transition: 0.2s;
+    transition: 0.1s;
     border-radius: 3px;
     display: flex;
     cursor: text;

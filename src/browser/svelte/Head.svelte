@@ -53,7 +53,7 @@
   }
   .tab {
     padding: 8px;
-    transition: 0.2s;
+    transition: 0.1s;
     display: inline-block;
     position: relative;
     white-space: nowrap;
