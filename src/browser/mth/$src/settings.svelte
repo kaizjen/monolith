@@ -2,16 +2,6 @@
   :root {
     --menu-width-value: 7cm;
   }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --default-gray: #c9c9c9;
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --default-gray: gray;
-    }
-  }
   aside {
     padding-top: 20px;
     border-right: 1px solid var(--default-gray);
@@ -59,9 +49,12 @@
 </style>
 
 <script>
-  import { ListItem, TextBlock, TextBox, Flyout, ProgressRing } from "fluent-svelte";
+  import { ListItem, TextBlock, ProgressRing } from "fluent-svelte";
   import { onMount, setContext } from "svelte/internal";
   import { writable } from "svelte/store";
+  import Header from "./common/Header.svelte";
+  import * as Icons from "./icons";
+
   import Appearance from "./Settings/Appearance.svelte"
   import Privacy from "./Settings/Privacy.svelte"
   import SearchEngines from "./Settings/SearchEngines.svelte"
@@ -82,8 +75,6 @@
   let scrollTag = {};
   let main;
 
-  let unsupportedFlyoutOpened = false;
-  
   const settingsSections = [
     { name: t('pages.settings.appearance.title'), element: null, component: Appearance },
     { name: t('pages.settings.privacy.title'), element: null, component: Privacy },
@@ -149,15 +140,15 @@
   })
 </script>
 
+<svelte:head>
+  <title>{t('common.settings')}</title>
+</svelte:head>
 
 <aside>
-  <div style="margin-bottom: 30px;">
-    <Flyout placement="bottom" alignment="start" bind:open={unsupportedFlyoutOpened}>
-      <TextBox type="search" placeholder={t('pages.settings.searchInSettings')} />
-      <svelte:fragment slot="flyout">
-        {t('unimplemented')}
-      </svelte:fragment>
-    </Flyout>
+  <div style="margin-bottom: 12px; width: 100%">
+    <Header name="settings">
+      <Icons.Settings />
+    </Header>
   </div>
 
   {#each settingsSections as section, i}

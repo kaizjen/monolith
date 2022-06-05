@@ -408,6 +408,9 @@ pages:
       dialog: Select a language
       restart-notification: You need to restart Monolith to apply the change
       restart-button: Restart
+  history:
+    button-clear: Clear history...
+    deleteEntry: Delete entry
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.
