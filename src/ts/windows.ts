@@ -1,6 +1,6 @@
 // This file is for all types of windows
 
-import type { TabWindow, TabOptions, Tab } from "./types";
+import type { TabWindow, TabOptions, Tab, Configuration } from "./types";
 import { app, BrowserView, BrowserWindow, nativeTheme } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
@@ -92,7 +92,27 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
       })
     }
   }
-  nativeTheme.on('updated', reactToThemeChange);
+  if (platform.windows) {
+    nativeTheme.on('updated', reactToThemeChange);
+  }
+
+  let prevChrZoomFactor: number;
+  function onConfigChange(c: Configuration) {
+    chromeBV.webContents.send('userData/config', c)
+
+    if (prevChrZoomFactor == c.ui.chromeZoomFactor) return;
+
+    chromeBV.webContents.zoomFactor = c.ui.chromeZoomFactor;
+    if (platform.windows) {
+      w.setTitleBarOverlay({
+        height: Math.round(headHeight * c.ui.chromeZoomFactor)
+      })
+    }
+
+    chromeBV.webContents.send('adjustHeight') // webContents will send a 'chrome:setHeight' message in return.
+    prevChrZoomFactor = c.ui.chromeZoomFactor;
+  }
+  // this function is called below
 
   w.on('closed', () => {
     tabManager.updateSavedTabsImmediately();
@@ -108,6 +128,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
 
     windows.splice(index, 1) // remove from windows array
     nativeTheme.off('updated', reactToThemeChange)
+    config.unlisten(onConfigChange);
   })
 
   // immediately crash the original renderer of the window, so it doesnt take any memory.
@@ -132,22 +153,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     chromeBV.webContents.openDevTools({ mode: 'detach' })
   }
   
-  let prevChrZoomFactor: number;
-  config.listenCall((c) => {
-    chromeBV.webContents.send('userData/config', c)
-
-    if (prevChrZoomFactor == c.ui.chromeZoomFactor) return;
-
-    chromeBV.webContents.zoomFactor = c.ui.chromeZoomFactor;
-    if (platform.windows) {
-      w.setTitleBarOverlay({
-        height: Math.round(headHeight * c.ui.chromeZoomFactor)
-      })
-    }
-    
-    chromeBV.webContents.send('adjustHeight') // webContents will send a 'chrome:setHeight' message in return.
-    prevChrZoomFactor = c.ui.chromeZoomFactor;
-  })
+  config.listenCall(onConfigChange);
 
   tabOptionsArray.forEach(tabOptions => {
     tabManager.createTab(w, tabOptions)

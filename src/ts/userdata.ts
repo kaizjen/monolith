@@ -34,15 +34,7 @@ async function exists(path: string) {
   }
 }
 
-function existsSync(path: string) {
-  try {
-    fs.promises.access(path);
-    return true;
-
-  } catch (e) {
-    return false;
-  }
-}
+const { existsSync } = fs;
 
 function writeDefaults() {
   if (!lastlaunchContent) {
@@ -113,6 +105,10 @@ try {
   configContent = yaml.parse(fs.readFileSync(configPath, 'utf-8'))
   lastlaunchContent = JSON.parse(fs.readFileSync(lastlaunchPath, 'utf-8'))
   controlContent = JSON.parse(fs.readFileSync(controlPath, 'utf-8'))
+
+  // check the history and downloads
+  JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+  JSON.parse(fs.readFileSync(downloadsPath, 'utf-8'));
 
 } catch (e) {
   console.log("Couldn't read user settings:", e, ". Trying to re-write...")
