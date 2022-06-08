@@ -42,7 +42,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --base-background: #21252b;
-    --active-background: #5b626d;
+    --active-background: #4f5660;
     --private-theme: #684a86;
 
     --dialog-background: var(--base-background);
@@ -53,11 +53,11 @@
     --accent-color: #247ecd;
     --accent-hover: #69b4f7;
     --accent-active: #9dd0fc;
-    --button-background: #ffffff36;
-    --button-hover: #ffffff4d;
-    --button-active: #ffffff8a;
-    --tool-hover: #00000042;
-    --tool-active: #00000085;
+    --button-background: #ffffff2e;
+    --button-hover: #ffffff42;
+    --button-active: #ffffff5e;
+    --tool-hover: #ffffff30;
+    --tool-active: #ffffff1f;
 
     --separator-color: #8080808c;
   }

@@ -30,14 +30,14 @@
     padding: 8px;
     cursor: default;
     border-radius: 4px;
-    transition: 0.2s;
+    transition: 0.15s;
   }
   .tab-state {
     height: 20px;
     width: 20px;
     padding: 5px;
     border-radius: 4px;
-    transition: 0.2s;
+    transition: 0.15s;
     cursor: default;
   }
   #sec:hover, .tab-state:hover {

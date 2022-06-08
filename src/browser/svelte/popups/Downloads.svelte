@@ -14,7 +14,6 @@
     display: block;
     position: absolute;
     border-radius: 8px;
-    transition: 0.2s;
     max-width: 380px;
     padding: 12px;
     top: 110%;

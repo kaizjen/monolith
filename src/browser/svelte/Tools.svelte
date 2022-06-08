@@ -10,7 +10,7 @@
   .nav, .tool {
     border-radius: 4px;
     padding: 4px;
-    transition: 0.2s;
+    transition: 0.1s;
     display: flex;
     -webkit-app-region: no-drag;
     margin-inline: 1px;
