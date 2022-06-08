@@ -1,4 +1,7 @@
-export default {
+/**
+ * @type {import('svbuild/types').Config}
+ */
+const config = {
   src: './$src',
   out: './js',
   compilerOptions: {
@@ -13,3 +16,5 @@ export default {
     modulesSrc: 'node_modules'
   }
 }
+
+export default config
