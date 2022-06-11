@@ -15,7 +15,7 @@
     "dev": "npm run build && electron .",
     "dev-inspect": "npm run build && electron . --inspect",
     "localize": "node src/i18n/transform.js",
-    "begin": "npm install && node svlc/hack_empty_svelte_styles.js && npm run build && npm localize"
+    "begin": "npm install && node svlc/hack_empty_svelte_styles.js && cd src/browser/mth && npm install && svbuild && cd ../../.. && npm run build && npm run localize"
   },
   "private": true,
   "author": "wheezard",
@@ -32,6 +32,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13"
+    "@types/fs-extra": "^9.0.13",
+    "svbuild": "^0.0.3",
+    "typescript": "^4.7.3"
   }
 }

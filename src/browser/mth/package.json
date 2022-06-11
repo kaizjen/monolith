@@ -5,8 +5,5 @@
   "dependencies": {
     "fluent-svelte": "^1.5.1",
     "iso-639-1": "^2.1.13"
-  },
-  "devDependencies": {
-    "svbuild": "^0.0.3"
   }
 }
