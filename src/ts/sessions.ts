@@ -311,7 +311,7 @@ export function registerSession(ses: Session) {
   })
 
   ses.setPermissionCheckHandler((_wc, permission, originalOrigin, details) => {
-    console.log('checking permission %o for %o with details %o', permission, originalOrigin, details);
+    //console.log('checking permission %o for %o with details %o', permission, originalOrigin, details);
     
     const { privacy } = config.get();
     let { defaultPermissions, sitePermissions, denyCrossOriginPermissions } = privacy;

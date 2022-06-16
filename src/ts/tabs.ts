@@ -348,7 +348,7 @@ export function attach(win: TabWindow, tab: Tab) {
 
       case 'new-window':
       case 'other': {
-        if (!features.includes('popup')) {
+        if (features == '') {
           // when you open a window using Shift+Click, 'popup' doesn't appear in the features
           newWindow([{ url, private: tab.private }])
           return { action: 'deny' }
@@ -366,6 +366,11 @@ export function attach(win: TabWindow, tab: Tab) {
             handleNetError(w.webContents, e, code, desc, url, isMainFrame, ...args)
           })
 
+          w.webContents.on('will-prevent-unload', (e) => {
+            // always close child windows
+            e.preventDefault();
+          })
+
           w.webContents.on('zoom-changed', (_e, direction) => {
             if (direction == 'in') {
               w.webContents.zoomFactor += 0.1
@@ -377,6 +382,10 @@ export function attach(win: TabWindow, tab: Tab) {
           w.webContents.on('context-menu', async (_e, opts) => {
             showContextMenu(win, { webContents: w.webContents, private: tab.private } as any, opts)
             // A terrible hack around the context menu but ok
+          })
+
+          w.webContents.setWindowOpenHandler(() => {
+            return { action: 'deny' }
           })
         })
 
