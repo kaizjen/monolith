@@ -213,7 +213,7 @@ const view: Electron.MenuItemConstructorOptions[] = [
 ]
 export const appMenu = Menu.buildFromTemplate([
   {
-    label: t('name') + ((process.platform == 'win32') ? '        ' : ''),
+    label: t('name'),
     submenu: [
       about,
       tools.find(i => i.id == 'settings'),
