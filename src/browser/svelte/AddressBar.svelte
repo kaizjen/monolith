@@ -164,6 +164,21 @@
       url.port = url.port ? ':' + url.port : null;
     }
   }
+
+  function hintToInputValue() {
+    if (selectedHint == -1) return;
+
+    const hint = hints[selectedHint];
+    if (hint.internal == 'search') {
+      inputValue = hint.text
+
+    } else {
+      inputValue = hint.url
+    }
+  }
+  /**
+   * @param {KeyboardEvent} e
+   */
   function handleKeyUp(e) {
     switch (e.key) {
       case 'Enter': {
@@ -188,11 +203,17 @@
         break;
       }
       case 'ArrowDown': {
-        selectedHint++;
+        if (selectedHint >= (hints.length - 1)) {
+          selectedHint = -1;
+
+        } else {
+          selectedHint++;
+        }
         break;
       }
       default: {
         if (e.key.length > 1 && e.key != 'Backspace') break;
+        if (e.shiftKey || e.ctrlKey) break;
         // key.length > 1 if the key is a special one (like 'Space', but not 'e')
 
         selectedHint = -1
@@ -206,12 +227,18 @@
         break;
       }
     }
+    hintToInputValue();
   }
 
   $: {tab; {
     // watch for tab changes, update when necessary
     updateInput()
   }}
+
+  let isFirstTimeSelecting = true;
+  $: if (!isActive) {
+    isFirstTimeSelecting = true
+  }
 
 </script>
 <div class:abignore id="addressbar" class:focus={isActive}>
@@ -251,6 +278,11 @@
     on:keyup={handleKeyUp}
     bind:value={inputValue}
     placeholder={_.PLACEHOLDER}
+    on:mouseup={() => {
+      if (inputRef.selectionStart != inputRef.selectionEnd || !isFirstTimeSelecting) return;
+      inputRef.select()
+      isFirstTimeSelecting = false;
+    }}
   >
   {#if $globalZoom != $config?.ui.defaultZoomFactor}
   <button

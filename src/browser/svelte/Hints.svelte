@@ -108,7 +108,6 @@
             <span class="page">{ getFullPath(getURL(hint.url)) }</span>
           </span> <span class="h-more">— URL</span>
         {/if}
-          
       {/if}
     </button>
   {/each}
