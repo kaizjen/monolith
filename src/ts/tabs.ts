@@ -520,6 +520,7 @@ export function attach(win: TabWindow, tab: Tab) {
     ) { tab.lastNavigationReason = 'other'; return; }
 
     if (url.startsWith('mth:')) return;
+    if (tab.lastNavigationReason == 'created') { tab.lastNavigationReason = 'other'; return; }
     
     history.unshift({
       sessionUUID: global.SESSION_UUID,

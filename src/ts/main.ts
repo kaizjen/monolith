@@ -100,7 +100,7 @@ app.on('ready', () => {
       newWindow([ { url: onStart.url } ])
   
     } else {
-      newWindow([{ url: $.newTabUrl } ])
+      newWindow([ { url: $.newTabUrl } ])
     }
   }
 

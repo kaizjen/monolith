@@ -34,9 +34,11 @@
 
 <script>
   import { TextBlock, ContextMenu, MenuFlyoutItem, MenuFlyoutDivider, IconButton } from "fluent-svelte";
+  import { getContext } from "svelte";
   import * as Icons from "../icons.js";
 
   export let entry;
+  const update = getContext('update')
 
   const { t } = window.monolith.i18n;
   function tt(str, ...args) {
@@ -66,8 +68,10 @@
     }
   }
 
-  function del() {
+  async function del() {
     console.log("del", entry.originalIndex);
+    await window.monolith.userdata.history.delAt({ index: entry.originalIndex })
+    update();
   }
 </script>
 

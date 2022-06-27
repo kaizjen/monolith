@@ -61,6 +61,7 @@ if (location.protocol == 'mth:') {
         get: ({ entries = 20, offset }) => sendInternal('userData', 'history', { entries, offset }),
         setAt: ({ index }, obj: any) => sendInternal('userData', 'history:setAt', { index }, obj),
         set: (obj: any) => sendInternal('userData', 'history:set', obj),
+        delAt: (obj: any) => sendInternal('userData', 'history:delAt', obj),
         find: (finder: { type: 'text', text: string } | { type: 'date', date: number, compare: 'lt' | 'gt' | 'eq' }) => sendInternal('userData', 'history:find', finder),
       },
       downloads: {

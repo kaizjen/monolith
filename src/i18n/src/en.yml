@@ -411,6 +411,8 @@ pages:
   history:
     button-clear: Clear history...
     deleteEntry: Delete entry
+    empty: Empty
+    favicon: Site's icon
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.

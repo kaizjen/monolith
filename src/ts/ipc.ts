@@ -499,12 +499,14 @@ export function init() {
         userData.config.listen(sub);
         e.sender.once('did-navigate', unsub)
       }
+
       case 'lastlaunch': {
         return userData.lastlaunch.get()
       }
       case 'lastlaunch:set': {
         return userData.lastlaunch.set(obj)
       }
+
       case 'history': {
         // obj is { entries: number, offset: number }
         let history = await userData.history.get();
@@ -522,6 +524,12 @@ export function init() {
         // obj is { index: number }
         let history = await userData.history.get();
         history[obj.index] = obj2;
+        return await userData.history.set(history)
+      }
+      case 'history:delAt': {
+        // obj is { index: number }
+        let history = await userData.history.get();
+        history.splice(obj.index, 1);
         return await userData.history.set(history)
       }
       case 'history:find': {
@@ -587,9 +595,25 @@ export function init() {
         }
         return i;
       }
-    
+
+      case 'downloads': {
+        return await userData.downloads.get()
+      }
+      case 'downloads:del': {
+        let dl = await userData.downloads.get();
+        dl.splice(obj, 1);
+        await userData.downloads.set(dl)
+        return true;
+      }
+      case 'downloads:start': {
+        let dl = await userData.downloads.get();
+        let { urlChain } = dl[obj];
+        getTabWindowByID(0).currentTab.webContents.downloadURL(urlChain.at(-1))
+        return true;
+      }
+
       default:
-        throw new Error('userData: unknown command')
+        throw new Error(`[userData] unknown command "${action}"`)
     }
   })
   onInternalSync('getTheme', (e) => {
@@ -636,7 +660,7 @@ export function init() {
   })
 
   onInternal('session', async(e, action: string, arg) => {
-    const session: Electron.Session = e.sender.session;
+    const ses = session.fromPartition(DEFAULT_PARTITION);
 
     switch (action) {
       case 'clear': {
@@ -655,12 +679,12 @@ export function init() {
 
         console.log('Clearing items:', storages);
         
-        return await session.clearStorageData({
+        return await ses.clearStorageData({
           storages
         })
       }
       case 'isPrivate': {
-        return !session.isPersistent()
+        return !ses.isPersistent()
       }
     
       default:

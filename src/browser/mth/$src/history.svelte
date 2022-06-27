@@ -26,8 +26,9 @@
 </style>
 <script>
   import { IconButton, Button, ProgressRing } from "fluent-svelte";
+import { setContext } from "svelte";
   import Header from "./common/Header.svelte";
-import ByDate from "./History/ByDate.svelte";
+  import ByDate from "./History/ByDate.svelte";
   import * as Icons from "./icons.js";
 
   const { t } = window.monolith.i18n;
@@ -95,6 +96,8 @@ import ByDate from "./History/ByDate.svelte";
   $: {entries; updateEntriesByDate()}
 
   update()
+
+  setContext('update', update)
 </script>
 
 <svelte:head>
