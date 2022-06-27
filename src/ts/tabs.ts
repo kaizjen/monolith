@@ -349,7 +349,7 @@ export function attach(win: TabWindow, tab: Tab) {
       case 'new-window':
       case 'other': {
         if (features == '') {
-          // when you open a window using Shift+Click, 'popup' doesn't appear in the features
+          // when you open a window using Shift+Click, the features are an empty string
           newWindow([{ url, private: tab.private }])
           return { action: 'deny' }
         }
@@ -391,7 +391,9 @@ export function attach(win: TabWindow, tab: Tab) {
 
         return {
           action: 'allow', overrideBrowserWindowOptions: {
-            parent: win,
+            minimizable: true,
+            maximizable: true,
+            closable: true,
             webPreferences: {
               sandbox: true,
               partition: tab.private ? PRIVATE_PARTITION : DEFAULT_PARTITION
