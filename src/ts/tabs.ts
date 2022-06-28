@@ -521,7 +521,7 @@ export function attach(win: TabWindow, tab: Tab) {
 
     if (url.startsWith('mth:')) return;
     if (tab.lastNavigationReason == 'created') { tab.lastNavigationReason = 'other'; return; }
-    
+
     history.unshift({
       sessionUUID: global.SESSION_UUID,
       tabUID: tab.uniqueID,

@@ -124,6 +124,14 @@ function requestMainSync(id: string, ...args: any[]) {
   return ipcRenderer.sendSync(`tab:${id}`, ...args)
 }
 
+webFrame.insertCSS(`
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: dark }
+}
+@media (prefers-color-scheme: light) {
+  :root { color-scheme: light }
+}
+`)
 
 expose('[MONOLITH]', {
   extendNavigator: {

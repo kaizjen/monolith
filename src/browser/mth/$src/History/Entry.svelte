@@ -103,7 +103,7 @@
       <MenuFlyoutItem on:click={() => window.monolith.tab.create(entry.url)}>
         {t('menu.contextMenu.open.newTab')}
       </MenuFlyoutItem>
-      <MenuFlyoutItem on:click={() => location = entry.url}>
+      <MenuFlyoutItem on:click={() => window.monolith.tab.go(entry.url)}>
         {t('menu.contextMenu.open.thisTab')}
       </MenuFlyoutItem>
       <MenuFlyoutDivider />
