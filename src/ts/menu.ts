@@ -102,6 +102,27 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
     id: 'new-win'
   },
   {
+    label: t('menu.openFile'),
+    accelerator: 'CmdOrCtrl+O',
+    async click(_m, win: TabWindow) {
+      if (!isTabWindow(win)) return;
+
+      let result = await dialog.showOpenDialog(win, {
+        title: t('menu.openFile'),
+        properties: ['openFile']
+      })
+      result.filePaths.forEach(pth => {
+        pth = pth.replaceAll('\\', '/');
+        pth = 'file://' + pth;
+
+        createTab(win, {
+          url: pth,
+          private: win.currentTab.private
+        })
+      })
+    }
+  },
+  {
     label: t('menu.window.close'),
     click(_m, win) {
       win.close()
@@ -228,6 +249,10 @@ export const appMenu = Menu.buildFromTemplate([
         {
           role: 'unhide' as const
         },
+        SEPARATOR,
+        {
+          role: 'services' as const
+        },
         SEPARATOR
       ] : []),
       {
@@ -305,28 +330,7 @@ export const appMenu = Menu.buildFromTemplate([
   {
     label: t('menu.appMenu.file'),
     submenu: [
-      ...tabs_windows,
-      {
-        label: t('menu.openFile'),
-        accelerator: 'CmdOrCtrl+O',
-        async click(_m, win: TabWindow) {
-          if (!isTabWindow(win)) return;
-
-          let result = await dialog.showOpenDialog(win, {
-            title: t('menu.openFile'),
-            properties: [ 'openFile' ]
-          })
-          result.filePaths.forEach(pth => {
-            pth = pth.replaceAll('\\', '/');
-            pth = 'file://' + pth;
-
-            createTab(win, {
-              url: pth,
-              private: win.currentTab.private
-            })
-          })
-        }
-      }
+      ...tabs_windows
     ]
   },
   {
@@ -341,6 +345,17 @@ export const appMenu = Menu.buildFromTemplate([
       { role: 'pasteAndMatchStyle', accelerator: 'CmdOrCtrl+Shift+V' },
       { role: 'delete' },
       { role: 'selectAll', accelerator: 'CmdOrCtrl+A' },
+      ...(app.isEmojiPanelSupported() ? [
+        SEPARATOR,
+        {
+          label: t('menu.emojiPanel'),
+          accelerator: 'Meta+.',
+          registerAccelerator: false,
+          click() {
+            app.showEmojiPanel();
+          }
+        }
+      ] : [])
     ]
   },
   {

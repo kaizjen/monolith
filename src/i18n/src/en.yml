@@ -224,6 +224,7 @@ menu:
   openFile: Open file...
   about: About
   fullscreen: Enter fullscreen
+  emojiPanel: Show emoji panel
   zoom:
     in: Zoom in
     out: Zoom out
