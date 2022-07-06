@@ -12,6 +12,8 @@ import $ from "./vars";
 import type { TabOptions } from "./types";
 import { t, data } from "./i18n";
 
+global.isStarting = true; // some things, like history, shouldn't work while the app is still starting
+
 require('tls').DEFAULT_ECDH_CURVE = 'auto' // fix handshake error
 
 app.userAgentFallback = app.userAgentFallback
@@ -106,6 +108,7 @@ app.on('ready', () => {
 
   userData.lastlaunch.set({ launchFailed: false, exitedSafely: false })
   thisProcess.init()
+  global.isStarting = false;
 })
 
 let tray: Tray;

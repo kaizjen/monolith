@@ -203,6 +203,40 @@ function checkSecurity(url: string) {
   }
 }
 
+async function pushToHistory(tab: Tab, responseCode: number = 0) {
+  const url = tab.webContents.getURL();
+
+  if (tab.private) return; // obviously
+
+  let history = await userData.history.get();
+  if (
+    history.length > 0 &&
+    history[0].url == url &&
+    history[0].sessionUUID == global.SESSION_UUID &&
+    history[0].tabUID == tab.uniqueID
+    // i know it's not the best way of not having duplicates but when the history gets large, it would be way slower to try to sort stuff in there
+  ) { tab.lastNavigationReason = 'other'; return; }
+
+  if (url.startsWith('mth:')) return;
+  if (global.isStarting) {
+    // if the app is still starting, don't save the history
+    tab.lastNavigationReason = 'other'; return;
+  }
+
+  history.unshift({
+    sessionUUID: global.SESSION_UUID,
+    tabUID: tab.uniqueID,
+    timestamp: Date.now(),
+    reason: responseCode.toString().startsWith('3') ? 'redirect' : tab.lastNavigationReason,
+    url,
+    title: tab.webContents.getTitle(),
+    faviconURL: tab.faviconURL
+  })
+  userData.history.set(history)
+
+  tab.lastNavigationReason = 'other'
+}
+
 
 /**
  * Creates a tab-like browserView and loads the URL.
@@ -508,33 +542,7 @@ export function attach(win: TabWindow, tab: Tab) {
 
     sendUpdate('sec', checkSecurity(url))
 
-    if (tab.private) return; // obviously
-
-    let history = await userData.history.get();
-    if (
-      history.length > 0 &&
-      history[0].url == url &&
-      history[0].sessionUUID == global.SESSION_UUID &&
-      history[0].tabUID == tab.uniqueID
-      // i know it's not the best way of not having duplicates but when the history gets large, it would be way slower to try to sort stuff in there
-    ) { tab.lastNavigationReason = 'other'; return; }
-
-    if (url.startsWith('mth:')) return;
-    if (tab.lastNavigationReason == 'created') { tab.lastNavigationReason = 'other'; return; }
-
-    history.unshift({
-      sessionUUID: global.SESSION_UUID,
-      tabUID: tab.uniqueID,
-      timestamp: Date.now(),
-      reason: respCode.toString().startsWith('3') ? 'redirect' : tab.lastNavigationReason,
-      url,
-      title: tab.webContents.getTitle(),
-      faviconURL: tab.faviconURL
-    })
-    userData.history.set(history)
-
-    tab.lastNavigationReason = 'other'
-    
+    pushToHistory(tab, respCode)
   })
   tab.webContents.on('did-navigate-in-page', (_e, _url, isMainFrame) => {
     isMainFrame ? sendUpdate('url', tab.webContents.getURL()) : null;
@@ -542,6 +550,8 @@ export function attach(win: TabWindow, tab: Tab) {
       canGoBack: tab.webContents.canGoBack(),
       canGoFwd: tab.webContents.canGoForward(),
     })
+
+    pushToHistory(tab)
   })
   tab.webContents.on('did-fail-load', (e, code, desc, url, isMainFrame, ...args) => {
     handleNetError(tab.webContents, e, code, desc, url, isMainFrame, ...args)

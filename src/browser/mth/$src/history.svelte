@@ -26,9 +26,10 @@
 </style>
 <script>
   import { IconButton, Button, ProgressRing } from "fluent-svelte";
-import { setContext } from "svelte";
+  import { setContext } from "svelte";
   import Header from "./common/Header.svelte";
   import ByDate from "./History/ByDate.svelte";
+  import ClearDialog from "./History/ClearDialog.svelte";
   import * as Icons from "./icons.js";
 
   const { t } = window.monolith.i18n;
@@ -38,7 +39,7 @@ import { setContext } from "svelte";
 
   const fmt = Intl.DateTimeFormat()
 
-  const ENTRIES_BY_PAGE = 50;
+  const ENTRIES_BY_PAGE = 10;
   let currentPage = 0;
   
   let entries = [];
@@ -47,7 +48,13 @@ import { setContext } from "svelte";
   function update() {
     promise = new Promise(async(y) => {
       let unfiltered = await window.monolith.userdata.history.get({ entries: ENTRIES_BY_PAGE, offset: ENTRIES_BY_PAGE * currentPage })
-      entries = unfiltered.filter(o => !!o); // current impl returns always the amount specified by "entries"
+      entries = unfiltered
+        .filter(o => !!o) // current impl returns always the amount specified by "entries"
+        .map((e, i) => {
+          e.originalIndex = (ENTRIES_BY_PAGE * currentPage) + i;
+          return e;
+        })
+      ;
       y();
 
       requestIdleCallback(async() => {
@@ -83,8 +90,6 @@ import { setContext } from "svelte";
       const day = fmt.format(e.timestamp);
       const dateKey = (new Date(day)).getTime();
 
-      e.originalIndex = i; // need to keep this
-
       if (dateKey in entriesByDate) {
         entriesByDate[dateKey].push(e)
 
@@ -98,12 +103,25 @@ import { setContext } from "svelte";
   update()
 
   setContext('update', update)
+
+  let open = false;
+
+  async function clearAllOnThisPage() {
+    let i = 0;
+    for (const { originalIndex } of entries) {
+      await monolith.userdata.history.delAt({ index: originalIndex - i })
+      // need to subtract `i` because when you delete a h. entry, all other indexes shift
+      i++;
+    }
+    update();
+  }
 </script>
 
 <svelte:head>
   <title>{t('common.history')}</title>
 </svelte:head>
 
+<ClearDialog bind:open {clearAllOnThisPage} />
 <header>
   <Header name="history">
     <Icons.History />
@@ -120,7 +138,7 @@ import { setContext } from "svelte";
           <Icons.ArrowFwd title={t('navigation.forward')} />
         </IconButton>
       </div>
-      <Button>
+      <Button on:click={() => open = true}>
         {tt('button-clear')}
       </Button>
     </div>

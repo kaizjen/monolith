@@ -20,7 +20,7 @@
     white-space: nowrap;
   }
   .wrapper:not(:last-child) {
-    border-bottom: 1px solid var(--default-gray);
+    border-bottom: 1px solid #80808073;
   }
 
   .host {

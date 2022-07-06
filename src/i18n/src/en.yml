@@ -414,6 +414,15 @@ pages:
     deleteEntry: Delete entry
     empty: Empty
     favicon: Site's icon
+    dialog:
+      title: Clear browsing history
+      clear-button: Clear now
+      clearOnThisPage-button: Delete all on this page
+      timePeriod: Or clear based on a period of time
+      option-hour: Past hour
+      option-day: Past 24 hours
+      option-week: Past 7 days
+      option-all: All time
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.

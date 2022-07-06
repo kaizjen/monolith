@@ -5,6 +5,7 @@ import * as path from 'path'
 import { app, dialog } from 'electron'
 import type { Configuration, LastLaunch, History, Downloads, Details } from './types'
 import * as yaml from 'yaml';
+import $ from './vars';
 import runType from 'runtype-check';
 
 console.time('userData init');
@@ -278,6 +279,9 @@ export let lastlaunch = {
 }
 
 
+function filterEntries(array: History) {
+  return array.filter($.uniqBy((e1, e2) => e1.tabUID == e2.tabUID && e1.sessionUUID == e2.sessionUUID))
+}
 export let history = {
   getSync(): History {
     return JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
@@ -286,10 +290,10 @@ export let history = {
     return JSON.parse(await fs.promises.readFile(historyPath, 'utf-8'));
   },
   setSync(obj: History) {
-    fs.writeFileSync(historyPath, JSON.stringify(obj))
+    fs.writeFileSync(historyPath, JSON.stringify(filterEntries(obj)))
   },
   async set(obj: History) {
-    return await fs.promises.writeFile(historyPath, JSON.stringify(obj, null, app.isPackaged ? null : 2))
+    return await fs.promises.writeFile(historyPath, JSON.stringify(filterEntries(obj)))
   }
 }
 
