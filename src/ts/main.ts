@@ -21,6 +21,7 @@ app.userAgentFallback = app.userAgentFallback
   .replace(/Electron\/.*? /, '')    // and 'Electron/17.x.y' strings from the user agent string
   + ` Monolith/${app.getVersion()}` // and add the correct Monolith string at the end
 ;
+app.enableSandbox()
 
 
 app.on('before-quit', () => {
@@ -32,7 +33,7 @@ if (userData.lastlaunch.get().launchFailed) {
   global.isSafeMode = true;
   dialog.showErrorBox("Oh no!",
     "Monolith has failed to launch last time. So now it has launched in safe mode, which means all extensions have been\
- disabled, and the flags (mth://flags) were ignored. Restart Monolith to exit safe mode.")
+ disabled, and the control options (mth://control) were ignored. Restart Monolith to exit safe mode.")
 
 } else {
   global.isSafeMode = false;

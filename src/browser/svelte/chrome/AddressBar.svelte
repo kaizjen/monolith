@@ -87,7 +87,7 @@
 
 <script>
   export let tab = {};
-  import { ipcRenderer } from "electron"
+  const { ipcRenderer } = window.monolith
   import Hints from "./Hints.svelte"
   import Security from "./popups/Security.svelte"
   import { getContext } from "svelte/internal"

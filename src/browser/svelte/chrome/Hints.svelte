@@ -42,7 +42,7 @@
   export let isprivate = false;
   export let hints;
   export let selected = -1;
-  import { ipcRenderer } from "electron"
+  const { ipcRenderer } = window.monolith
   import { fade } from 'svelte/transition'
   import { getContext } from 'svelte/internal'
 

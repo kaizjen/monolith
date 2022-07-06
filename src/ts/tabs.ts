@@ -252,7 +252,7 @@ export function createBrowserView(opts: TabOptions): Tab {
       contextIsolation: true,
       sandbox: true,
       partition: opts.private ? PRIVATE_PARTITION : DEFAULT_PARTITION,
-      preload: `${__dirname}/tab-preload.js`,
+      preload: `${__dirname}/preloads/tab.js`,
       backgroundThrottling: true,
       autoplayPolicy: autoplayWithDocumentActivation ? 'document-user-activation-required' : 'user-gesture-required',
       navigateOnDragDrop: true

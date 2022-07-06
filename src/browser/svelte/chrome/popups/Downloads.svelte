@@ -87,10 +87,9 @@
   export let downloadInfo;
   export let downloadPercent;
   import { getContext } from "svelte/internal";
-  import * as pathModule from "path";
-  import { ipcRenderer, shell } from "electron"
+  const { ipcRenderer, shell, basename } = window.monolith;
   import { fly } from "svelte/transition";
-  import Button from "../lib/Button.svelte";
+  import Button from "//lib/Button.svelte";
 
   const { t } = window;
   const _ = {
@@ -133,7 +132,7 @@
     <h3>{_.CURRENT}</h3>
     <div class="dl-wrapper">
       <div class="download">
-        <span>{pathModule.basename(downloadInfo.path)}</span> <br>
+        <span>{basename(downloadInfo.path)}</span> <br>
         <span class="url"> {downloadInfo.url} </span><br>
         <span class="more-info"> {downloadPercent.toString().slice(0, 4)}% downloaded </span> <!-- "10.723" => "10.7" -->
       </div>
@@ -173,7 +172,7 @@
       {#each downloads as download, index}
         <div class="dl-wrapper">
           <div class="download">
-            <b>{pathModule.basename(download.savePath)}</b><br>
+            <b>{basename(download.savePath)}</b><br>
             <span class="url">{download.url}</span><br>
             <span class="more-info"> {download.status == 'completed' ? _.status.COMPLETED : _.status.INTERRUPTED} </span>
           </div>

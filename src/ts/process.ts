@@ -44,13 +44,14 @@ const argv = argvParse({
   },
 })
 
-
-control.flags.forEach((f) => {
-  app.commandLine.appendArgument(f)
-})
-control.switches.forEach(({ name, value }) => {
-  app.commandLine.appendSwitch(name, value)
-})
+if (!global.isSafeMode) {
+  control.flags.forEach((f) => {
+    app.commandLine.appendArgument(f)
+  })
+  control.switches.forEach(({ name, value }) => {
+    app.commandLine.appendSwitch(name, value)
+  })
+}
 
 /* for (const arg in argv) {
   // enable runtime flags

@@ -1,6 +1,8 @@
 // Preload for tabs
 
-const { contextBridge: { exposeInMainWorld: expose }, ipcRenderer, webFrame } = require('electron');
+import { contextBridge as ctx, ipcRenderer, webFrame } from 'electron';
+
+const expose = ctx.exposeInMainWorld
 
 webFrame.setIsolatedWorldInfo(1, {
   name: "Monolith's shared extension context"
@@ -46,7 +48,7 @@ if (location.protocol == 'mth:') {
         get: () => sendInternal('userData', 'config'),
         set: (config: any) => sendInternal('userData', 'config:set', config),
         subscribe(fun: Function) {
-          if (subscriptions.config) throw(new MonolithError("Already subscribed"))
+          if (subscriptions.config) throw (new MonolithError("Already subscribed"))
 
           sendInternal('userData', 'config:subscribe');
           subscriptions.config = true;

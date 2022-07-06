@@ -314,6 +314,13 @@ export let downloads = {
 }
 
 
+if (global.isSafeMode) {
+  for (const name in controlContent.options) {
+    const option = controlContent.options[name];
+    option.value = option.default;
+  }
+}
+
 export let control = {
   ...controlContent,
   set(obj: Partial<Details>) {
@@ -335,7 +342,7 @@ export let control = {
 
     dialog.showErrorBox(
       "There was a problem.", 
-      "The options (mth://options) are corrupted or invalid." +
+      "The options (mth://control) are corrupted or invalid." +
       "They have been replaced with a working version, but Monolith needs to be restarted."
     );
     process.exit();

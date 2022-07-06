@@ -70,7 +70,7 @@
 <script>
   export let isOpen;
   export let tab;
-  import { ipcRenderer } from 'electron'
+  const { ipcRenderer } = window.monolith
   import { getContext } from 'svelte/internal';
   import { fly } from 'svelte/transition'
   import Permission from './Security/Permission.svelte';

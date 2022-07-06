@@ -35,9 +35,9 @@
   }
 </style>
 <script>
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import { getContext } from "svelte/internal";
-  import Button from "./lib/Button.svelte";
+  import Button from "//lib/Button.svelte";
 
   const colorTheme = getContext('colorTheme')
 

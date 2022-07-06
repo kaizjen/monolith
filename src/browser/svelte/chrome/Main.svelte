@@ -4,7 +4,7 @@
   }
 </style>
 <script>
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import Head from "./Head.svelte"
   import Tools from "./Tools.svelte";
   import { writable } from "svelte/store"

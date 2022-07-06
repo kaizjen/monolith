@@ -41,9 +41,9 @@
   }
 
   import { getContext } from "svelte/internal";
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import { fly } from 'svelte/transition'
-  import Button from "../lib/Button.svelte";
+  import Button from "//lib/Button.svelte";
 
   const setTop = getContext('setTop')
   const colorTheme = getContext('colorTheme')

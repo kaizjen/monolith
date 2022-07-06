@@ -30,7 +30,7 @@
 
 <script>
   export let tab = {};
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import AddressBar from "./AddressBar.svelte"
   import { getContext } from "svelte/internal";
   import Downloads from "./popups/Downloads.svelte";

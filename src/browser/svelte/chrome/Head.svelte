@@ -26,7 +26,7 @@
     transition: 0.2s;
     -webkit-app-region: no-drag;
   }
-  img#tl-end:hover {
+  img#close:hover {
     background: #ff5656a6;
   }
   .traffic-lights > img:hover {
@@ -139,7 +139,7 @@
 </style>
 
 <script>
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import { getContext } from "svelte/internal";
   import { cubicOut } from 'svelte/easing'
   export let tabs;
@@ -155,8 +155,7 @@
   const colorTheme = getContext('colorTheme')
 
   const isOnMac = process.platform == 'darwin';
-  const isOnWindows = process.platform == 'win32';
-  const isOnLinuxOrBSD = !isOnMac && !isOnWindows;
+  const isOnLinux = process.platform == 'linux';
 
   function tab_anim(node, { delay = 0, duration = 400, easing = cubicOut, opacity = 0 }) {
     const style = getComputedStyle(node);
@@ -278,6 +277,7 @@
           in:tab_anim={{ x: -50, y: 0, duration: 120 }}
           out:tab_anim={{ x: -50, y: 0, duration: 120 }}
           title={tab.title}
+          role="tab"
         >
           {#if tab.private && !(id == currentTab)}
             <img src="m-res://{$colorTheme}/tab_privatemode.svg" alt={_.PRIVATE_TAB} class="favicon decoy">
@@ -310,12 +310,12 @@
     </div>
     <div
       class="traffic-lights"
-      style:pointer-events={isOnLinuxOrBSD ? '' : 'none'}
-      style:visibility={isOnLinuxOrBSD ? '' : 'hidden'}
+      style:pointer-events={isOnLinux ? '' : 'none'}
+      style:visibility={isOnLinux ? '' : 'hidden'}
       style:display={isOnMac ? 'none' : ''}
     >
       <img alt="" src="m-res://{$colorTheme}/win_minimize.svg" on:click={winActionF('min')}>
       <img alt="" src="m-res://{$colorTheme}/win_restore.svg" on:click={winActionF('max')} width="24" height="24">
-      <img alt="" src="m-res://{$colorTheme}/win_close.svg" id="tl-end" on:click={winActionF('close')}>
+      <img alt="" src="m-res://{$colorTheme}/win_close.svg" id="close" on:click={winActionF('close')}>
   </div>
 </div>

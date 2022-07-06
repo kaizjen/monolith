@@ -48,10 +48,10 @@
   }
 </style>
 <script>
-  import { ipcRenderer } from "electron";
+  const { ipcRenderer } = window.monolith;
   import { onMount } from "svelte/internal";
   import { scale } from "svelte/transition"
-  import Button from "./lib/Button.svelte";
+  import Button from "//lib/Button.svelte";
   export let dialog;
   export let tab;
   $: {

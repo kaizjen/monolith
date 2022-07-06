@@ -7,7 +7,7 @@ import * as _url from "url";
 import * as pathModule from "path";
 import { config, control } from './userdata'
 import { showAppMenu } from "./menu";
-import { CHROME_PARTITION } from "./sessions";
+import { INTERNAL_PARTITION } from "./sessions";
 
 const WM_INITMENU = 0x0116; // windows' initmenu, explained later in the code
 const headHeight = 36; // px, height of the "head" of chrome
@@ -141,7 +141,8 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      partition: CHROME_PARTITION
+      partition: INTERNAL_PARTITION,
+      preload: `${__dirname}/preloads/internal.js`
     }
   });
   chromeBV.setBounds({ x: 0, y: 0, width: w.getContentBounds().width, height: w.getContentBounds().height })
@@ -150,7 +151,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
 
   w.chrome = chromeBV;
 
-  await chromeBV.webContents.loadFile('src/browser/out/index.html')
+  await chromeBV.webContents.loadURL('m-internal://chrome/index.html')
   if (!app.isPackaged || control.options.open_devtools_for_window?.value) {
     chromeBV.webContents.openDevTools({ mode: 'detach' })
   }
