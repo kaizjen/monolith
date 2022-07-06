@@ -17,6 +17,7 @@
     border: 1px solid var(--trivial-color);
     border-radius: 6px;
     min-width: 450px;
+    min-width: 600px;
     cursor: default; /* document's cursor is changed by a function in Main.svelte */
   }
   .title {
