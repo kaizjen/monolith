@@ -141,10 +141,10 @@ windows:
       expirationDate: Expires on
       sameSite: Send for
     sameSite:
-      no_restriction: With any context, including 3rd-party requests
-      strict: Only with first-party requests
+      no_restriction: Any context, including 3rd-party requests
+      strict: Only first-party requests
       unspecified: N/A
-      lax: With 1st-party requests, or when navigating to the domain (Lax)
+      lax: 1st-party requests, or when navigating to the domain (Lax)
 net-error:
   common:
     local:
