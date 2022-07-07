@@ -141,6 +141,13 @@ export interface LastLaunch {
     faviconURL: string | null
   }[][]
   // in case Monolith will end with an error, the whole session will be restored with all the windows
+  bounds: {
+    x: number
+    y: number
+    width: number
+    height: number
+    maximized: boolean
+  }
 }
 
 export type History = {

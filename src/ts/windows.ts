@@ -1,11 +1,11 @@
 // This file is for all types of windows
 
 import type { TabWindow, TabOptions, Tab, Configuration } from "./types";
-import { app, BrowserView, BrowserWindow, nativeTheme } from "electron";
+import { app, BrowserView, BrowserWindow, nativeTheme, screen } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
 import * as pathModule from "path";
-import { config, control } from './userdata'
+import { config, control, lastlaunch } from './userdata'
 import { showAppMenu } from "./menu";
 import { INTERNAL_PARTITION } from "./sessions";
 
@@ -31,8 +31,34 @@ const platform = {
 
 let windows: TabWindow[] = [];
 
+function updateWindowBounds(window: TabWindow) {
+  const { x, y, width, height } = window.getBounds()
+
+  lastlaunch.set({
+    bounds: {
+      x, y, width, height,
+      maximized: window.isMaximized()
+    }
+  });
+}
 
 export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindow> {
+  let { width, height, x, y, maximized } = lastlaunch.get().bounds;
+
+  const { bounds: displayBounds } = screen.getDisplayMatching({ width, height, x, y });
+
+  if (
+    displayBounds.width < (x + width) ||
+    displayBounds.height < (y + height)
+  ) {
+    width = 1000;
+    height = 700;
+    x = displayBounds.x;
+    y = displayBounds.y;
+
+    console.log("Window is out of bounds, returning it back");
+  }
+
   let w = new BrowserWindow({
     frame: !platform.linux_BSD,
     titleBarOverlay: {
@@ -42,10 +68,10 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     },
     titleBarStyle: platform.windows ? 'hidden' : 'hiddenInset',
     show: false,
-    width: 1000,
-    height: 700,
     backgroundColor: '#ffffffff',
     icon: pathModule.join(__dirname, `../../monolith.${platform.windows ? 'ico' : 'png'}`),
+
+    width, height, x, y,
 
     minHeight: 400,
     minWidth: 600,
@@ -69,6 +95,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   })
   
   w.on('resize', () => {
+    // setImmediate is needed so that the contents resize correctly on Linux
     setImmediate(() => {
       let { width, height } = w.getContentBounds()
   
@@ -116,6 +143,8 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   }
   // this function is called below
 
+  w.on('close', () => updateWindowBounds(w))
+
   w.on('closed', () => {
     tabManager.updateSavedTabsImmediately();
 
@@ -161,6 +190,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   tabOptionsArray.forEach(tabOptions => {
     tabManager.createTab(w, tabOptions)
   })
+  if (maximized) w.maximize()
   w.show();
 
   w.on('focus', () => chromeBV.webContents.send('focus'))
