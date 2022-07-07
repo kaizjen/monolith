@@ -1,7 +1,7 @@
 // This file is for all types of windows
 
 import type { TabWindow, TabOptions, Tab, Configuration } from "./types";
-import { app, BrowserView, BrowserWindow, nativeTheme, screen } from "electron";
+import { app, BrowserView, BrowserWindow, BrowserWindowConstructorOptions, nativeTheme, screen } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
 import * as pathModule from "path";
@@ -232,4 +232,28 @@ export function setCurrentTabBounds(win: TabWindow, tab?: Tab) {
   } else {
     win.currentTab?.setBounds(rect)
   }
+}
+
+const defaultOptions: BrowserWindowConstructorOptions = {
+  resizable: false, minimizable: false,
+  width: 300, height: 500,
+  webPreferences: {
+    nodeIntegration: true,
+    contextIsolation: false,
+    partition: INTERNAL_PARTITION,
+    preload: `${__dirname}/preloads/internal.js`
+  }
+}
+export async function newDialogWindow(
+  { type, init = '', options = defaultOptions }: { type: 'cookieviewer', init?: string, options?: BrowserWindowConstructorOptions }
+) {
+  options = Object.assign({}, defaultOptions, options)
+  const w = new BrowserWindow(options);
+  w.removeMenu();
+  await w.loadURL(`m-internal://${type}/index.html#${init}`);
+
+  if (control.options.open_devtools_for_window?.value || !app.isPackaged) {
+    w.webContents.openDevTools({ mode: 'detach' })
+  }
+  return w;
 }

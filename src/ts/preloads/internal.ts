@@ -12,6 +12,12 @@ expose('monolith', {
       return (arg: any) => ipcRenderer.send('shell', p, arg)
     },
   }),
+  sendInternal(channel: string, ...args: any[]) {
+    return ipcRenderer.invoke(`internal:${channel}`, ...args)
+  },
+  sendInternalSync(channel: string, ...args: any[]) {
+    return ipcRenderer.sendSync(`internal:${channel}`, ...args)
+  },
   basename(path, ext) {
     // "borrowed" from node.js' path
 

@@ -9,7 +9,7 @@ import $ from "./vars";
 import * as tabManager from './tabs'
 import * as _url from "url";
 import { appMenu, displayOptions, menuOfTab } from "./menu";
-import { getTabWindowByID, isTabWindow, setCurrentTabBounds } from "./windows";
+import { getTabWindowByID, isTabWindow, newDialogWindow, setCurrentTabBounds } from "./windows";
 import type TypeFuse from "fuse.js";
 import { DEFAULT_PARTITION, NO_CACHE_PARTITION } from "./sessions";
 import { getSupportedLanguage, t, availableTranslations } from "./i18n";
@@ -292,7 +292,7 @@ export function init() {
   ipcMain.on('getHints', async (e, query: string) => {
     // MAYBE: move getHints to another place?
     console.log('querying hints for %o', query);
-    
+
     let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
     if (!win) return;
 
@@ -334,12 +334,12 @@ export function init() {
           internal: 'url' as 'url'
         }))
         .filter($.uniqBy((val1, val2) => val1.title == val2.title && val2.url == val2.url))
-      ;
-      
+        ;
+
       if (merged.length > 5) {
         merged.length = 5
       }
-      
+
       hints.push(...merged)
 
     } catch (e) {
@@ -384,6 +384,12 @@ export function init() {
     }
     win.chrome.webContents.send('gotHints', hints)
     //console.log('gotHints:: ', hints);
+  })
+
+  ipcMain.on('showCookies', async (e, url: string) => {
+    let window = await newDialogWindow({ type: 'cookieviewer', init: url, options: {
+      modal: true, parent: BrowserWindow.fromWebContents(e.sender)
+    } })
   })
 
   ipcMain.handle('userData/downloads', async(_e, action, index) => {
@@ -652,6 +658,29 @@ export function init() {
     
       default:
         throw new Error(`[dialog] unknown action: ${action}`)
+    }
+  })
+  onInternal('cookies', async(_e, action: string, options) => {
+    const { cookies } = session.fromPartition(DEFAULT_PARTITION);
+    switch (action) {
+      case 'get': {
+        return await cookies.get({
+          url: options.url, domain: options.domain, name: options.name,
+          path: options.path, secure: options.secure, session: options.session
+        })
+      }
+      case 'remove': {
+        return await cookies.remove(options.url, options.name)
+      }
+      case 'set': {
+        return await cookies.set({
+          url: options.url, domain: options.domain, name: options.name,
+          path: options.path, secure: options.secure, value: options.value,
+          sameSite: options.sameSite, httpOnly: options.httpOnly, expirationDate: options.expirationDate
+        })
+      }
+    
+      default: throw new Error(`[cookies] unknown action: ${action}`);
     }
   })
 

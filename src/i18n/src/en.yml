@@ -124,6 +124,27 @@ ui:
     prev-search: Previous search on ${site}
     url: URL
     search: ${engine} search
+windows:
+  cookieViewer:
+    title: Cookie files of ${hostname}
+    remove: Delete cookie
+    copyJSON: Copy JSON
+    props:
+      name: Name
+      value: Value
+      domain: Domain
+      hostOnly: Is host-only
+      path: Path
+      secure: Is secure
+      httpOnly: Is HTTP-only
+      session: Is a session cookie
+      expirationDate: Expires on
+      sameSite: Send for
+    sameSite:
+      no_restriction: With any context, including 3rd-party requests
+      strict: Only with first-party requests
+      unspecified: N/A
+      lax: With 1st-party requests, or when navigating to the domain (Lax)
 net-error:
   common:
     local:
