@@ -514,6 +514,19 @@ export function attach(win: TabWindow, tab: Tab) {
       tab.faviconURL = null
     }
     sendUpdate('favicon', tab.faviconDataURL)
+    setImmediate(async () => {
+      let history = await userData.history.get();
+      const thisPage = history.find(entry => 
+        entry.sessionUUID == global.SESSION_UUID &&
+        entry.tabUID == tab.uniqueID &&
+        entry.url == tab.webContents.getURL()
+      );
+      if (!thisPage) return;
+
+      thisPage.faviconURL = tab.faviconURL;
+
+      await userData.history.set(history);
+    })
   })
   tab.webContents.on('will-prevent-unload', (e) => {
     // TODO: stop using this event in favor of 'will-navigate' (async)
