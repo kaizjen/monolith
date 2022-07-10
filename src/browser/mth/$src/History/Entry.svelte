@@ -30,6 +30,12 @@
     overflow: hidden;
     flex-shrink: 0;
   }
+
+  .favicon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
 </style>
 
 <script>
@@ -83,9 +89,9 @@
             {getTime()}
         </TextBlock>
         {#if entry.faviconURL}
-          <img src={entry.faviconURL} alt={tt('favicon')}>
+          <img class="favicon" src={entry.faviconURL} alt={tt('favicon')}>
         {/if}
-        <span class="host">
+        <span class="host" style:width={entry.faviconURL ? "calc(3.5cm - 16px - 8px)" : ''}>
           <TextBlock variant="caption">
             {getHostname(entry.url)}
           </TextBlock>
