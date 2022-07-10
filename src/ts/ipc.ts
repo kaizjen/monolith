@@ -11,7 +11,7 @@ import * as _url from "url";
 import { appMenu, displayOptions, menuOfTab } from "./menu";
 import { getTabWindowByID, isTabWindow, newDialogWindow, setCurrentTabBounds } from "./windows";
 import type TypeFuse from "fuse.js";
-import { DEFAULT_PARTITION, NO_CACHE_PARTITION } from "./sessions";
+import { certificateCache, DEFAULT_PARTITION, NO_CACHE_PARTITION } from "./sessions";
 import { getSupportedLanguage, t, availableTranslations } from "./i18n";
 const Fuse = require('fuse.js') as typeof TypeFuse;
 // must use require here because fuse.js, when require()d, doesnt have a .default property.
@@ -386,8 +386,13 @@ export function init() {
     //console.log('gotHints:: ', hints);
   })
 
+  ipcMain.on('showCertificate', async (e, hostname: string) => {
+    newDialogWindow({ type: 'certificate', init: hostname, options: {
+      modal: true, parent: BrowserWindow.fromWebContents(e.sender)
+    } })
+  })
   ipcMain.on('showCookies', async (e, url: string) => {
-    let window = await newDialogWindow({ type: 'cookieviewer', init: url, options: {
+    await newDialogWindow({ type: 'cookieviewer', init: url, options: {
       modal: true, parent: BrowserWindow.fromWebContents(e.sender)
     } })
   })
@@ -688,7 +693,7 @@ export function init() {
     return shell[action](arg)
   })
 
-  onInternal('session', async(e, action: string, arg) => {
+  onInternal('session', async(_e, action: string, arg) => {
     const ses = session.fromPartition(DEFAULT_PARTITION);
 
     switch (action) {
@@ -712,8 +717,11 @@ export function init() {
           storages
         })
       }
-      case 'isPrivate': {
-        return !ses.isPersistent()
+      case 'getCertificate': {
+        if (arg in certificateCache) {
+          return certificateCache[arg]
+
+        } else throw(`No certificate of "${arg}" found.`)
       }
     
       default:

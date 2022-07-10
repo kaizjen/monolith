@@ -145,6 +145,19 @@ windows:
       strict: Only first-party requests
       unspecified: N/A
       lax: 1st-party requests, or when navigating to the domain (Lax)
+  certificateViewer:
+    title: Certificate of ${hostname}
+    status-valid: This certificate is valid
+    status-invalid: This certificate is invalid
+    issuer: "Issuer: ${name}"
+    subject: "Subject: ${name}"
+    timePeriod: Valid from ${start} to ${expiry}
+    details: Details
+    serialNumber: Serial number
+    fingerprint: Fingerprint
+    data: Contents
+    owner: Issuer's certificate
+    root: This certificate is the root certificate.
 net-error:
   common:
     local:

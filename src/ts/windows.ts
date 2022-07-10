@@ -245,7 +245,8 @@ const defaultOptions: BrowserWindowConstructorOptions = {
   }
 }
 export async function newDialogWindow(
-  { type, init = '', options = defaultOptions }: { type: 'cookieviewer', init?: string, options?: BrowserWindowConstructorOptions }
+  { type, init = '', options = defaultOptions }:
+  { type: 'cookieviewer' | 'certificate', init?: string, options?: BrowserWindowConstructorOptions }
 ) {
   options = Object.assign({}, defaultOptions, options)
   const w = new BrowserWindow(options);

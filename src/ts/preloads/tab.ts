@@ -91,7 +91,7 @@ if (location.protocol == 'mth:') {
     },
     session: {
       clearData: (clearObj) => sendInternal('session', 'clear', clearObj),
-      isPrivate: () => sendInternal('session', 'isPrivate')
+      getCertificate: (hostname: string) => sendInternal('session', 'getCertificate', hostname)
     },
     view: {
       requestFullWindowView: () => sendInternal('requestFullWindowView'),
