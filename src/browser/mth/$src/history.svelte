@@ -39,7 +39,7 @@
 
   const fmt = Intl.DateTimeFormat()
 
-  const ENTRIES_BY_PAGE = 10;
+  const ENTRIES_BY_PAGE = 50;
   let currentPage = 0;
   
   let entries = [];
