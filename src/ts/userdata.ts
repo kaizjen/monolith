@@ -4,20 +4,18 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 import { app, dialog } from 'electron'
 import type { Configuration, LastLaunch, History, Downloads, Details } from './types'
-import * as yaml from 'yaml';
+import * as JSON5 from 'json5';
 import $ from './vars';
 import runType from 'runtype-check';
 
 console.time('userData init');
-
-yaml.defaultOptions.simpleKeys = true; // prevent YAML from converting { key: null } to "? key"
 
 const { join } = path;
 export const userdataDirectory = path.join(app.getPath('userData'), 'userdata')
 
 const lastlaunchPath = join(userdataDirectory, 'lastlaunch.json');
 const historyPath = join(userdataDirectory, 'history.json');
-const configPath = join(userdataDirectory, 'config.yml');
+const configPath = join(userdataDirectory, 'config.json5');
 const downloadsPath = join(userdataDirectory, 'downloads.json');
 const controlPath = join(userdataDirectory, 'control.json');
 
@@ -49,9 +47,9 @@ function writeDefaults() {
   }
 
   if (!configContent) {
-    const fileContents = fs.readFileSync('src/browser/templates/config.yml', 'utf-8');
+    const fileContents = fs.readFileSync('src/browser/templates/config.json5', 'utf-8');
     fs.writeFileSync(configPath, fileContents)
-    configContent = yaml.parse(fileContents)
+    configContent = JSON5.parse(fileContents)
   }
 
   if (!existsSync(downloadsPath)) {
@@ -103,7 +101,7 @@ try {
 }
 
 try {
-  configContent = yaml.parse(fs.readFileSync(configPath, 'utf-8'))
+  configContent = JSON5.parse(fs.readFileSync(configPath, 'utf-8'))
   lastlaunchContent = JSON.parse(fs.readFileSync(lastlaunchPath, 'utf-8'))
   controlContent = JSON.parse(fs.readFileSync(controlPath, 'utf-8'))
 
@@ -209,13 +207,13 @@ try {
   if (validation == true) return;
 
   console.error(
-    `The configuration file (${join(userdataDirectory, 'config.yml')}) is invalid!\n` +
+    `The configuration file (${join(userdataDirectory, 'config.json5')}) is invalid!\n` +
     validation +
     `\n\nIf you're having too much trouble, just delete the file, and Monolith will restore it with default settings.`
   )
   dialog.showErrorBox(
     'The configuration file is invalid',
-    `The file at ${join(userdataDirectory, 'config.yml')} is invalid:\n${validation}` +
+    `The file at ${join(userdataDirectory, 'config.json5')} is invalid:\n${validation}` +
     `\n\nTip: run Monolith from the console to better inspect the error.`
   )
 
@@ -231,7 +229,7 @@ export let config = {
   set(obj: Partial<Configuration>) {
     Object.assign(configContent, obj);
 
-    fs.writeFileSync(configPath, yaml.stringify(configContent))
+    fs.writeFileSync(configPath, JSON5.stringify(configContent, { space: 2 }))
 
     this.listeners.forEach(fn => fn(configContent))
   },
