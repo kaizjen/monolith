@@ -128,6 +128,7 @@ ui:
     placeholder: Find in page...
     prev: Previous
     next: Next
+    caseSensitive: Case sensitive
 windows:
   cookieViewer:
     title: Cookie files of ${hostname}

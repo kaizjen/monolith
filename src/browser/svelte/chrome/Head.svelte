@@ -129,6 +129,7 @@
     margin-left: 2px;
     border-radius: 4px;
     transition: 0.2s;
+    display: flex;
   }
   #addtab:hover {
     background: var(--button-hover)/* #ffffff40 */;
@@ -306,7 +307,10 @@
           </button>
         </div>
       {/each}
-      </div><img alt="" src="m-res://{$colorTheme}/tab_plus.svg" id="addtab" on:click={newTab}>
+      </div>
+      <button id="addtab" on:click={newTab}>
+        <img alt="" src="m-res://{$colorTheme}/tab_plus.svg">
+      </button>
     </div>
     <div
       class="traffic-lights"

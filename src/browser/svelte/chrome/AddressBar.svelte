@@ -46,7 +46,7 @@
   #sec:active, .tab-state:active {
     background: var(--button-active);
   }
-  span#ab-txt {
+  #ab-txt {
     margin-left: 2px;
     display: inline-flex;
     font-size: 15px;
@@ -54,6 +54,7 @@
     flex-grow: 1;
     padding: 5px;
     overflow: hidden;
+    cursor: text;
   }
   #ab-input {
     background: transparent;
@@ -98,6 +99,14 @@
 
   const URLParse = getContext('URLParse')
   const setTop = getContext('setTop')
+
+  const activate = () => {
+    if (isActive) return;
+
+    isActive = true;
+    setTop(true);
+    window.requestAnimationFrame(() => inputRef.focus());
+  }
 
   let clickHintF;
 
@@ -248,19 +257,16 @@
       }
     >
   </button>
-  <span id="ab-txt"
-    on:mousedown={() => {
-      isActive = true;
-      setTop(true);
-      window.requestAnimationFrame(() => inputRef.focus());
-    }}
+  <button id="ab-txt"
+    on:mousedown={activate}
+    on:keyup={e => e.key == 'Enter' ? activate() : null}
     style:display={isActive ? 'none' : ''}
   >
     <span class="protocol">{url.protocol ?? ''}{url.slashes ? '//' : ''}</span>
     <span class="host">{url.hostname ?? ''}</span>
     <span class="port">{url.port ?? ''}</span>
     <span class="page">{decodeURI(url.path)}</span>
-  </span>
+  </button>
   <input
     on:blur={() => {
       window.requestAnimationFrame(() => {

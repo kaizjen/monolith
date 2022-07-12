@@ -45,7 +45,6 @@
 </style>
 <script>
   import { getContext } from "svelte";
-  import ToolButton from "//lib/ToolButton.svelte";
   import DropdownBox from "./DropdownBox.svelte";
 
   export let index;
@@ -58,6 +57,7 @@
     PLACEHOLDER: t('ui.inPageSearch.placeholder'),
     PREV: t('ui.inPageSearch.prev'),
     NEXT: t('ui.inPageSearch.next'),
+    MATCH_CASE: t('ui.inPageSearch.caseSensitive'),
     DONE: t('common.done'),
     LOADING: t('common.loading')
   }
@@ -139,8 +139,13 @@
 
 {#if tabsWithSearchActive.includes(index)}
   <DropdownBox>
-    <button class="case-toggle" class:active={caseSensitive} on:click={() => caseSensitive = !caseSensitive}>
-      <b>Aa</b>
+    <button
+      class="case-toggle"
+      class:active={caseSensitive}
+      on:click={() => caseSensitive = !caseSensitive}
+      title={_.MATCH_CASE}
+    >
+      <b aria-hidden>Aa</b>
     </button>
     <input class="bar" type="text" bind:value={values[index]} on:input={startSearch} placeholder={_.PLACEHOLDER}>
     <span class="results" class:null={totalMatchesPerTab[index] == 0}>
