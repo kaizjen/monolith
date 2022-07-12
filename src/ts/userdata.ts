@@ -280,6 +280,7 @@ export let lastlaunch = {
 function filterEntries(array: History) {
   return array.filter($.uniqBy((e1, e2) => e1.tabUID == e2.tabUID && e1.sessionUUID == e2.sessionUUID))
 }
+let historyLock: Promise<void> | null = null
 export let history = {
   getSync(): History {
     return JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
@@ -291,7 +292,11 @@ export let history = {
     fs.writeFileSync(historyPath, JSON.stringify(filterEntries(obj)))
   },
   async set(obj: History) {
-    return await fs.promises.writeFile(historyPath, JSON.stringify(filterEntries(obj)))
+    if (historyLock) await historyLock;
+    historyLock = fs.promises.writeFile(historyPath, JSON.stringify(filterEntries(obj)));
+
+    await historyLock;
+    historyLock = null;
   }
 }
 
