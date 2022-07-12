@@ -396,7 +396,7 @@ export function registerSession(ses: Session) {
     function checkPermission(obj: Permissions | Partial<Permissions>): boolean | null | undefined {
       switch (permission) {
         case 'fullscreen': {
-          let win = BrowserWindow.fromWebContents(wc) as TabWindow;
+          let win = BrowserWindow.fromWebContents(wc);
           if (!isTabWindow(win)) return false
     
           if (win.currentTab.webContents != wc) return false

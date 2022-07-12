@@ -14,11 +14,11 @@ import { DEFAULT_PARTITION } from "./sessions";
 import { t } from "./i18n";
 
 function obtainWebContents(win: Electron.BrowserWindow | TabWindow) {
-  return isTabWindow(win) ? (win as TabWindow).currentTab.webContents : win.webContents
+  return isTabWindow(win) ? win.currentTab.webContents : win.webContents
 }
 
 function zoom(direction: 'in' | 'out') {
-  return function (_, win: TabWindow) {
+  return function (_, win) {
     let wc = obtainWebContents(win)
     wc.emit('zoom-changed', {}, direction)
   }
@@ -41,7 +41,7 @@ const SEPARATOR: Electron.MenuItemConstructorOptions = {
 const tabs_windows: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('menu.common.newTab'),
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       createTab(win, {
@@ -53,7 +53,7 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
   },
   {
     label: t('menu.common.newPrivateTab'),
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       createTab(win, {
@@ -67,7 +67,7 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
   SEPARATOR,
   {
     label: t('menu.tabs.close'),
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       closeTab(win, { tab: win.currentTab })
@@ -77,7 +77,7 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
   },
   {
     label: t('menu.tabs.openClosed'),
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       openClosedTab(win)
@@ -104,7 +104,7 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('menu.openFile'),
     accelerator: 'CmdOrCtrl+O',
-    async click(_m, win: TabWindow) {
+    async click(_m, win) {
       if (!isTabWindow(win)) return;
 
       let result = await dialog.showOpenDialog(win, {
@@ -133,7 +133,7 @@ const tabs_windows: Electron.MenuItemConstructorOptions[] = [
 const tools: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('common.downloads'),
-    click(_, win: TabWindow) {
+    click(_, win) {
       if (!isTabWindow(win)) return;
 
       if (win.currentTab.webContents.getURL().startsWith('mth://downloads')) return;
@@ -145,7 +145,7 @@ const tools: Electron.MenuItemConstructorOptions[] = [
   },
   {
     label: t('common.extensions'),
-    click(_, win: TabWindow) {
+    click(_, win) {
       if (!isTabWindow(win)) return;
 
       if (win.currentTab.webContents.getURL().startsWith('mth://extensions')) return;
@@ -157,7 +157,7 @@ const tools: Electron.MenuItemConstructorOptions[] = [
   },
   {
     label: t('common.bookmarks'),
-    click(_, win: TabWindow) {
+    click(_, win) {
       if (!isTabWindow(win)) return;
 
       if (win.currentTab.webContents.getURL().startsWith('mth://bookmarks')) return;
@@ -169,7 +169,7 @@ const tools: Electron.MenuItemConstructorOptions[] = [
   },
   {
     label: t('common.settings'),
-    click(_, win: TabWindow) {
+    click(_, win) {
       if (!isTabWindow(win)) return;
 
       if (win.currentTab.webContents.getURL().startsWith('mth://settings')) return;
@@ -195,7 +195,7 @@ const view: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('menu.fullscreen'),
     accelerator: 'F11',
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       if (!win.isFullScreen()) {
@@ -224,7 +224,7 @@ const view: Electron.MenuItemConstructorOptions[] = [
   {
     label: t('menu.zoom.0'),
     accelerator: 'CmdOrCtrl+num0',
-    click(_m, win: TabWindow) {
+    click(_m, win) {
       if (!isTabWindow(win)) return;
 
       win.currentTab.webContents.zoomFactor = config.get().ui.defaultZoomFactor;
@@ -235,7 +235,7 @@ const view: Electron.MenuItemConstructorOptions[] = [
 const findInPage: Electron.MenuItemConstructorOptions = {
   label: t('menu.findInPage'),
   accelerator: 'CmdOrCtrl+F',
-  click(_, win: TabWindow) {
+  click(_, win) {
     if (!isTabWindow(win)) return;
 
     win.chrome.webContents.send('toggleFindInPage')
@@ -277,7 +277,7 @@ export const appMenu = Menu.buildFromTemplate([
       {
         label: 'devtools-hidden',
         accelerator: 'F12',
-        click(_, win: TabWindow) {
+        click(_, win) {
           let wc = obtainWebContents(win)
           wc.toggleDevTools()
         },
@@ -318,7 +318,7 @@ export const appMenu = Menu.buildFromTemplate([
         label: "f5-reload-hidden",
         visible: false,
         accelerator: "F5",
-        click(_, win: TabWindow) {
+        click(_, win) {
           let wc = obtainWebContents(win)
           wc.reload()
         }
@@ -327,7 +327,7 @@ export const appMenu = Menu.buildFromTemplate([
         label: 'esc-exit-fullscreen-hidden',
         visible: false,
         accelerator: 'Escape',
-        click(_, win: TabWindow) {
+        click(_, win) {
           if (!isTabWindow(win)) return;
           
           win.setFullScreen(false);
@@ -378,7 +378,7 @@ export const appMenu = Menu.buildFromTemplate([
     submenu: [
       {
         label: t('common.history'),
-        click(_, win: TabWindow) {
+        click(_, win) {
           if (!isTabWindow(win)) return;
 
           if (win.currentTab.webContents.getURL().startsWith('mth://history')) return;
@@ -392,7 +392,7 @@ export const appMenu = Menu.buildFromTemplate([
       {
         label: t('menu.devTools'),
         accelerator: 'Ctrl+Shift+I',
-        click(_, win: TabWindow) {
+        click(_, win) {
           let wc = obtainWebContents(win)
           wc.toggleDevTools()
         }
@@ -406,7 +406,7 @@ export const appMenu = Menu.buildFromTemplate([
       {
         label: t('navigation.reload'),
         accelerator: "Ctrl+R",
-        click(_, win: TabWindow) {
+        click(_, win) {
           let wc = obtainWebContents(win)
           wc.reload()
         }
@@ -414,7 +414,7 @@ export const appMenu = Menu.buildFromTemplate([
       {
         label: t('menu.tabs.hardReload'),
         accelerator: "Ctrl+Shift+R",
-        click(_, win: TabWindow) {
+        click(_, win) {
           let wc = obtainWebContents(win)
           wc.reloadIgnoringCache()
         }
@@ -464,7 +464,9 @@ export async function displayOptions(win: TabWindow, { x, y }) {
       submenu: [
         {
           label: t('common.history'),
-          click(_, win: TabWindow) {
+          click(_, win) {
+            if (!isTabWindow(win)) return;
+
             if (win.currentTab.webContents.getURL().startsWith('mth://history')) return;
             createTab(win, {
               url: 'mth://history'

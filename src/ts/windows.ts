@@ -211,7 +211,7 @@ export function getAllTabWindows(): TabWindow[] {
   return Object.assign([], windows)
 }
 
-export function isTabWindow(win: BrowserWindow | TabWindow) {
+export function isTabWindow(win: BrowserWindow): win is TabWindow {
   return windows.includes(win as any)
 }
 
