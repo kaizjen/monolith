@@ -602,8 +602,12 @@ export function attach(win: TabWindow, tab: Tab) {
       win.chrome.webContents.send('zoomUpdate', tab.webContents.zoomFactor)
     }
   })
+
   tab.webContents.on('cursor-changed', (_e, cursor) => {
     win.chrome.webContents.send('tabCursorChange', cursor)
+  })
+  tab.webContents.on('found-in-page', (_e, result) => {
+    win.chrome.webContents.send('found', getTabID(), result)
   })
 
   tab.webContents.on('enter-html-full-screen', () => {

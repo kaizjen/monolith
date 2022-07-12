@@ -68,10 +68,6 @@
   #ab-input:focus-visible {
     box-shadow: none; /* box-shadow defined for all elements in index.html */
   }
-  #ab-input::selection {
-    background: var(--accent-color);
-    color: inherit;
-  }
   #ab-input::placeholder {
     color: var(--trivial-text);
   }

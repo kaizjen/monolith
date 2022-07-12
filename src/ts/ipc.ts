@@ -75,7 +75,7 @@ export function init() {
   });
   ipcMain.on('@tab', (e, action, ...params) => {
     let win = BrowserWindow.fromWebContents(e.sender) as TabWindow;
-    if (!win) return;
+    if (!win || !win.currentTab) return;
 
     let wc = win.currentTab.webContents;
 
@@ -182,8 +182,24 @@ export function init() {
         break;
       }
 
+      case 'find': {
+        const value = params[0], options = params[1];
+
+        wc.findInPage(value, {
+          findNext: options.newSearch,
+          forward: options.forward,
+          matchCase: options.caseSensitive
+        })
+        break;
+      }
+
+      case 'stopFind': {
+        wc.stopFindInPage(params[0] ? 'clearSelection' : 'keepSelection')
+        break;
+      }
+
       default:
-        throw new Error("ipcManager.on[@tab]: unknown action:" + action);
+        throw new Error("ipcManager.on[@tab]: unknown action: " + action);
     }
   })
 

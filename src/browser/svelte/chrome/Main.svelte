@@ -11,6 +11,7 @@
   import { setContext } from "svelte/internal"
   import PagePopup from "./PagePopup.svelte";
   import PermissionAccessor from "./PermissionAccessor.svelte";
+  import FindInPage from "./FindInPage.svelte";
 
   const URLParse = (function(){
     const slashesRegex = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
@@ -278,8 +279,6 @@
     ipcRenderer.send('chrome:setTop', false)
   })
 
-  $: console.log(dialogsMap, tabs)
-
 </script>
 
 <!--svelte:head>
@@ -299,4 +298,5 @@
 </div>
 
 <PermissionAccessor tab={tabs[currentTab]} />
+<FindInPage index={currentTab} {tabs} />
 </div>

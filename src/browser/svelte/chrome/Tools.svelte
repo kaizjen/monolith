@@ -8,23 +8,20 @@
     position: relative;
   }
   .nav, .tool {
-    border-radius: 4px;
-    padding: 4px;
-    transition: 0.1s;
-    display: flex;
-    -webkit-app-region: no-drag;
-    margin-inline: 1px;
     padding-inline: 6px;
   }
   .disabled {
     opacity: 0.5;
   }
-  .nav:not(.disabled):hover, .tool:hover {
+  .tool:hover {
     background: var(--tool-hover) !important;
     transition: 0s;
   }
-  .nav:not(.disabled):active, .tool:active {
+  .tool:active {
     background: var(--tool-active) !important;
+  }
+  .nav.disabled:hover {
+    background: transparent;
   }
 </style>
 
@@ -74,9 +71,9 @@
 </script>
 
 <div class:private={tab.private}>
-  <button class="nav" class:disabled={!tab.nav?.canGoBack} on:click={navBack}><img alt={_.BACK} src="m-res://{$colorTheme}/nav_back.svg"></button>
-  <button class="nav" class:disabled={!tab.nav?.canGoFwd} on:click={navFwd}><img alt={_.FWD} src="m-res://{$colorTheme}/nav_fwd.svg"></button>
-  <button class="nav" on:click={refresh}><img alt={tab.isLoading ? _.STOPLOAD : _.REFRESHLOAD} src={tab.isLoading ? `m-res://${$colorTheme}/nav_stop.svg` : `m-res://${$colorTheme}/nav_refresh.svg`}></button>
+  <button class="tool nav" class:disabled={!tab.nav?.canGoBack} on:click={navBack}><img alt={_.BACK} src="m-res://{$colorTheme}/nav_back.svg"></button>
+  <button class="tool nav" class:disabled={!tab.nav?.canGoFwd} on:click={navFwd}><img alt={_.FWD} src="m-res://{$colorTheme}/nav_fwd.svg"></button>
+  <button class="tool nav" on:click={refresh}><img alt={tab.isLoading ? _.STOPLOAD : _.REFRESHLOAD} src={tab.isLoading ? `m-res://${$colorTheme}/nav_stop.svg` : `m-res://${$colorTheme}/nav_refresh.svg`}></button>
   <AddressBar {tab} />
   <button
     class="tool"

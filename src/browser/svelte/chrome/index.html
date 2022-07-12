@@ -30,6 +30,25 @@
     span.page {
       color: var(--trivial-text);
     }
+
+    *::selection {
+      background: var(--accent-color);
+      color: inherit;
+    }
+    .tool {
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-inline: 1px;
+      border-radius: 4px;
+    }
+    .tool:hover {
+      background: var(--tool-hover);
+    }
+    .tool:active {
+      background: var(--tool-active);
+    }
   </style>
 </head>
 <body>

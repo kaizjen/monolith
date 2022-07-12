@@ -124,6 +124,10 @@ ui:
     prev-search: Previous search on ${site}
     url: URL
     search: ${engine} search
+  inPageSearch:
+    placeholder: Find in page...
+    prev: Previous
+    next: Next
 windows:
   cookieViewer:
     title: Cookie files of ${hostname}
@@ -256,6 +260,7 @@ menu:
   currentTab: This tab
   recentlyClosedTabs: Recently closed
   openFile: Open file...
+  findInPage: Find in page...
   about: About
   fullscreen: Enter fullscreen
   emojiPanel: Show emoji panel

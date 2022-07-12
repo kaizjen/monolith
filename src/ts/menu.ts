@@ -232,6 +232,15 @@ const view: Electron.MenuItemConstructorOptions[] = [
     }
   }
 ]
+const findInPage: Electron.MenuItemConstructorOptions = {
+  label: t('menu.findInPage'),
+  accelerator: 'CmdOrCtrl+F',
+  click(_, win: TabWindow) {
+    if (!isTabWindow(win)) return;
+
+    win.chrome.webContents.send('toggleFindInPage')
+  }
+}
 export const appMenu = Menu.buildFromTemplate([
   {
     label: t('name'),
@@ -343,8 +352,10 @@ export const appMenu = Menu.buildFromTemplate([
       { role: 'copy', accelerator: 'CmdOrCtrl+C' },
       { role: 'paste', accelerator: 'CmdOrCtrl+V' },
       { role: 'pasteAndMatchStyle', accelerator: 'CmdOrCtrl+Shift+V' },
-      { role: 'delete' },
+      { role: 'delete', accelerator: 'Delete' },
       { role: 'selectAll', accelerator: 'CmdOrCtrl+A' },
+      SEPARATOR,
+      findInPage,
       ...(app.isEmojiPanelSupported() ? [
         SEPARATOR,
         {
@@ -439,6 +450,8 @@ export async function displayOptions(win: TabWindow, { x, y }) {
 
   let menu = Menu.buildFromTemplate([
     ...tabs_windows,
+    SEPARATOR,
+    findInPage,
     SEPARATOR,
     ...view,
     {

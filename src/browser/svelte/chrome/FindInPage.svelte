@@ -1,0 +1,164 @@
+<style>
+  .rotated {
+    transform: rotate(90deg);
+  }
+  .case-toggle {
+    padding: 8px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+  .case-toggle:hover {
+    background: var(--button-hover);
+  }
+  .case-toggle:active {
+    background: var(--button-active);
+  }
+  .active {
+    color: var(--accent-color);
+    background: var(--accent-active);
+  }
+  .active:hover {
+    background: var(--accent-hover);
+  }
+  .results {
+    color: var(--trivial-text);
+    margin-inline: 10px;
+  }
+  .results.null {
+    color: red;
+  }
+  .bar {
+    background: transparent;
+    border: none;
+    color: var(--accent-text);
+    flex-grow: 1;
+  }
+  .bar:focus-visible {
+    box-shadow: none;
+  }
+</style>
+<script>
+  import { getContext } from "svelte";
+  import ToolButton from "//lib/ToolButton.svelte";
+  import DropdownBox from "./DropdownBox.svelte";
+
+  export let index;
+  export let tabs;
+
+  const { ipcRenderer } = window.monolith;
+  const colorTheme = getContext('colorTheme')
+  const { t } = window;
+  const _ = {
+    PLACEHOLDER: t('ui.inPageSearch.placeholder'),
+    PREV: t('ui.inPageSearch.prev'),
+    NEXT: t('ui.inPageSearch.next'),
+    DONE: t('common.done'),
+    LOADING: t('common.loading')
+  }
+  let tabsWithSearchActive = [];
+  let values = {};
+  let caseSensitive = false;
+
+  let shouldStop = false;
+
+  let totalMatchesPerTab = {};
+  let matchIndexes = {};
+
+  function stop(clear = false) {
+    ipcRenderer.send('@tab', 'stopFind', clear)
+    shouldStop = true;
+  }
+
+  ipcRenderer.on('toggleFindInPage', () => {
+    tabsWithSearchActive.push(index);
+    tabsWithSearchActive = tabsWithSearchActive;
+  })
+
+  document.addEventListener('keyup', e => {
+    if (e.key == 'Escape' && tabsWithSearchActive.includes(index)) {
+      tabsWithSearchActive.splice(tabsWithSearchActive.indexOf(index), 1);
+      tabsWithSearchActive = tabsWithSearchActive;
+    }
+  })
+
+  $: {
+    tabsWithSearchActive.forEach((i, index2) => {
+      if (!tabs[i]) {
+        tabsWithSearchActive.splice(index2, 1)
+        delete values[i];
+        delete totalMatchesPerTab[i];
+        delete matchIndexes[i];
+      }
+    })
+  }
+
+  $: if (values[index] == '') {
+    stop(true)
+  }
+
+  ipcRenderer.on('found', (_e, idx, { activeMatchOrdinal, matches }) => {
+    if (idx != index) return;
+
+    if (shouldStop) stop()
+    // sometimes, user says stop before the find request completes
+
+    matchIndexes[index] = activeMatchOrdinal;
+    totalMatchesPerTab[index] = matches;
+  })
+
+  $: {
+    if (!tabsWithSearchActive.includes(index)) {
+      stop()
+    }
+    requestAnimationFrame(() => {
+      ipcRenderer.send('chrome:setHeight', document.body.getBoundingClientRect().height)
+    })
+  }
+
+  function startSearch() {
+    if (!values[index]) return;
+
+    shouldStop = false;
+    ipcRenderer.send('@tab', 'find', values[index], { newSearch: true, caseSensitive })
+  }
+  function findNextF(forward) {
+    return () => {
+      if (!values[index]) return;
+      ipcRenderer.send('@tab', 'find', values[index], { forward, newSearch: false, caseSensitive })
+    }
+  }
+
+  $: {caseSensitive; startSearch()}
+</script>
+
+{#if tabsWithSearchActive.includes(index)}
+  <DropdownBox>
+    <button class="case-toggle" class:active={caseSensitive} on:click={() => caseSensitive = !caseSensitive}>
+      <b>Aa</b>
+    </button>
+    <input class="bar" type="text" bind:value={values[index]} on:input={startSearch} placeholder={_.PLACEHOLDER}>
+    <span class="results" class:null={totalMatchesPerTab[index] == 0}>
+      {#if values[index]}
+        {matchIndexes[index]} / {totalMatchesPerTab[index]}
+      {/if}
+    </span>
+    <button class="tool" on:click={findNextF(false)}>
+      <img src="m-res://{$colorTheme}/nav_back.svg" class="rotated" alt="{_.PREV}">
+    </button>
+    <button class="tool" on:click={findNextF(true)}>
+      <img src="m-res://{$colorTheme}/nav_fwd.svg" class="rotated" alt="{_.NEXT}">
+    </button>
+    <button class="tool" style="margin-left: 10px" on:click={() => {
+      tabsWithSearchActive.splice(tabsWithSearchActive.indexOf(index), 1);
+      tabsWithSearchActive = tabsWithSearchActive;
+    }}>
+      <img src="m-res://{$colorTheme}/tab_close.svg" alt="{_.DONE}">
+    </button>
+  </DropdownBox>
+{/if}

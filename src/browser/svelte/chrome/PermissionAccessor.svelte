@@ -1,13 +1,4 @@
 <style>
-  .permbox {
-    padding-block: 8px;
-    padding-inline: 12px;
-    background: var(--active-background);
-    color: var(--accent-text);
-    display: flex;
-    align-content: center;
-    padding-left: 22px;
-  }
   .icon {
     width: 24px;
     height: 24px;
@@ -19,24 +10,11 @@
     display: flex;
     align-items: center;
   }
-  .close {
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 20px;
-    border-radius: 4px;
-  }
-  .close:hover {
-    background: var(--tool-hover);
-  }
-  .close:active {
-    background: var(--tool-active);
-  }
 </style>
 <script>
   const { ipcRenderer } = window.monolith;
   import { getContext } from "svelte/internal";
+  import DropdownBox from "./DropdownBox.svelte";
   import Button from "//lib/Button.svelte";
 
   const colorTheme = getContext('colorTheme')
@@ -125,7 +103,7 @@
 </script>
 
 {#if currentTabPermissions.length > 0}
-  <div class="permbox">
+  <DropdownBox>
     {#if !noSuchImage}
       <img class="icon" src={overriddenIcon || `m-res://${$colorTheme}/permissions/${thisPerm.name}.svg`}
         alt={overriddenIcon ? _.APPICON(appName) : _.permission.ALT(thisPerm.name)}
@@ -143,8 +121,8 @@
     {/if}
     <Button on:click={sendAllow} style="margin-right: 10px;">{_.ALLOW}</Button>
     <Button on:click={sendDeny}>{_.DENY}</Button>
-    <button class="close" on:click={sendIndifferent}>
+    <button class="tool" style="margin-left: 20px" on:click={sendIndifferent}>
       <img src="m-res://{$colorTheme}/tab_close.svg" alt={_.IGNORE} title={_.IGNORE}>
     </button>
-  </div>
+  </DropdownBox>
 {/if}
