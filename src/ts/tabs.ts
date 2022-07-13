@@ -504,6 +504,7 @@ export function attach(win: TabWindow, tab: Tab) {
       return;
     }
     
+    let previousDataURL = tab.faviconDataURL;
     if (['http:', 'https:'].includes(fUrl.protocol)) {
       let { dataURL, url } = await fetchFavicon(fUrl.href);
 
@@ -513,7 +514,7 @@ export function attach(win: TabWindow, tab: Tab) {
     } else {
       tab.faviconURL = null
     }
-    sendUpdate('favicon', tab.faviconDataURL)
+    if (previousDataURL != tab.faviconDataURL) sendUpdate('favicon', tab.faviconDataURL)
     setImmediate(async () => {
       let history = await userData.history.get();
       const thisPage = history.find(entry => 
@@ -522,6 +523,7 @@ export function attach(win: TabWindow, tab: Tab) {
         entry.url == tab.webContents.getURL()
       );
       if (!thisPage) return;
+      if (thisPage.faviconURL == tab.faviconURL) return; // needed to not cause a useless write
 
       thisPage.faviconURL = tab.faviconURL;
 
