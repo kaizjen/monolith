@@ -12,9 +12,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 3px;
+    border: 1px solid var(--trivial-color);
   }
   .case-toggle:hover {
     background: var(--button-hover);
+    border: 0;
   }
   .case-toggle:active {
     background: var(--button-active);
@@ -22,9 +24,13 @@
   .active {
     color: var(--accent-color);
     background: var(--accent-active);
+    border: 0;
   }
   .active:hover {
     background: var(--accent-hover);
+  }
+  .active:hover {
+    background: var(--accent-active);
   }
   .results {
     color: var(--trivial-text);
@@ -65,6 +71,8 @@
   let values = {};
   let caseSensitive = false;
 
+  let inputRef;
+
   let shouldStop = false;
 
   let totalMatchesPerTab = {};
@@ -76,7 +84,15 @@
   }
 
   ipcRenderer.on('toggleFindInPage', () => {
-    tabsWithSearchActive.push(index);
+    if (tabsWithSearchActive.includes(index)) {
+      tabsWithSearchActive.splice(tabsWithSearchActive.indexOf(index), 1);
+      
+    } else {
+      tabsWithSearchActive.push(index);
+      requestAnimationFrame(() => {
+        inputRef.focus();
+      })
+    }
     tabsWithSearchActive = tabsWithSearchActive;
   })
 
@@ -147,7 +163,11 @@
     >
       <b aria-hidden>Aa</b>
     </button>
-    <input class="bar" type="text" bind:value={values[index]} on:input={startSearch} placeholder={_.PLACEHOLDER}>
+    <input
+      class="bar" type="text"
+      bind:value={values[index]} bind:this={inputRef}
+      on:input={startSearch} placeholder={_.PLACEHOLDER}
+    >
     <span class="results" class:null={totalMatchesPerTab[index] == 0}>
       {#if values[index]}
         {matchIndexes[index]} / {totalMatchesPerTab[index]}

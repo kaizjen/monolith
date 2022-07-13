@@ -239,6 +239,7 @@ const findInPage: Electron.MenuItemConstructorOptions = {
     if (!isTabWindow(win)) return;
 
     win.chrome.webContents.send('toggleFindInPage')
+    win.chrome.webContents.focus();
   }
 }
 export const appMenu = Menu.buildFromTemplate([
