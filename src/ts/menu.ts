@@ -10,7 +10,7 @@ import { closeTab, createTab, moveTab, openClosedTab, setMutedTab } from './tabs
 import $ from './vars'
 import fetch from "electron-fetch";
 import type { Response } from "electron-fetch"
-import { DEFAULT_PARTITION } from "./sessions";
+import { DEFAULT_PARTITION, PRIVATE_PARTITION } from "./sessions";
 import { t } from "./i18n";
 
 function obtainWebContents(win: Electron.BrowserWindow | TabWindow) {
@@ -593,7 +593,7 @@ export async function showContextMenu(win: TabWindow | false, tab: Tab, opts: El
       let response: Response;
       try {
         response = await fetch(opts.srcURL, {
-          session: session.fromPartition(DEFAULT_PARTITION),
+          session: session.fromPartition(tab.private ? PRIVATE_PARTITION : DEFAULT_PARTITION),
           useSessionCookies: true
         });
         // Unfortunately, the image will be fetched again, and if the server retrns another image, then oops.
