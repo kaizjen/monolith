@@ -234,6 +234,19 @@
     }
   }
 
+
+  function smoothlyScroll(element, left, frames = 6) {
+    let framesLeft = frames;
+    function scroll() {
+      console.log("scrolling!", { framesLeft, scLeft: Math.ceil(left / frames) });
+      element.scrollLeft += Math.ceil(left / frames)
+      framesLeft--;
+      if (framesLeft == 0) return;
+      requestAnimationFrame(scroll)
+    }
+    scroll()
+  }
+
   function toggleMuteF(tab) {
     return function () {
       ipcRenderer.send('setMutedTab', tabs.indexOf(tab), !tab.isMuted)
@@ -261,7 +274,7 @@
     <div
       class="tablist"
       on:mousedown={e => (e.button == 1) /* middle mb */ ? e.preventDefault() : null}
-      on:mousewheel={e => e.deltaX == 0 ? e.currentTarget.scrollBy(e.deltaY, 0) : null}
+      on:wheel={e => e.deltaX == 0 ? smoothlyScroll(e.currentTarget, e.deltaY) : null}
     >
       {#each tabs as tab, id (tab)}
         <div
