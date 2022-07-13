@@ -46,8 +46,10 @@
       isLoading = true;
 
       const indexes = await window.monolith.userdata.history.find({ type: 'date', compare: 'gt', date: timestamp });
+      let i = 0;
       for (const index of indexes) {
-        await window.monolith.userdata.history.delAt({ index })
+        await window.monolith.userdata.history.delAt({ index: index - i })
+        i++;
       }
       update()
 
