@@ -89,7 +89,7 @@
             {getTime()}
         </TextBlock>
         {#if entry.faviconURL}
-          <img class="favicon" src={entry.faviconURL} alt={tt('favicon')}>
+          <img class="favicon" src={'get:' + entry.faviconURL} alt={tt('favicon')}>
         {/if}
         <span class="host" style:width={entry.faviconURL ? "calc(3.5cm - 16px - 8px)" : ''}>
           <TextBlock variant="caption">

@@ -8,6 +8,7 @@ import { randomUUID } from 'crypto'
 import * as fs from "fs-extra"
 import { getAllTabWindows, isTabWindow } from './windows'
 import { config, downloads, userdataDirectory, control } from "./userdata";
+import fetch from "electron-fetch";
 
 const URLParse = $.URLParse;
 
@@ -156,6 +157,21 @@ export function registerSession(ses: Session) {
   //ses.setPreloads([ `${__dirname}/preloads/tab.js` ])
 
   ses.protocol.registerFileProtocol('mth', mthProtocol)
+
+  ses.protocol.registerStreamProtocol('get', async(req, respond) => {
+    const parsed = URLParse(req.url);
+    let url = req.url.replace(parsed.protocol, '')
+    if (parsed.slashes) {
+      url = url.replace('//', '')
+    }
+
+    const response = await fetch(url, { session: session.fromPartition(NO_HEADERS_PARTITION), useSessionCookies: false });
+    if (typeof response.body == 'string') {
+      respond({ statusCode: 500 });
+      return;
+    }
+    respond({ data: response.body })
+  })
 
   ses.webRequest.onBeforeRequest({ urls: ['http://*/*'] }, ({ url }, callback) => {
     if (!config.get().privacy.httpsOnly) return callback({ cancel: false })
@@ -538,6 +554,7 @@ export function validateDomainByURL(url: string) {
 export const DEFAULT_PARTITION = 'persist:tab-default'
 export const PRIVATE_PARTITION = 'tab-private'
 export const NO_CACHE_PARTITION = 'no_cache'
+export const NO_HEADERS_PARTITION = 'no_headers'
 export const INTERNAL_PARTITION = 'internal'
 
 app.once('ready', () => {
@@ -547,6 +564,10 @@ app.once('ready', () => {
       cb({ cancel: true })
     })
   // chrome's session won't have access to any network resources for security reasons
+
+  session.fromPartition(NO_HEADERS_PARTITION).webRequest.onBeforeSendHeaders((_, cb) => {
+    cb({ requestHeaders: {} })
+  })
 
   registerSession(session.fromPartition(DEFAULT_PARTITION))
   registerSession(session.fromPartition(PRIVATE_PARTITION))
