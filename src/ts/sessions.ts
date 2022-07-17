@@ -568,6 +568,9 @@ app.once('ready', () => {
   session.fromPartition(NO_HEADERS_PARTITION).webRequest.onBeforeSendHeaders((_, cb) => {
     cb({ requestHeaders: {} })
   })
+  session.fromPartition(NO_HEADERS_PARTITION).webRequest.onHeadersReceived((_, cb) => {
+    cb({ responseHeaders: {} })
+  })
 
   registerSession(session.fromPartition(DEFAULT_PARTITION))
   registerSession(session.fromPartition(PRIVATE_PARTITION))
