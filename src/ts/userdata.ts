@@ -3,7 +3,7 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import { app, dialog } from 'electron'
-import type { Configuration, LastLaunch, History, Downloads, Details } from './types'
+import type { Configuration, LastLaunch, History, Downloads, Details, Bookmarks } from './types'
 import * as JSON5 from 'json5';
 import $ from './vars';
 import runType from 'runtype-check';
@@ -17,6 +17,7 @@ const lastlaunchPath = join(userdataDirectory, 'lastlaunch.json');
 const historyPath = join(userdataDirectory, 'history.json');
 const configPath = join(userdataDirectory, 'config.json5');
 const downloadsPath = join(userdataDirectory, 'downloads.json');
+const bookmarksPath = join(userdataDirectory, 'bookmarks.json');
 const controlPath = join(userdataDirectory, 'control.json');
 
 let configContent: Configuration;
@@ -54,6 +55,11 @@ function writeDefaults() {
 
   if (!existsSync(downloadsPath)) {
     fs.writeFileSync(downloadsPath, '[]')
+  }
+
+  if (!existsSync(bookmarksPath)) {
+    const fileContents = fs.readFileSync('src/browser/templates/bookmarks.json', 'utf-8');
+    fs.writeFileSync(bookmarksPath, fileContents)
   }
 
   if (!controlContent) {
@@ -108,6 +114,7 @@ try {
   // check the history and downloads
   JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
   JSON.parse(fs.readFileSync(downloadsPath, 'utf-8'));
+  JSON.parse(fs.readFileSync(bookmarksPath, 'utf-8'));
 
 } catch (e) {
   console.log("Couldn't read user settings:", e, ". Trying to re-write...")
@@ -313,6 +320,16 @@ export let downloads = {
   },
   async set(data: Downloads) {
     return await fs.promises.writeFile(downloadsPath, JSON.stringify(data, null, app.isPackaged ? null : 2))
+  }
+}
+
+
+export let bookmarks = {
+  async get(): Promise<Bookmarks> {
+    return JSON.parse(await fs.promises.readFile(bookmarksPath, 'utf-8'))
+  },
+  async set(data: Bookmarks) {
+    return await fs.promises.writeFile(bookmarksPath, JSON.stringify(data, null, app.isPackaged ? null : 2))
   }
 }
 

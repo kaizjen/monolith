@@ -639,6 +639,47 @@ export function init() {
         return true;
       }
 
+      case 'bookmarks:getAllFolders': {
+        let bookmarks = await userData.bookmarks.get();
+        return Object.keys(bookmarks)
+      }
+      case 'bookmarks:getFolder': {
+        let bookmarks = await userData.bookmarks.get();
+        if (!(obj.folder in bookmarks)) throw `No such folder as "${obj.folder}"`;
+
+        return bookmarks[obj.folder];
+      }
+      case 'bookmarks:addFolder': {
+        let bookmarks = await userData.bookmarks.get();
+        if (obj.folder in bookmarks) throw `Folder "${obj.folder}" already exists.`;
+
+        bookmarks[obj.folder] = [];
+        return await userData.bookmarks.set(bookmarks)
+      }
+      case 'bookmarks:delFolder': {
+        let bookmarks = await userData.bookmarks.get();
+        if (!(obj.folder in bookmarks)) throw `Folder "${obj.folder}" doesn't exist.`;
+
+        delete bookmarks[obj.folder];
+        return await userData.bookmarks.set(bookmarks)
+      }
+      case 'bookmarks:setFolder': {
+        let bookmarks = await userData.bookmarks.get();
+        if (!(obj.folder in bookmarks)) throw `Folder "${obj.folder}" doesn't exist.`;
+
+        bookmarks[obj.folder] = obj.value;
+        return await userData.bookmarks.set(bookmarks)
+      }
+      case 'bookmarks:renFolder': {
+        let bookmarks = await userData.bookmarks.get();
+        if (!(obj.folder in bookmarks)) throw `Folder "${obj.folder}" doesn't exist.`;
+        if (obj.name in bookmarks) throw `Folder "${obj.folder}" already exists.`;
+
+        bookmarks[obj.name] = bookmarks[obj.folder];
+        delete bookmarks[obj.folder];
+        return await userData.bookmarks.set(bookmarks)
+      }
+
       default:
         throw new Error(`[userData] unknown command "${action}"`)
     }

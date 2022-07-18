@@ -169,6 +169,18 @@ export type Downloads = {
   length: number
 }[]
 
+export type Bookmark = {
+  url: string
+  name: string
+  iconURL?: string
+  thumbnailURL?: string
+}
+export type Bookmarks = {
+  "@bookmarkBar": Bookmark[]
+  "@startPanel": Bookmark[]
+  [folder: string]: Bookmark[]
+}
+
 export type FeatureObject = {
   type: "bool"
   default: boolean

@@ -37,6 +37,11 @@
         {t('common.history')}
       </MenuFlyoutItem>
 
+      <MenuFlyoutItem on:click={gotoF('bookmarks')}>
+        <Icons.Bookmarks slot="icon" />
+        {t('common.bookmarks')}
+      </MenuFlyoutItem>
+
     </svelte:fragment>
   </MenuFlyout>
   <TextBlock variant="subtitle">

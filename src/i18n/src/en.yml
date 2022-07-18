@@ -11,6 +11,9 @@ common:
   cancel: Cancel
   loading: Loading...
   done: Done
+  bookmarkFolders:
+    bookmarkBar: Bookmarks panel
+    startPanel: Start panel
   permissions:
     status:
       allow: Allow
@@ -463,6 +466,27 @@ pages:
       option-day: Past 24 hours
       option-week: Past 7 days
       option-all: All time
+  bookmarks:
+    folders: Folders
+    button-addFolder: New folder...
+    button-addBookmark: New bookmark...
+    addFolder:
+      placeholder: Folder name
+      button-add: Add
+      error-alreadyExists: This folder name is already taken
+      error-empty: Folder name cannot be empty
+      error-illegalName: Illegal folder name
+    folder:
+      rename: Rename folder
+      confirmDelete: Are you sure you want to delete this folder?
+      button-confirm: Delete
+      delete: Delete folder
+    bookmark:
+      name: Name
+      url: URL
+      button-delete: Delete bookmark
+      button-edit: Edit bookmark
+      button-create: Create
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.

@@ -1,6 +1,7 @@
 // Preload for tabs
 
 import { contextBridge as ctx, ipcRenderer, webFrame } from 'electron';
+import type { Bookmark } from '../types';
 
 const expose = ctx.exposeInMainWorld
 
@@ -70,6 +71,14 @@ if (location.protocol == 'mth:') {
         get: () => sendInternal('userData', 'downloads'),
         delete: (index: number) => sendInternal('userData', 'downloads:del', index),
         start: (index: number) => sendInternal('userData', 'downloads:start', index),
+      },
+      bookmarks: {
+        getAllFolders: () => sendInternal('userData', 'bookmarks:getAllFolders'),
+        getFolder: (obj: { folder: string }) => sendInternal('userData', 'bookmarks:getFolder', obj),
+        setFolder: (obj: { folder: string, value: Bookmark[] }) => sendInternal('userData', 'bookmarks:setFolder', obj),
+        delFolder: (obj: { folder: string }) => sendInternal('userData', 'bookmarks:delFolder', obj),
+        addFolder: (obj: { folder: string }) => sendInternal('userData', 'bookmarks:addFolder', obj),
+        renFolder: (obj: { folder: string, name: string }) => sendInternal('userData', 'bookmarks:renFolder', obj),
       }
     },
     interface: {

@@ -1,8 +1,5 @@
 <style>
   header {
-    padding-inline: 20px;
-    padding-block: 4px;
-    border-bottom: 1px solid var(--default-gray);
     position: fixed;
     width: 100%;
     top: 0;
