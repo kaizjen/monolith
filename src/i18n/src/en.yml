@@ -221,7 +221,7 @@ net-error:
     - The server sent a response that prevents this page from being displayed, for example, in a frame on another page.
   blockedbyCSP:
     - The request was blocked by Content Security Policy.
-    - <a target='-blank' href='https://en.wikipedia.org/wiki/Content-Security-Policy' class='btn'>Learn more about CSP. (Wikipedia)</a>
+    - <a target='-blank' href='https://en.wikipedia.org/wiki/Content_Security_Policy' class='btn'>Learn more about CSP. (Wikipedia)</a>
   closed:
     - Connection closed.
   reset:

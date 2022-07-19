@@ -10,6 +10,9 @@ common:
   cancel: Отмена
   loading: Загрузка...
   done: Готово
+  bookmarkFolders:
+    bookmarkBar: Панель закладок
+    startPanel: Стартовая панель
   permissions:
     status:
       allow: Разрешить
@@ -20,52 +23,52 @@ common:
       defaultMark: (по умолчанию)
     geolocation:
       name: Геолокация (не работает)
-      desc: Provides access to your percise position
-      prompt: ${hostname} wants to access your geolocation
+      desc: Позволяет получить доступ к вашем местоположении
+      prompt: ${hostname} хочет получить доступ к вашем местоположении
     fullscreen:
       name: Полный экран
-      desc: The ability to show the page in fullscreen mode
-      prompt: ${hostname} хочет перейти в полный экран
+      desc: Переходить в полноэкранный режим
+      prompt: ${hostname} хочет перейти в полнноэкранный режим
     popups:
       name: Всплывающие окна
-      desc: Allows to show pop-up windows
+      desc: Позволяет открывать всплывающие окна
       prompt: Сайт ${hostname} хочет открыть окно
     media.video:
-      name: Webcam access
-      desc: Allows to access the webcam
-      prompt: ${hostname} wants to access your webcam
+      name: Доступ к камере
+      desc: Позволяет записывать видео с камеры
+      prompt: ${hostname} хочет получить доступ к вашей камере
     media.audio:
-      name: Microphone access
-      desc: Allows to access the microphone
-      prompt: ${hostname} wants to access your microphone
+      name: Доступ к микрофону
+      desc: Позволяет записывать аудио с микрофона
+      prompt: ${hostname} хочет записывать аудио с микрофона
     displayCapture:
-      name: Capturing the display
-      desc: Allows to record your screen
-      prompt: ${hostname} wants to record your screen
+      name: Захват экрана
+      desc: Позволяет снимать ваш экран
+      prompt: ${hostname} хочет включить запись экрана
     DRM:
       name: DRM
-      desc: Allows to play content protected by Digital Rights Management
-      prompt: ${hostname} wants to play DRM-protected content
+      desc: Позволяет проигрывать контент, защищенный Digital Rights Management
+      prompt: ${hostname} хочет проигрывать DRM-защищенный контетн
     notifications:
-      name: Notifications
-      desc: Allows to show notifications
-      prompt: ${hostname} wants to be able to show notifications
+      name: Уведомления
+      desc: Позволяет показывать уведомления
+      prompt: ${hostname} хочет показывать уведомления
     midi:
-      name: Use MIDI devices
-      desc: Allows to use MIDI devices
-      prompt: ${hostname} wants to use MIDI devices
+      name: MIDI устройства
+      desc: Позволяет использовать MIDI устройства
+      prompt: ${hostname} хочет использовать MIDI устройства
     pointerLock:
-      name: Pointer lock
-      desc: Allows to control your mouse cursor
-      prompt: ${hostname} wants to lock your mouse cursor
+      name: Контроль курсора
+      desc: Позволяет контролировать ваш курсор мыши
+      prompt: ${hostname} хочет контролировать ваш курсор мыши
     openExternal:
-      name: Opening external apps
-      desc: Allows opening an app on your device. Allowing this means the site will be able to open almost any app without asking.
-      prompt: ${hostname} wants to open "${app}"
+      name: Открытие сторонних приложений
+      desc: Позволяет открывать сторонние приложения. Если вы разрешите это, сайт сможет открывать почти любое приложение без спроса.
+      prompt: ${hostname} хочет открыть "${app}"
     idleDetection:
-      name: Idle detection
-      desc: Allows to detect when the user is idle
-      prompt: ${hostname} wants to be able to detect when you are idle
+      name: Взаимодействие
+      desc: Позволяет узнавать, используете ли вы это устройство
+      prompt: ${hostname} хочет знать, если вы не используете устройство
 navigation:
   back: Назад
   forward: Вперед
@@ -95,6 +98,8 @@ ui:
     more: Больше опций
   tabs:
     private: Приватная вкладка
+    playingAudio: Воспроизводится аудио
+    muted: Заглушена
   addressBar-placeholder: Введите поисковый запрос или URL
   security:
     title: Безопасность
@@ -109,6 +114,7 @@ ui:
     button-viewCertificate: Посмотреть сертификат
     button-cookieFiles: Файлы куки
     button-siteSettings: Настройки сайта...
+    permissions: Разрешения ${site}
   zoom:
     altMessage: Масштаб страницы - ${zoom}%
     infoMessage: "Масштаб: ${zoom}%"
@@ -117,6 +123,49 @@ ui:
     prev-search: Вы раньше искали на ${site}
     url: URL
     search: ${engine} поиск
+  inPageSearch:
+    placeholder: Найти на странице...
+    prev: Пред.
+    next: След.
+    caseSensitive: Учитывать регистр
+  bookmarkBar:
+    suggestion: Расположите свои закладки здесь, на панели закладок
+    edit: Редактировать
+    delete: Удалить
+windows:
+  cookieViewer:
+    title: Файлы куки ${hostname}
+    remove: Удалить куки
+    copyJSON: Копировать JSON
+    props:
+      name: Имя
+      value: Значение
+      domain: Домен
+      hostOnly: Только на этом хосте
+      path: Путь
+      secure: Защищенный
+      httpOnly: Только HTTP
+      session: Сессионный куки
+      expirationDate: Истекает
+      sameSite: Отправлять
+    sameSite:
+      no_restriction: Для любого контекста
+      strict: Только для этого домена
+      unspecified: Не указано
+      lax: Для этого домена, или когда перенаправляется на этот домен (Lax)
+  certificateViewer:
+    title: Сертификат ${hostname}
+    status-valid: Сертификат действителен
+    status-invalid: Сертификат недействителен
+    issuer: "Издатель: ${name}"
+    subject: "Субъект: ${name}"
+    timePeriod: Действует от ${start} до ${expiry}
+    details: Детали
+    serialNumber: Серийный номер
+    fingerprint: Отпечаток
+    data: Контент
+    owner: Сертификат издателя
+    root: Это коренной сертификат.
 net-error:
   common:
     local:
@@ -145,22 +194,52 @@ net-error:
       <ul><li>Проверьте, есть ли опечатка в имени хоста <b>"${hostname}"</b>.</li>
       <li>Запустите диагностику сети</li>
       <li>Поменяйте настройки DNS over HTTPS</li>
+  noFileAccess:
+    - Мы не можем получить доступ к этому файлу
+    - Возможно, файл по адресу '<b>${path}</b>' был перемещен или удален.
+  fileTooBig:
+    - Файл слишком большой
+    - а я слишком маленький
   denied:
     - Доступ запрещен.
     - Доступ к файлу или общему ресурсу запрещен.
+  virus:
+    - Файл содержит вирус
+    - Файл по адресу '<b>${path}</b>' заражен вирусом. Рекомендуется его удалить.
+  requestBlocked:
+    - Запрос был заблокирован
+    - Возможно, расширение заблокировало запрос
+  netChange:
+    - Сеть изменилась.
+    - Возможно, вы подключились к другой сети
   blockedByResponse:
     - Эта страница не позволила себя так отобразить.
     - Сервер отправил запрос, предотвращающий показ этой страницы, к примеру, на других сайтах.
+  blockedbyCSP:
+    - Запрос был заблокирован CSP.
+    - <a target='-blank' href='https://en.wikipedia.org/wiki/Content_Security_Policy' class='btn'>Content Security Policy. (англ.)</a>
+  closed:
+    - Соединение закрыто.
   reset:
     - Соединение прервано.
     - |
       Что-то не позволило Monolith подключиться к серверу. Возможно, ваш файерволл или интернет-провайдер заблокировали запрос
       или сервер внезапно остановился.
+  refused:
+    - Соединение отказано.
+  failed:
+    - Соединение прервано.
   internetLost:
     - Потеряно подключение к интернету.
   SSL:
     - Произошла ошибка SSL.
     - Защищенное соединение с <b>${host}</b> не может быть обеспечено.
+  invalidIP:
+    - Некорректный IP адрес.
+    - Попробуйте очистить ваш DNS кэш.
+  unreachableIP:
+    - Не получилось получить доступ к IP адресу.
+    - Это все, что нам известно
   noHTTPS:
     - Этот сайт не может обеспечить защищенное подключение.
     - Возможно, версия SSL клиента и сервера не совпадают. Также возможно, что этот сайт не поддерживает HTTPS вовсе.
@@ -184,6 +263,22 @@ menu:
   devTools: Developer tools
   currentTab: Эта вкладка
   recentlyClosedTabs: Недавно закрытые
+  openFile: Открыть файл...
+  findInPage: Найти на странице
+  about: О Monolith
+  fullscreen: Полный экран
+  emojiPanel: Показать панель эмодзи
+  zoom:
+    in: Приблизить
+    out: Отдалить
+    0: Размер по умолчанию
+    info: "Масштаб: ${zoom}%"
+  appMenu:
+    file: Файл
+    edit: Правка
+    view: Просмотр
+    tab: Вкладка
+    window: Окно
   contextMenu:
     openLink: Открыть ссылку
     search: Поиск в ${engine}
@@ -352,6 +447,49 @@ pages:
       button-select: Выбрать папку
       openFolder: Открыть папку загрузок
       allDownloads: Посмотреть все загрузки
+    languages:
+      title: Языки
+      label-all: "Выбранный язык:"
+      notice: Monolith не переведен на все языки, поддерживаемые системой. Выберите язык, поддерживаемый Monolith.
+      label-monolith: "Язык Monolith:"
+      dialog: Выберите язык
+      restart-notification: Перезапустите Monolith чтобы применить изменения
+      restart-button: Перезапуск
+  history:
+    button-clear: Очистить историю...
+    deleteEntry: Удалить запись
+    empty: Пусто
+    favicon: Иконка сайта
+    dialog:
+      title: Очистить историю браузера
+      clear-button: Очистить
+      clearOnThisPage-button: Очистить всё на этой странице
+      timePeriod: Или очистить за
+      option-hour: Последний час
+      option-day: Последние 24 часа
+      option-week: Последнюю неделю
+      option-all: Все время
+  bookmarks:
+    folders: Папки
+    button-addFolder: Новая папка...
+    button-addBookmark: Новая закладка...
+    addFolder:
+      placeholder: Название папки
+      button-add: Создать
+      error-alreadyExists: Имя папки занято
+      error-empty: Имя папки не может быть пусто
+      error-illegalName: Неверное имя папки
+    folder:
+      rename: Переименовать папку
+      confirmDelete: Вы точно хотите удалить эту папку?
+      button-confirm: Удалить
+      delete: Удалить папку
+    bookmark:
+      name: Название
+      url: URL
+      button-delete: Удалить закладку
+      button-edit: Изменить закладку
+      button-create: Создать
 LocalizedTOS: |
   Здравствуйте. Monolith - бесплатная программа с открытым исходным кодом.
   Это соглашение разрешает вам использовать и модифицировать Monolith без ограничений.
