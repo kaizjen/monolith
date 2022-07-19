@@ -33,7 +33,7 @@
 
   .dl-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
   }
   .dl-wrapper:not(:last-child) {
@@ -79,6 +79,11 @@
   .more-info {
     font-size: small;
     color: var(--trivial-text);
+  }
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
   }
 </style>
 
@@ -167,7 +172,7 @@
 
   <div>
     {#await downloadsProm}
-      <i>{_.LOADING}</i>
+      <div class="empty"> {_.LOADING} </div>
     {:then downloads}
       {#each downloads as download, index}
         <div class="dl-wrapper">
@@ -197,7 +202,7 @@
     {/await}
   </div>
 
-  <div style="display: flex; justify-content: space-between">
+  <div class="btn-container">
     <Button outline={true} on:click={() => {
       ipcRenderer.send('newTab', { url: 'mth://downloads' });
       open = false;

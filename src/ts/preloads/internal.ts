@@ -9,7 +9,7 @@ expose('monolith', {
   ipcRenderer,
   shell: new Proxy({}, {
     get(_, p) {
-      return (arg: any) => ipcRenderer.send('shell', p, arg)
+      return (arg: any) => ipcRenderer.invoke('internal:shell', p, arg)
     },
   }),
   sendInternal(channel: string, ...args: any[]) {
