@@ -228,7 +228,7 @@ try {
 })()
 
 export let config = {
-  listeners: [],
+  listeners: <((b: Configuration) => any)[]>[],
   get() {
     // so no other file can accidentaly modify config content
     return cloneObject(configContent)
@@ -238,20 +238,20 @@ export let config = {
 
     fs.writeFileSync(configPath, JSON5.stringify(configContent, { space: 2 }))
 
-    this.listeners.forEach(fn => fn(configContent))
+    config.listeners.forEach(fn => fn(configContent))
   },
   listen(fn: (c: Configuration) => void) {
-    this.listeners.push(fn)
+    config.listeners.push(fn)
   },
   listenCall(fn: (c: Configuration) => void) {
-    this.listeners.push(fn);
-    fn(this.get())
+    config.listeners.push(fn);
+    fn(config.get())
   },
   unlisten(fn: (c: Configuration) => void) {
-    let i: number = this.listeners.indexOf(fn);
+    let i: number = config.listeners.indexOf(fn);
     if (i == -1) return;
 
-    this.listeners.splice(i, 1);
+    config.listeners.splice(i, 1);
   }
 }
 
@@ -325,11 +325,26 @@ export let downloads = {
 
 
 export let bookmarks = {
+  listeners: <((b: Bookmarks) => any)[]>[],
   async get(): Promise<Bookmarks> {
     return JSON.parse(await fs.promises.readFile(bookmarksPath, 'utf-8'))
   },
   async set(data: Bookmarks) {
+    bookmarks.listeners.forEach(f => f(data))
     return await fs.promises.writeFile(bookmarksPath, JSON.stringify(data, null, app.isPackaged ? null : 2))
+  },
+  listen(fn: (b: Bookmarks) => any) {
+    bookmarks.listeners.push(fn)
+  },
+  listenCall(fn: (b: Bookmarks) => any) {
+    bookmarks.listeners.push(fn);
+    bookmarks.get().then(fn)
+  },
+  unlisten(fn: (b: Bookmarks) => any) {
+    let i: number = bookmarks.listeners.indexOf(fn);
+    if (i == -1) return;
+
+    bookmarks.listeners.splice(i, 1);
   }
 }
 

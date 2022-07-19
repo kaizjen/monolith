@@ -1,9 +1,9 @@
 // Manages all menu stuff
 
 import { app, clipboard, dialog, Menu, MenuItem, session } from "electron";
-import { Tab, TabOptions, TabWindow } from "./types";
+import { Bookmark, Tab, TabOptions, TabWindow } from "./types";
 import { isTabWindow, newWindow, setCurrentTabBounds } from './windows'
-import { config, control, downloads } from './userdata'
+import { bookmarks, config, control, downloads } from './userdata'
 import * as pathModule from "path";
 import * as fs from "fs"
 import { closeTab, createTab, moveTab, openClosedTab, setMutedTab } from './tabs'
@@ -789,4 +789,79 @@ export function menuOfTab(win: TabWindow, tab: Tab) {
   })
 
   menu.popup()
+}
+
+export function menuOfBookmark(win: TabWindow, bookmark: Bookmark, index: number) {
+  let menu = new Menu();
+  function addItem(options: Electron.MenuItemConstructorOptions) {
+    menu.append(new MenuItem(options));
+  }
+
+  function t_menu(str: string, obj?: {}) {
+    return t(`menu.contextMenu.${str}`, obj)
+  }
+  function t_bar(str: string, obj?: {}) {
+    return t(`ui.bookmarkBar.${str}`, obj)
+  }
+
+  addItem({
+    label: t_menu('copyLink'),
+    sublabel: bookmark.url,
+    click() {
+      clipboard.writeText(bookmark.url)
+    }
+  })
+  addItem(SEPARATOR)
+  addItem({
+    label: t_menu('open.newTab'),
+    click() {
+      createTab(win, { url: bookmark.url })
+    }
+  })
+  addItem({
+    label: t_menu('open.newPrivateTab'),
+    click() {
+      createTab(win, { url: bookmark.url, private: true })
+    }
+  })
+  addItem({
+    label: t_menu('open.newWindow'),
+    click() {
+      newWindow([{ url: bookmark.url }])
+    }
+  })
+  addItem({
+    label: t_menu('open.thisTab'),
+    click() {
+      win.currentTab.webContents.loadURL(bookmark.url)
+    }
+  })
+
+  addItem(SEPARATOR)
+
+  addItem({
+    label: t_bar('edit'),
+    click() {
+      createTab(win, { url: `mth://bookmarks/#@bookmarkBar/edit:${index}` })
+    }
+  })
+  addItem({
+    label: t_bar('delete'),
+    async click() {
+      const bms = await bookmarks.get();
+      bms["@bookmarkBar"].splice(index, 1);
+      bookmarks.set(bms)
+    }
+  })
+
+  addItem(SEPARATOR)
+
+  addItem({
+    label: t('common.bookmarks'),
+    click() {
+      createTab(win, { url: `mth://bookmarks/` })
+    }
+  })
+
+  menu.popup();
 }

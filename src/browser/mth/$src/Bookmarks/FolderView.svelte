@@ -111,6 +111,6 @@
     </div>
   </div>
   {#each bookmarks as bookmark, i}
-    <Bookmark {bookmark} {tt} del={delF(i)} on:edit={editF(i)} />
+    <Bookmark {bookmark} {tt} del={delF(i)} on:edit={editF(i)} index={i} />
   {/each}
 {/await}

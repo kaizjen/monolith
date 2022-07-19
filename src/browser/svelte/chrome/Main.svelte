@@ -12,6 +12,7 @@
   import PagePopup from "./PagePopup.svelte";
   import PermissionAccessor from "./PermissionAccessor.svelte";
   import FindInPage from "./FindInPage.svelte";
+  import BookmarkBar from "./BookmarkBar.svelte";
 
   const URLParse = (function(){
     const slashesRegex = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
@@ -295,6 +296,7 @@
   <PagePopup tab={tabs[currentTab]} dialog={dialogsMap[tabs[currentTab]?.uid]} />
   {/if}
   <Tools tab={tabs[currentTab]} />
+  <BookmarkBar pageURL={tabs[currentTab]?.url} />
 </div>
 
 <PermissionAccessor tab={tabs[currentTab]} />

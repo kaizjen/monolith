@@ -1,11 +1,11 @@
 // This file is for all types of windows
 
-import type { TabWindow, TabOptions, Tab, Configuration } from "./types";
+import type { TabWindow, TabOptions, Tab, Configuration, Bookmarks } from "./types";
 import { app, BrowserView, BrowserWindow, BrowserWindowConstructorOptions, nativeTheme, screen } from "electron";
 import * as tabManager from "./tabs";
 import * as _url from "url";
 import * as pathModule from "path";
-import { config, control, lastlaunch } from './userdata'
+import { bookmarks, config, control, lastlaunch } from './userdata'
 import { showAppMenu } from "./menu";
 import { INTERNAL_PARTITION } from "./sessions";
 
@@ -141,7 +141,10 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     chromeBV.webContents.send('adjustHeight') // webContents will send a 'chrome:setHeight' message in return.
     prevChrZoomFactor = c.ui.chromeZoomFactor;
   }
-  // this function is called below
+  function onBookmarksChange(bms: Bookmarks) {
+    chromeBV.webContents.send('userData/bookmarks', bms)
+  }
+  // these functions are called below
 
   w.on('close', () => updateWindowBounds(w))
 
@@ -160,6 +163,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
     windows.splice(index, 1) // remove from windows array
     nativeTheme.off('updated', reactToThemeChange)
     config.unlisten(onConfigChange);
+    bookmarks.unlisten(onBookmarksChange);
   })
 
   // immediately crash the original renderer of the window, so it doesnt take any memory.
@@ -186,6 +190,7 @@ export async function newWindow(tabOptionsArray: TabOptions[]): Promise<TabWindo
   }
   
   config.listenCall(onConfigChange);
+  bookmarks.listenCall(onBookmarksChange);
 
   tabOptionsArray.forEach(tabOptions => {
     tabManager.createTab(w, tabOptions)

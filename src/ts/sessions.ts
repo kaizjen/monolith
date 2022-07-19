@@ -153,25 +153,27 @@ function mthProtocol(req: Electron.ProtocolRequest, respond: (response: string |
   return true;
 }
 
+async function getProtocol(req: Electron.ProtocolRequest, respond: (response: Electron.ProtocolResponse) => void) {
+  const parsed = URLParse(req.url);
+  let url = req.url.replace(parsed.protocol, '')
+  if (parsed.slashes) {
+    url = url.replace('//', '')
+  }
+
+  const response = await fetch(url, { session: session.fromPartition(NO_HEADERS_PARTITION), useSessionCookies: false });
+  if (typeof response.body == 'string') {
+    respond({ statusCode: 500 });
+    return;
+  }
+  respond({ data: response.body })
+}
+
 export function registerSession(ses: Session) {
   //ses.setPreloads([ `${__dirname}/preloads/tab.js` ])
 
   ses.protocol.registerFileProtocol('mth', mthProtocol)
 
-  ses.protocol.registerStreamProtocol('get', async(req, respond) => {
-    const parsed = URLParse(req.url);
-    let url = req.url.replace(parsed.protocol, '')
-    if (parsed.slashes) {
-      url = url.replace('//', '')
-    }
-
-    const response = await fetch(url, { session: session.fromPartition(NO_HEADERS_PARTITION), useSessionCookies: false });
-    if (typeof response.body == 'string') {
-      respond({ statusCode: 500 });
-      return;
-    }
-    respond({ data: response.body })
-  })
+  ses.protocol.registerStreamProtocol('get', getProtocol)
 
   ses.webRequest.onBeforeRequest({ urls: ['http://*/*'] }, ({ url }, callback) => {
     if (!config.get().privacy.httpsOnly) return callback({ cancel: false })
@@ -578,6 +580,7 @@ app.once('ready', () => {
   const internalProtocol = session.fromPartition(INTERNAL_PARTITION).protocol;
 
   internalProtocol.registerFileProtocol('mth', mthProtocol)
+  internalProtocol.registerStreamProtocol('get', getProtocol)
 
   internalProtocol.registerStringProtocol('m-res', async (req, respond) => {
     if (req.url.includes('..')) {

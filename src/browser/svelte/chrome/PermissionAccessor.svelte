@@ -14,7 +14,6 @@
 <script>
   const { ipcRenderer } = window.monolith;
   import { getContext } from "svelte/internal";
-  import DropdownBox from "./DropdownBox.svelte";
   import Button from "//lib/Button.svelte";
 
   const colorTheme = getContext('colorTheme')
@@ -103,7 +102,7 @@
 </script>
 
 {#if currentTabPermissions.length > 0}
-  <DropdownBox>
+  <div class="dropdown-box">
     {#if !noSuchImage}
       <img class="icon" src={overriddenIcon || `m-res://${$colorTheme}/permissions/${thisPerm.name}.svg`}
         alt={overriddenIcon ? _.APPICON(appName) : _.permission.ALT(thisPerm.name)}
@@ -124,5 +123,5 @@
     <button class="tool" style="margin-left: 20px" on:click={sendIndifferent}>
       <img src="m-res://{$colorTheme}/tab_close.svg" alt={_.IGNORE} title={_.IGNORE}>
     </button>
-  </DropdownBox>
+  </div>
 {/if}

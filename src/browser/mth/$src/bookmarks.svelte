@@ -8,7 +8,6 @@
   }
   main {
     display: flex;
-    height: 100%;
   }
   aside {
     padding-top: 20px;
@@ -19,6 +18,7 @@
     padding-block: 12px;
     display: flex;
     justify-content: center;
+    height: 100%;
   }
   .content {
     width: 20cm;
@@ -41,6 +41,9 @@
   import Header from "./common/Header.svelte";
   import * as Icons from "./icons.js";
 
+  window.action = decodeURIComponent(location.hash.slice(1));
+  location.hash = '';
+
   const { t } = window.monolith.i18n;
   function tt(str, ...args) {
     return t(`pages.bookmarks.${str}`, ...args)
@@ -54,10 +57,17 @@
   }
 
   let promise;
+  window.isFirstTime = true;
   function update() {
     promise = new Promise(async y => {
       folders = await window.monolith.userdata.bookmarks.getAllFolders();
-      selectedFolder = folders[0]
+      let actionFolder = window.action.split('/')[0];
+      if (isFirstTime && folders.includes(actionFolder)) {
+        selectedFolder = actionFolder;
+
+      } else {
+        selectedFolder = folders[0]
+      }
       y();
     })
   }
@@ -69,6 +79,13 @@
 
   let newFolder = false;
   let newFolderName = '';
+
+  let headerElement;
+  let headerHeight = 0;
+  requestAnimationFrame(() => {
+    // im very sad that i had to use js, because css just didn't behave how i wanted it to
+    headerHeight = headerElement.getBoundingClientRect().height;
+  })
 
   let inputElement;
   let errorText = '';
@@ -141,13 +158,13 @@
 <svelte:body on:keydown={handleKeydown} />
 
 <div class="wrapper">
-  <header>
+  <header bind:this={headerElement}>
     <Header name="bookmarks">
       <Icons.Bookmarks />
     </Header>
   </header>
   {#await promise then _}
-    <main>
+    <main style:height="calc(100% - {headerHeight}px)">
       <aside>
         <TextBlock variant="subtitle" style="margin-bottom: 20px; padding-left: 17px">{tt('folders')}</TextBlock>
         <br>

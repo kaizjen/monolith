@@ -51,7 +51,6 @@
 </style>
 <script>
   import { getContext } from "svelte";
-  import DropdownBox from "./DropdownBox.svelte";
 
   export let index;
   export let tabs;
@@ -154,7 +153,7 @@
 </script>
 
 {#if tabsWithSearchActive.includes(index)}
-  <DropdownBox>
+  <div class="dropdown-box">
     <button
       class="case-toggle"
       class:active={caseSensitive}
@@ -185,5 +184,5 @@
     }}>
       <img src="m-res://{$colorTheme}/tab_close.svg" alt="{_.DONE}">
     </button>
-  </DropdownBox>
+  </div>
 {/if}

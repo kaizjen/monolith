@@ -132,6 +132,10 @@ ui:
     prev: Previous
     next: Next
     caseSensitive: Case sensitive
+  bookmarkBar:
+    suggestion: Place your favorites here, in the bookmarks panel
+    edit: Edit
+    delete: Delete
 windows:
   cookieViewer:
     title: Cookie files of ${hostname}

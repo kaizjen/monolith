@@ -43,8 +43,19 @@
   const { t } = window.monolith.i18n
   export let tt;
   export let del;
+  export let index;
 
-  let editDialog = false;
+  let actionText = window.action.split('/')[1];
+  let editIndex = actionText?.startsWith('edit:') ? actionText.replace('edit:', '') : '';
+  let editDialog = editIndex && Number(editIndex) == index && window.isFirstTime;
+  console.log('edit', actionText, editIndex, index);
+
+  if (actionText && !editIndex) {
+    let num = Number(actionText);
+    if (num == index) {
+      // TODO: scroll
+    }
+  }
 
   const dispatch = createEventDispatcher()
 
@@ -52,6 +63,7 @@
     dispatch('edit', detail)
     editDialog = false;
   }
+  window.isFirstTime = false;
 </script>
 
 <EditBookmark
