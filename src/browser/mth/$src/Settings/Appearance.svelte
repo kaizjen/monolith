@@ -80,9 +80,6 @@
     bind:checked={bookmarkBar}
   > {t('pages.settings.appearance.bookmarkBar')} </Checkbox>
 </div>
-{#if bookmarkBar}
-  <InfoBar closable={false} severity="caution" title={t('unimplemented')} />
-{/if}
 <div class="s-option">
   <TextBlock> {t('pages.settings.appearance.pageZoom')} </TextBlock>
   <Slider
