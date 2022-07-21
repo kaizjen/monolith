@@ -848,6 +848,21 @@ export function init() {
   onInternal('quit', () => {
     app.quit();
   })
+  onInternalSync('getAboutInfo', (e) => {
+    e.returnValue = {
+      paths: {
+        userData: app.getPath('userData'),
+        exe: app.getPath('exe'),
+        appPath: app.getAppPath(),
+        cache: app.getPath('cache')
+      },
+      name: app.getName(),
+      versions: {
+        monolith: app.getVersion(),
+        ...process.versions
+      }
+    }
+  })
 
   onInternal('closeMe', (e) => {
     const win = BrowserWindow.fromWebContents(e.sender) as TabWindow

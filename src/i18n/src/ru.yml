@@ -6,6 +6,7 @@ common:
   extensions: Расширения
   bookmarks: Закладки
   history: История
+  about: О Monolith
   ok: OK
   cancel: Отмена
   loading: Загрузка...
@@ -490,6 +491,18 @@ pages:
       button-delete: Удалить закладку
       button-edit: Изменить закладку
       button-create: Создать
+  about:
+    monolithVersion: Версия ${version}
+    otherVersions: Версии
+    paths:
+      userData: Путь к пользовательским файлам
+      cache: Путь к кэшу
+      app: Путь установки
+    FOSSNotice: Monolith использует ${electron} и ${chromium}, - проекты с открытым исходным кодом.
+    licenses:
+      electron: Лицензия Electron
+      chromium: Лицензии Chromium
+    otherLicenses: Другие лицензии
 LocalizedTOS: |
   Здравствуйте. Monolith - бесплатная программа с открытым исходным кодом.
   Это соглашение разрешает вам использовать и модифицировать Monolith без ограничений.

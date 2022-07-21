@@ -108,7 +108,8 @@ if (location.protocol == 'mth:') {
     },
     app: {
       restart: () => sendInternal('restart'),
-      quit: () => sendInternal('quit')
+      quit: () => sendInternal('quit'),
+      about: () => sendInternalSync('getAboutInfo')
     },
     tab: {
       close: () => sendInternal('closeMe'),

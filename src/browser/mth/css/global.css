@@ -41,3 +41,7 @@ header {
   padding-block: 4px;
   border-bottom: 1px solid var(--default-gray);
 }
+
+br {
+  user-select: none;
+}

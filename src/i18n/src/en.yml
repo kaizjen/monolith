@@ -7,6 +7,7 @@ common:
   extensions: Extensions
   bookmarks: Bookmarks
   history: History
+  about: About Monolith
   ok: OK
   cancel: Cancel
   loading: Loading...
@@ -491,6 +492,18 @@ pages:
       button-delete: Delete bookmark
       button-edit: Edit bookmark
       button-create: Create
+  about:
+    monolithVersion: "Version: ${version}"
+    otherVersions: Versions
+    paths:
+      userData: User data path
+      cache: Cache path
+      app: Installation path
+    FOSSNotice: Monolith uses the open-source ${electron} and ${chromium} projects.
+    licenses:
+      electron: Electron's license
+      chromium: Chromium's licenses
+    otherLicenses: Other licenses
 LocalizedTOS: |
   Hello. Monolith is free to use and modify.
   This agreement (that you're reading right now) permits you to use Monolith and modify its code freely.
