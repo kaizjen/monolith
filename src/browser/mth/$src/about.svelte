@@ -1,4 +1,7 @@
 <style>
+  .head {
+    padding-inline: 20px;
+  }
   .scaled-logo {
     transform: scale(0.8);
     display: flex;
@@ -31,7 +34,7 @@
   import Header from "./common/Header.svelte";
   import Logo from "./About/Logo.svelte";
   import * as Icons from "./icons.js";
-import { Expander } from "fluent-svelte";
+  import { Expander } from "fluent-svelte";
 
   const { t } = window.monolith.i18n;
   function tt(p, ...a) {
@@ -56,9 +59,11 @@ import { Expander } from "fluent-svelte";
   <title>{t('common.about')}</title>
 </svelte:head>
 
-<Header name="about">
-  <Icons.About />
-</Header>
+<div class="head">
+  <Header name="about">
+    <Icons.About />
+  </Header>
+</div>
 
 <div class="scaled-logo">
   <Logo />
@@ -449,3 +454,10 @@ THE SOFTWARE.
     </svelte:fragment>
   </Expander>
 </div>
+
+<section>
+  <p align="center">
+    Copyright &copy; 2022 <a href="https://github.com/wheezard">wheezard</a><br>
+    Monolith's source code is available at <a href="https://github.com/wheezard/monolith">https://github.com/wheezard/monolith</a>
+  </p>
+</section>
