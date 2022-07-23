@@ -1,3 +1,7 @@
+## /!\ This repo is archived because of the name-change to Nereid. The new repo is available [here](https://github.com/wheezard/nereid).
+
+---
+
 # Monolith
 
 > An Electron-based web browser
